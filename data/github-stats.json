@@ -1,5 +1,23 @@
 {
-  "status": "awaiting_first_workflow_run",
-  "username": "berendsshalai",
-  "instructions": "Run the Refresh profile statistics workflow from the Actions tab."
+  "commits_365d": 14,
+  "contributions_365d": 21,
+  "definitions": {
+    "commits_365d": "Commit contributions reported by GitHub for the trailing 365 days.",
+    "contributions_365d": "GitHub contribution-calendar total plus restricted contribution count for the trailing 365 days.",
+    "estimated_source_lines": "Current tracked source-code lines on cloned default branches, excluding common vendor, generated, binary and documentation paths.",
+    "followers": "Current GitHub follower count.",
+    "repositories": "Currently owned public repositories returned by the GitHub REST API.",
+    "stars": "Current stargazer totals summed across owned public repositories."
+  },
+  "estimated_source_lines": 9592,
+  "followers": 0,
+  "issues_365d": 0,
+  "pull_requests_365d": 1,
+  "repositories": 5,
+  "reviews_365d": 0,
+  "source_line_repositories_counted": 5,
+  "source_line_repositories_failed": [],
+  "stars": 0,
+  "updated_at_utc": "2026-07-17T14:23:09+00:00",
+  "username": "berendsshalai"
 }
