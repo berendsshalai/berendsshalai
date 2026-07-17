@@ -1,26 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="310" viewBox="0 0 1000 310" role="img" aria-labelledby="title desc">
-  <title id="title">Sha-Lai Berends profile identity</title>
-  <desc id="desc">Dark profile identity panel with blue highlighted system-building details.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">Sha-Lai Berends ASCII profile identity</title>
+  <desc id="desc">ASCII portrait profile card for berendsshalai with blue field labels and updated repositories.</desc>
   <style>
-    .bg{fill:#0d1117;stroke:#30363d}.card{fill:#161b22;stroke:#30363d}.label{fill:#8b949e;font:700 12px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f0f6fc}.muted{fill:#8b949e}
-    .h1{font:800 38px Arial,Helvetica,sans-serif}.h2{font:700 18px Arial,Helvetica,sans-serif}.body{font:400 14px Arial,Helvetica,sans-serif}.mono{font:700 13px Consolas,monospace}
+    .bg{fill:#0d1117;stroke:#30363d}
+    .ascii{fill:#8b949e;font:700 14px Consolas,Menlo,monospace}
+    .handle{fill:#58a6ff;font:800 15px Consolas,Menlo,monospace}
+    .rule{fill:#30363d;font:700 14px Consolas,Menlo,monospace}
+    .label{fill:#58a6ff;font:800 14px Consolas,Menlo,monospace}
+    .value{fill:#f0f6fc;font:700 14px Consolas,Menlo,monospace}
+    .muted{fill:#8b949e;font:700 14px Consolas,Menlo,monospace}
   </style>
-  <rect x="1" y="1" width="998" height="308" rx="16" class="bg"/>
-  <rect x="28" y="28" width="244" height="254" rx="14" class="card"/>
-  <rect x="72" y="58" width="156" height="156" rx="78" fill="#061d46" stroke="#58a6ff"/>
-  <text x="150" y="149" text-anchor="middle" class="blue" style="font:800 44px Arial,Helvetica,sans-serif">SB</text>
-  <text x="150" y="239" text-anchor="middle" class="label">PROFILE / VERIFIED</text>
-  <text x="150" y="262" text-anchor="middle" class="blue mono">berendsshalai</text>
-  <text x="310" y="70" class="label">SHA-LAI BERENDS</text>
-  <text x="310" y="112" class="white h1">Business Automation &amp; Data Operations Builder</text>
-  <text x="310" y="149" class="muted body">Privacy-conscious systems for payroll, workforce operations, reconciliation, recruitment and administrative automation.</text>
-  <rect x="310" y="178" width="190" height="76" rx="12" class="card"/>
-  <text x="328" y="205" class="label">METHOD</text>
-  <text x="328" y="234" class="blue h2">Rules -> validation</text>
-  <rect x="520" y="178" width="190" height="76" rx="12" class="card"/>
-  <text x="538" y="205" class="label">OUTPUT</text>
-  <text x="538" y="234" class="blue h2">Auditable systems</text>
-  <rect x="730" y="178" width="214" height="76" rx="12" class="card"/>
-  <text x="748" y="205" class="label">CURRENT</text>
-  <text x="748" y="234" class="blue h2">Open-source tools</text>
+  <rect x="1" y="1" width="998" height="618" rx="16" class="bg"/>
+
+  <text x="34" y="36" class="ascii">                     .:--:::.</text>
+  <text x="430" y="36" class="handle">berendsshalai</text>
+
+  <text x="34" y="58" class="ascii">              ...:..:*##**=-:.</text>
+  <text x="430" y="58" class="rule">---------------------------------------------</text>
+
+  <text x="34" y="80" class="ascii">            :=**###%%@@%%%###=-:.</text>
+  <text x="430" y="80" class="label">Name</text><text x="535" y="80" class="value">: Sha-Lai Berends</text>
+
+  <text x="34" y="102" class="ascii">          -*##%@%%@@@@@%%@@@@%%#**-.</text>
+  <text x="430" y="102" class="label">Location</text><text x="535" y="102" class="value">: South Africa</text>
+
+  <text x="34" y="124" class="ascii">      ..:=###%%%%%%%@@@@%%@@%%%%#%%*..:</text>
+  <text x="430" y="124" class="label">Role</text><text x="535" y="124" class="value">: Business Automation &amp; Data Operations</text>
+
+  <text x="34" y="146" class="ascii">     .=*##%%@@@@@@@@@@@@@@@@%%%##%%%#*.</text>
+  <text x="430" y="146" class="label">Mode</text><text x="535" y="146" class="value">: Systems builder / open-source educator</text>
+
+  <text x="34" y="168" class="ascii">     -#@@@@@%%%%%@@%%%@@@@@%%%%%%%%%%*-</text>
+  <text x="430" y="168" class="label">Focus</text><text x="535" y="168" class="value">: Payroll, attendance, reconciliation,</text>
+
+  <text x="34" y="190" class="ascii">     :#@@@@@@@@%%%%###%%%@@@@%%%%%%%%%*.</text>
+  <text x="535" y="190" class="value">  recruitment and operational workflows</text>
+
+  <text x="34" y="212" class="ascii">      :*@@@@@%%%####**####%%%%%%%%####-</text>
+  <text x="430" y="212" class="label">Code</text><text x="535" y="212" class="value">: Python, TypeScript, JavaScript, Java</text>
+
+  <text x="34" y="234" class="ascii">       .-*%%%%%##***************##%#*:</text>
+  <text x="430" y="234" class="label">Data</text><text x="535" y="234" class="value">: SQL, SQLite, Excel, VBA, Xero</text>
+
+  <text x="34" y="256" class="ascii">         :%%%%%%#*+##*******=--::=++:</text>
+  <text x="430" y="256" class="label">Web</text><text x="535" y="256" class="value">: React, Vite, HTML, CSS, FastAPI</text>
+
+  <text x="34" y="278" class="ascii">      .*--%%%%@@%%#**##%%%#*+=:.....</text>
+  <text x="430" y="278" class="label">Workflow</text><text x="535" y="278" class="value">: GitHub Actions, Outlook, MCP</text>
+
+  <text x="34" y="300" class="ascii">       *-*##%%%%%%%+=+%%%%*++=:...:-=.</text>
+  <text x="430" y="300" class="label">AI</text><text x="535" y="300" class="value">: Azure AI, Claude, Bedrock, Copilot</text>
+
+  <text x="34" y="322" class="ascii">       +=*#####%%%#=-=+##*=---:..:===.</text>
+  <text x="430" y="322" class="label">Method</text><text x="535" y="322" class="value">: Privacy, auditability, validation</text>
+
+  <text x="34" y="344" class="ascii">       :=+%###%%%#*=--=+**++=-:..:=+.</text>
+  <text x="430" y="344" class="label">Current</text><text x="535" y="344" class="value">: Open-sourcing practical operations tools</text>
+
+  <text x="34" y="366" class="ascii">         +%###%%##+===++++++=-:.--:</text>
+
+  <text x="34" y="388" class="ascii">         +%##%%%%%***++=======-.</text>
+  <text x="430" y="388" class="label">Repositories</text>
+
+  <text x="34" y="410" class="ascii">         :%#%%%%%%%#***+---===:.</text>
+  <text x="430" y="410" class="rule">---------------------------------------------</text>
+
+  <text x="34" y="432" class="ascii">          -*%%%%%%#**+**==++++-</text>
+  <text x="430" y="432" class="value">attendance-reconciliation-engine</text>
+
+  <text x="34" y="454" class="ascii">           .#@%%%%#*++++++***=:.</text>
+  <text x="430" y="454" class="value">berendsshalai-systems-lab</text>
+
+  <text x="34" y="476" class="ascii">            -%@%%##**#*###**==--.</text>
+  <text x="430" y="476" class="value">onboarding-pilot-ai</text>
+
+  <text x="34" y="498" class="ascii">             -+%%%%%%%%%##**+==++---.</text>
+  <text x="430" y="498" class="value">berendsshalai-project-systemtoportfolio</text>
+
+  <text x="34" y="520" class="ascii">             ::#%#########****#%@@@@%+:.</text>
+  <text x="430" y="520" class="value">berendsshalai</text>
+
+  <text x="34" y="542" class="ascii">             .-*%##########%%@@@@@@@@@@#=.</text>
+  <text x="430" y="542" class="label">Operating principle</text>
+
+  <text x="34" y="564" class="ascii">            :=+*#######%%@@@@@@@@@@@@@@@@%</text>
+  <text x="430" y="564" class="rule">---------------------------------------------</text>
+
+  <text x="430" y="586" class="value">manual work -&gt; explicit rules -&gt; validated data</text>
+  <text x="430" y="608" class="value">-&gt; auditable automation -&gt; reusable systems</text>
 </svg>
