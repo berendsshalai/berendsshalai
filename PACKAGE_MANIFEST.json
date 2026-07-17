@@ -1,0 +1,24 @@
+{
+  "package": "Sha-Lai Berends GitHub Profile README",
+  "target_repository": "berendsshalai/berendsshalai",
+  "profile_url": "https://github.com/berendsshalai",
+  "required_files": [
+    "README.md",
+    "CODEX_DEPLOY_PROMPT.md",
+    "DEPLOYMENT_CHECKLIST.md",
+    "SETUP-LIVE-STATS.md",
+    "ascii-portrait.txt",
+    "assets/github-stats.svg",
+    "data/github-stats.json",
+    "scripts/generate_profile_stats.py",
+    ".github/workflows/update-profile-stats.yml"
+  ],
+  "contact_links": {
+    "LinkedIn": "https://www.linkedin.com/in/sha-lai-berends",
+    "X": "https://x.com/berendsshalai",
+    "Facebook": "https://www.facebook.com/p/Sha-Lai-Berends-61591546301365/",
+    "Instagram": "https://www.instagram.com/berendsshalai",
+    "EasyEquities": "https://bit.ly/3sA5312",
+    "Website": "https://sha-lai-be-2a6c6108-shalaiberends.wix-site-host.com"
+  }
+}
