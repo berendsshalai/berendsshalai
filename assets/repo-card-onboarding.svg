@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="490" height="170" viewBox="0 0 490 170" role="img" aria-labelledby="title desc">
+  <title id="title">Onboarding Pilot AI</title><desc id="desc">Repository card for Onboarding Pilot AI.</desc>
+  <style>.bg{fill:#0d1117;stroke:#30363d}.label{fill:#8b949e;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f0f6fc}.muted{fill:#8b949e}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 22px Arial,Helvetica,sans-serif}</style>
+  <rect x="1" y="1" width="488" height="168" rx="14" class="bg"/>
+  <text x="22" y="38" class="label">PYTHON WORKFLOW FRAMEWORK</text>
+  <text x="22" y="74" class="white head">Onboarding Pilot AI</text>
+  <text x="22" y="104" class="blue body">Validation, routing, templates, state and synthetic demo data.</text>
+  <text x="22" y="138" class="muted body">Open repository -></text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="490" height="170" viewBox="0 0 490 170" role="img" aria-labelledby="title desc">
+  <title id="title">Sha-Lai Berends Systems Lab</title><desc id="desc">Repository card for Sha-Lai Berends Systems Lab.</desc>
+  <style>.bg{fill:#0d1117;stroke:#30363d}.label{fill:#8b949e;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f0f6fc}.muted{fill:#8b949e}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 22px Arial,Helvetica,sans-serif}</style>
+  <rect x="1" y="1" width="488" height="168" rx="14" class="bg"/>
+  <text x="22" y="38" class="label">CONTROL REPOSITORY</text>
+  <text x="22" y="74" class="white head">Sha-Lai Systems Lab</text>
+  <text x="22" y="104" class="blue body">Sanitized project systems, publication gates and docs.</text>
+  <text x="22" y="138" class="muted body">Open repository -></text>
+</svg>
