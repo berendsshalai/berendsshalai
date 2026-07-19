@@ -66,6 +66,8 @@ def validate_svg(path: Path) -> list[str]:
                 break
     if "OPTICAL_GLASS_SYSTEM_START" not in text:
         issues.append("missing shared optical material")
+    if text.count('class="borderRunner"') < 2 or 'attributeName="stroke-dashoffset"' not in text:
+        issues.append("missing circulating emerald border light")
     if "#3fb950" not in text.lower():
         issues.append("missing GitHub-green observatory accent")
     if "IBM Plex Mono" not in text:
@@ -110,7 +112,8 @@ def main() -> None:
         f"PASS: {len(TARGETS)}/{len(TARGETS)} SVG assets; "
         "0 prohibited elements; 0 full-canvas rectangles; "
         f"{len(TARGETS)}/{len(TARGETS)} shared optical materials; "
-        f"{len(TARGETS)}/{len(TARGETS)} emerald observatory themes"
+        f"{len(TARGETS)}/{len(TARGETS)} emerald observatory themes; "
+        f"{len(TARGETS)}/{len(TARGETS)} circulating border lights"
     )
     if args.rendered_dir:
         summary += f"; {len(TARGETS) * 4}/{len(TARGETS) * 4} canvas-corner alpha values equal 0"

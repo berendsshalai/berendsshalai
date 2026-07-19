@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a theme-aware cinematic ASCII statistics room for the profile README."""
+"""Render the cinematic Emerald Observatory statistics sequence."""
 
 from __future__ import annotations
 
@@ -13,11 +13,12 @@ from typing import Any, Iterable
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-WIDTH, HEIGHT = 1200, 900
+WIDTH, HEIGHT = 1200, 675
 ROOT = Path(__file__).resolve().parents[1]
 FONTS = ROOT / "assets" / "fonts"
-FPS = 14
-FRAMES_PER_METRIC = 47
+OBSERVATORY_MASTER = ROOT / "assets" / "cinematic" / "emerald-observatory-master.png"
+FPS = 12
+FRAMES_PER_METRIC = 35
 METRIC_COUNT = 7
 FRAME_DURATION_MS = round(1000 / FPS)
 TRANSPARENT_KEY = (255, 0, 255)
@@ -41,14 +42,14 @@ class Theme:
 
 
 LIGHT = Theme(
-    "light", (255, 255, 255), (237, 246, 239), (190, 218, 197),
-    (36, 41, 47), (72, 82, 76), (104, 116, 108), (250, 252, 250),
-    (244, 249, 245), (255, 255, 255), (175, 199, 181), (22, 27, 34),
+    "light", (4, 8, 6), (18, 27, 21), (67, 96, 75),
+    (246, 252, 248), (207, 222, 212), (149, 169, 155), (13, 22, 17),
+    (9, 16, 12), (232, 242, 235), (101, 133, 111), (5, 9, 7),
 )
 DARK = Theme(
-    "dark", (13, 17, 23), (22, 31, 25), (55, 77, 61),
-    (240, 246, 252), (218, 226, 220), (168, 181, 172), (22, 27, 34),
-    (17, 24, 20), (240, 246, 252), (121, 143, 128), (2, 6, 4),
+    "dark", (4, 8, 6), (18, 27, 21), (67, 96, 75),
+    (246, 252, 248), (207, 222, 212), (149, 169, 155), (13, 22, 17),
+    (9, 16, 12), (232, 242, 235), (101, 133, 111), (5, 9, 7),
 )
 
 ACCENTS = [
@@ -115,32 +116,27 @@ def _metric_rows(stats: dict[str, Any]) -> list[tuple[str, str, str]]:
 
 
 def _room_base(theme: Theme) -> Image.Image:
-    image = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
-    atmosphere = Image.new("RGBA", image.size, (0, 0, 0, 0))
-    atmospheric_draw = ImageDraw.Draw(atmosphere, "RGBA")
-    wall_alpha = 34 if theme.name == "dark" else 20
-    atmospheric_draw.ellipse((105, 35, 1095, 790), fill=_alpha(theme.wall, wall_alpha))
-    atmospheric_draw.ellipse((175, 35, 760, 660), fill=_alpha(ACCENTS[0], 34 if theme.name == "dark" else 18))
-    atmospheric_draw.ellipse((520, 120, 1050, 720), fill=_alpha(ACCENTS[2], 20 if theme.name == "dark" else 12))
-    image.alpha_composite(atmosphere.filter(ImageFilter.GaussianBlur(72)))
-    draw = ImageDraw.Draw(image, "RGBA")
-    mono = _font(11)
-    glyphs = ".,:;"
-    for row, y in enumerate(range(44, 670, 24)):
-        for col, x in enumerate(range(26, WIDTH - 26, 31)):
-            if (row * 19 + col * 31) % 7 in (0, 3):
-                atmospheric_color = ACCENTS[(row + col) % len(ACCENTS)] if (row + col) % 5 == 0 else theme.wall_glyph
-                draw.text((x, y), glyphs[(row + col) % len(glyphs)], font=mono, fill=_alpha(atmospheric_color, 54))
-    draw.line((90, 688, 1110, 688), fill=_alpha(ACCENTS[0], 138), width=1)
+    if not OBSERVATORY_MASTER.exists():
+        raise FileNotFoundError(f"Missing cinematic background plate: {OBSERVATORY_MASTER}")
+    with Image.open(OBSERVATORY_MASTER) as source:
+        image = source.convert("RGBA").resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+    # A filmic vignette protects the overlaid telemetry without flattening the
+    # generated glass, metal, stars, chair, desk or volumetric globe.
+    vignette = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    vd = ImageDraw.Draw(vignette, "RGBA")
+    for inset, alpha in ((0, 96), (34, 56), (72, 28)):
+        vd.rounded_rectangle((inset, inset, WIDTH - inset, HEIGHT - inset), radius=44, outline=(0, 0, 0, alpha), width=38)
+    vd.rectangle((0, 0, WIDTH, 118), fill=(0, 0, 0, 44))
+    image.alpha_composite(vignette.filter(ImageFilter.GaussianBlur(18)))
     return image
 
 
-def _globe_point(latitude: float, longitude: float, rotation: float, radius: float = 104) -> tuple[float, float, float]:
+def _globe_point(latitude: float, longitude: float, rotation: float, radius: float = 112) -> tuple[float, float, float]:
     longitude += rotation
     cos_lat = math.cos(latitude)
     return (
         600 + radius * cos_lat * math.sin(longitude),
-        556 - radius * math.sin(latitude) * 0.92,
+        272 - radius * math.sin(latitude) * 0.92,
         cos_lat * math.cos(longitude),
     )
 
@@ -149,16 +145,9 @@ def _draw_observatory_globe(base: Image.Image, theme: Theme, rotation: float) ->
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
     glow = Image.new("RGBA", base.size, (0, 0, 0, 0))
     glow_draw = ImageDraw.Draw(glow, "RGBA")
-    glow_draw.ellipse((475, 431, 725, 681), outline=_alpha(ACCENTS[0], 105), width=13)
-    glow_draw.line((600, 440, 600, 692), fill=_alpha(ACCENTS[2], 76), width=3)
-    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(17)))
+    glow_draw.ellipse((474, 146, 726, 398), outline=_alpha(ACCENTS[0], 72), width=10)
+    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(15)))
     draw = ImageDraw.Draw(layer, "RGBA")
-
-    # The luminous floor converges on the elevated repository nucleus.
-    for x in range(40, 1161, 80):
-        draw.line((600, 648, x, 899), fill=_alpha(ACCENTS[3], 72 if theme.name == "dark" else 48), width=1)
-    for y, inset in ((706, 410), (744, 330), (790, 230), (850, 120)):
-        draw.line((inset, y, WIDTH - inset, y), fill=_alpha(ACCENTS[0], 62 if theme.name == "dark" else 42), width=1)
 
     def path(points: Iterable[tuple[float, float, float]]) -> None:
         sequence = list(points)
@@ -172,7 +161,7 @@ def _draw_observatory_globe(base: Image.Image, theme: Theme, rotation: float) ->
         path(_globe_point(latitude, step * math.pi / 36 - math.pi, rotation) for step in range(73))
     for longitude in (step * math.pi / 6 for step in range(12)):
         path(_globe_point(-math.pi / 2 + step * math.pi / 36, longitude, rotation) for step in range(37))
-    draw.ellipse((496, 452, 704, 660), outline=_alpha(ACCENTS[2], 205), width=2)
+    draw.ellipse((488, 160, 712, 384), outline=_alpha(ACCENTS[2], 150), width=1)
     for index in range(28):
         latitude = math.asin(-1 + 2 * (index + .5) / 28)
         longitude = index * math.pi * (3 - math.sqrt(5))
@@ -180,29 +169,30 @@ def _draw_observatory_globe(base: Image.Image, theme: Theme, rotation: float) ->
         if depth > 0:
             radius = 1 + round(depth)
             draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=_alpha(ACCENTS[2], round(90 + depth * 145)))
-    for bounds, opacity in (((470, 630, 730, 682), 145), ((505, 640, 695, 675), 115), ((540, 649, 660, 669), 88)):
-        draw.ellipse(bounds, outline=_alpha(ACCENTS[0], opacity), width=2)
-    _center_text(draw, (600, 674), "REPOSITORY NUCLEUS", _font(11, True), _alpha(ACCENTS[2], 225))
+    for bounds, opacity in (((468, 397, 732, 446), 110), ((510, 406, 690, 438), 86), ((548, 414, 652, 431), 62)):
+        draw.ellipse(bounds, outline=_alpha(ACCENTS[0], opacity), width=1)
     base.alpha_composite(layer)
 
 
-def _draw_ascii_illustration(layer: Image.Image, metric: int, box: tuple[int, int, int, int], accent: tuple[int, int, int], opacity: int = 220) -> None:
+def _draw_metric_trace(layer: Image.Image, metric: int, box: tuple[int, int, int, int], accent: tuple[int, int, int], opacity: int = 220) -> None:
     draw = ImageDraw.Draw(layer, "RGBA")
     x0, y0, x1, y1 = box
-    font = _font(max(10, round((x1 - x0) / 24)), bold=True)
-    art = [
-        ["   |==|  |==|  |==|", "   |::|--|::|--|::|", "   |##|  |##|  |##|", "---+--+--+--+--+---", "      \\__|__/"],
-        ["        .       ", "    .   *   .   ", "  *   \\|/   * ", "----- --*-- -----", "    .  /|\\  .  "],
-        ["      (o)      ", "   (o)-+- (o)   ", "      |\\       ", "  (o)-+-(o)     ", "     / \\ (o)   "],
-        [" .:  ::  :;  ;:", "::;;;::;;::;;;::", ";;##;;####;;##;;", "###&&####&&#####", "__::___;;;___::__"],
-        ["o-----o       o ", "       \\     /  ", "        o---o   ", "       /     \\  ", "  o---o       o "],
-        ["== import data ==", "-- validate rules --", ":: audit events ::", "++ export report ++", "================="],
-        ["       .o.       ", "   .-'  |  '-.   ", "  /  .--+--.  \\  ", " |  /   |   \\  | ", "  '-.___|__.-'   "],
-    ][metric]
-    line_h = max(12, round((y1 - y0) / 6))
-    for line_no, text in enumerate(art):
-        _center_text(draw, ((x0 + x1) / 2 + 1, y0 + line_no * line_h + 1), text, font, _alpha(accent, round(opacity * 0.24)))
-        _center_text(draw, ((x0 + x1) / 2, y0 + line_no * line_h), text, font, _alpha(accent, opacity))
+    width, height = x1 - x0, y1 - y0
+    draw.rounded_rectangle(box, radius=12, fill=(0, 0, 0, 26), outline=_alpha(accent, 72), width=1)
+    baseline = y1 - 18
+    points: list[tuple[float, float]] = []
+    for index in range(13):
+        phase = index * 0.72 + metric * 0.63
+        energy = .38 + .32 * math.sin(phase) + .16 * math.sin(phase * 1.93)
+        points.append((x0 + 14 + index * (width - 28) / 12, baseline - max(4, energy * (height - 28))))
+    glow = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow, "RGBA")
+    gd.line(points, fill=_alpha(accent, round(opacity * .58)), width=5, joint="curve")
+    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(6)))
+    draw.line(points, fill=_alpha(accent, opacity), width=2, joint="curve")
+    draw.line((x0 + 14, baseline, x1 - 14, baseline), fill=(204, 230, 212, 45), width=1)
+    for x, y in points[::3]:
+        draw.ellipse((x - 3, y - 3, x + 3, y + 3), fill=_alpha((126, 231, 135), opacity))
 
 
 def _poster(theme: Theme, metric: int, title: str, value: str, note: str, updated: str, size: tuple[int, int], active: bool) -> Image.Image:
@@ -211,27 +201,22 @@ def _poster(theme: Theme, metric: int, title: str, value: str, note: str, update
     shadow = Image.new("RGBA", size, (0, 0, 0, 0))
     sd = ImageDraw.Draw(shadow, "RGBA")
     accent = ACCENTS[metric]
-    sd.rounded_rectangle((18, 20, width - 18, height - 10), radius=22, fill=_alpha(accent, 60 if active else 35))
-    sd.rounded_rectangle((22, 25, width - 14, height - 6), radius=22, fill=(0, 0, 0, 62 if theme.name == "light" else 118))
-    shadow = shadow.filter(ImageFilter.GaussianBlur(13))
+    sd.rounded_rectangle((15, 16, width - 15, height - 8), radius=22, fill=_alpha(accent, 76 if active else 42))
+    sd.rounded_rectangle((18, 22, width - 12, height - 4), radius=22, fill=(0, 0, 0, 180))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(16))
     panel.alpha_composite(shadow)
     draw = ImageDraw.Draw(panel, "RGBA")
     fill = theme.poster if active else theme.poster_far
-    draw.rounded_rectangle((9, 7, width - 9, height - 17), radius=19, fill=_alpha(fill, 235), outline=_alpha(accent, 205 if active else 125), width=1)
-    draw.line((29, 8, width - 29, 8), fill=_alpha(accent, 245 if active else 145), width=2)
-    # ASCII material shell: aligned, stable characters instead of raster noise.
-    shell_font = _font(10)
-    shell_chars = ".:;+=x"
-    for row, y in enumerate(range(22, height - 28, 16)):
-        for col, x in enumerate(range(22, width - 22, 18)):
-            if (row * 11 + col * 7 + metric) % 9 == 0:
-                draw.text((x, y), shell_chars[(row + col + metric) % len(shell_chars)], font=shell_font, fill=_alpha(theme.wall_glyph, 32))
-    draw.text((28, 25), f"{metric + 1:02d} / {title}", font=_font(17, True), fill=_alpha(accent if active else theme.secondary, 255))
-    draw.text((28, 60), value, font=_font(46, True, "display"), fill=_alpha(theme.primary, 255))
-    draw.text((28, 112), note, font=_font(13, False, "body"), fill=_alpha(theme.secondary, 245))
-    _draw_ascii_illustration(panel, metric, (25, 155, width - 25, height - 82), accent, 255 if active else 205)
+    draw.rounded_rectangle((9, 7, width - 9, height - 17), radius=19, fill=_alpha(fill, 224), outline=_alpha((225, 244, 232), 105), width=1)
+    draw.rounded_rectangle((11, 9, width - 11, height - 19), radius=18, outline=_alpha(accent, 190 if active else 96), width=1)
+    draw.line((31, 9, width - 55, 9), fill=_alpha((232, 255, 238), 205 if active else 105), width=2)
+    draw.line((width - 51, 9, width - 25, 9), fill=_alpha(accent, 250 if active else 135), width=2)
+    draw.text((27, 25), f"{metric + 1:02d} / {title}", font=_font(15, True), fill=_alpha(accent if active else theme.secondary, 255))
+    draw.text((27, 56), value, font=_font(43, True, "display"), fill=_alpha(theme.primary, 255))
+    draw.text((27, 105), note, font=_font(11, False, "body"), fill=_alpha(theme.secondary, 245))
+    _draw_metric_trace(panel, metric, (25, 143, width - 25, height - 76), accent, 255 if active else 170)
     draw.ellipse((29, height - 55, 42, height - 42), fill=_alpha(accent, 255))
-    draw.text((53, height - 59), updated, font=_font(11), fill=_alpha(theme.muted, 245))
+    draw.text((53, height - 58), updated, font=_font(9), fill=_alpha(theme.muted, 245))
     return panel
 
 
@@ -252,85 +237,36 @@ def _draw_hero(base: Image.Image, theme: Theme, metric: int, row: tuple[str, str
     accent = ACCENTS[metric]
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(layer, "RGBA")
-    veil_phase = max(0.0, min(1.0, (amount - 0.10) / 0.38))
-    if veil_phase > 0:
-        veil_size = round(62 + 350 * _smooth(veil_phase))
-        veil_alpha = round(78 * (1.0 - _smooth(veil_phase))) + 12
-        _center_text(draw, (600, 185 - veil_size * 0.22), title, _font(veil_size, True, "display"), _alpha(accent, veil_alpha))
     hero_alpha = round(255 * _smooth(amount))
-    _center_text(draw, (600, 110), title, _font(55, True, "display"), _alpha(accent, hero_alpha))
-    value_size = 170 if len(value) <= 4 else 138
-    _center_text(draw, (600, 195), value, _font(value_size, True, "display"), _alpha(theme.primary, hero_alpha))
-    _center_text(draw, (600, 382), note, _font(23, False, "body"), _alpha(theme.secondary, hero_alpha))
-    _center_text(draw, (600, 423), f"UPDATED {updated}", _font(13), _alpha(theme.muted, hero_alpha))
-    base.alpha_composite(layer)
-
-
-def _draw_furniture(base: Image.Image, theme: Theme) -> None:
-    layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    glow = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow, "RGBA")
+    gd.rounded_rectangle((54, 106, 430, 350), radius=26, outline=_alpha(accent, round(hero_alpha * .55)), width=10)
+    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(20)))
     draw = ImageDraw.Draw(layer, "RGBA")
-    mono = _font(12, True)
-    # Contact shadows retain the glyph rhythm and remain deliberately soft.
-    shadow = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    sh = ImageDraw.Draw(shadow, "RGBA")
-    sh.ellipse((345, 700, 855, 755), fill=(0, 0, 0, 48 if theme.name == "light" else 100))
-    sh.ellipse((490, 855, 710, 900), fill=(0, 0, 0, 75 if theme.name == "light" else 135))
-    layer.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(18)))
-    desk_top = "=" * 66
-    draw.text((337, 688), desk_top, font=mono, fill=_alpha(theme.desk_mid, 255))
-    draw.text((337, 676), "_" * 66, font=mono, fill=_alpha(theme.desk_hi, 255))
-    for row, y in enumerate(range(704, 884, 12)):
-        inset = row // 5
-        draw.text((369 + inset, y), "/", font=mono, fill=_alpha(theme.desk_mid, 245))
-        draw.text((819 - inset, y), "\\", font=mono, fill=_alpha(theme.desk_mid, 245))
-    # Sculptural ASCII shell chair.
-    chair_font = _font(13, True)
-    ramp = "@&B8#MW%Xx+:"
-    for row in range(15):
-        ny = row / 14
-        half = round(84 * math.sin(math.pi * (0.10 + ny * 0.82)) ** 0.72)
-        y = 692 + row * 11
-        for col, x in enumerate(range(600 - half, 600 + half, 8)):
-            distance = abs(x - 600) / max(1, half)
-            index = min(len(ramp) - 1, round(distance * 7 + ny * 3))
-            chair_tone = _mix(theme.chair, ACCENTS[0], 0.44) if distance > 0.74 else _mix(theme.chair, theme.muted, distance * 0.18)
-            draw.text((x, y), ramp[index], font=chair_font, fill=_alpha(chair_tone, 255))
-    draw.text((525, 847), "/", font=_font(17, True), fill=_alpha(theme.chair, 255))
-    draw.text((667, 847), "\\", font=_font(17, True), fill=_alpha(theme.chair, 255))
-    draw.text((506, 872), "/", font=_font(17, True), fill=_alpha(theme.chair, 255))
-    draw.text((686, 872), "\\", font=_font(17, True), fill=_alpha(theme.chair, 255))
-    # Delicate directional ASCII plant.
-    leaf = ACCENTS[2]
-    leaf_dark = ACCENTS[3]
-    plant_font = _font(16, True)
-    stems = [(710, 672, 684, 608, "/"), (710, 672, 733, 600, "\\"), (710, 672, 708, 587, "|"), (710, 672, 753, 625, "\\")]
-    for x0, y0, x1, y1, glyph in stems:
-        steps = 7
-        for step in range(steps):
-            x = x0 + (x1 - x0) * step / steps
-            y = y0 + (y1 - y0) * step / steps
-            draw.text((x, y), glyph, font=plant_font, fill=_alpha(leaf_dark, 255))
-    for x, y, glyph in [(676, 599, "<"), (700, 580, "{"), (728, 592, "}"), (748, 615, ">"), (691, 620, "<"), (725, 622, ">")]:
-        draw.text((x, y), glyph * 2, font=_font(19, True), fill=_alpha(leaf, 255))
-    pot_lines = ["/::::\\", "|####|", "\\____/"]
-    for line, y in zip(pot_lines, (659, 675, 691)):
-        _center_text(draw, (712, y), line, _font(14, True), _alpha((99, 122, 105), 255))
+    draw.rounded_rectangle((54, 106, 430, 350), radius=26, fill=(4, 10, 7, round(hero_alpha * .82)), outline=(218, 244, 225, round(hero_alpha * .40)), width=1)
+    draw.rounded_rectangle((58, 110, 426, 346), radius=23, outline=_alpha(accent, round(hero_alpha * .65)), width=1)
+    draw.text((82, 133), "LIVE GITHUB TELEMETRY", font=_font(11, True), fill=_alpha(accent, hero_alpha))
+    draw.text((82, 165), title, font=_font(25, True, "display"), fill=_alpha(theme.primary, hero_alpha))
+    value_size = 94 if len(value) <= 4 else 76
+    draw.text((80, 196), value, font=_font(value_size, True, "display"), fill=_alpha((246, 252, 248), hero_alpha))
+    draw.text((82, 296), note, font=_font(14, False, "body"), fill=_alpha(theme.secondary, hero_alpha))
+    draw.text((82, 322), f"UPDATED {updated}", font=_font(9), fill=_alpha(theme.muted, hero_alpha))
     base.alpha_composite(layer)
 
 
-def _compose(theme: Theme, rows: list[tuple[str, str, str]], posters: list[Image.Image], metric: int, local: float, updated: str, base: Image.Image, furniture: Image.Image) -> Image.Image:
+def _compose(theme: Theme, rows: list[tuple[str, str, str]], posters: list[Image.Image], metric: int, local: float, updated: str, base: Image.Image) -> Image.Image:
     frame = base.copy().convert("RGBA")
     # Cinematic stages: recognition, dispersal/approach, hold, recession, restoration/navigation.
     approach = _smooth((local - 0.10) / 0.22) if local < 0.38 else 1.0
     recede = 1.0 - _smooth((local - 0.66) / 0.17) if local > 0.66 else 1.0
     hero = max(0.0, min(approach, recede))
     disperse = hero
-    positions = [40, 300, 600, 900, 1160]
+    positions = [18, 300, 600, 900, 1182]
     for slot, relative in enumerate((-2, -1, 0, 1, 2)):
         index = (metric + relative) % METRIC_COUNT
         selected = relative == 0
         x = positions[slot]
-        y = 310 if selected else 325
+        y = 234 if selected else 246
         scale = 1.0 if selected else (0.92 if abs(relative) == 1 else 0.84)
         opacity = 1.0 if selected else (0.82 if abs(relative) == 1 else 0.48)
         blur = 0.0
@@ -340,37 +276,29 @@ def _compose(theme: Theme, rows: list[tuple[str, str, str]], posters: list[Image
                 scale *= 1.0 + hero * 0.45
             else:
                 direction = -1 if relative < 0 else 1
-                x += direction * disperse * (150 + abs(relative) * 55)
-                y -= disperse * 28
+                x += direction * disperse * (138 + abs(relative) * 52)
+                y -= disperse * 18
                 scale *= 1.0 - disperse * 0.18
                 opacity *= 1.0 - disperse * 0.78
                 blur = disperse * 3.5
         _paste_scaled(frame, posters[index], (x, y), scale, opacity, blur)
     if hero > 0.03:
         _draw_hero(frame, theme, metric, rows[metric], updated, hero)
-    # Hold the observatory globe steady while each metric is inspected. The
-    # dedicated repository globe above carries continuous rotation; here the
-    # stable nucleus protects GIF clarity and compression around live text.
-    _draw_observatory_globe(frame, theme, metric * 0.72)
+    # A moving telemetry mesh gives the photoreal globe motion without
+    # replacing its cinematic materials with a flat vector sphere.
+    _draw_observatory_globe(frame, theme, metric * 0.72 + local * 0.42)
     navigation = ImageDraw.Draw(frame, "RGBA")
     for dot in range(METRIC_COUNT):
         x = 531 + dot * 23
         color = ACCENTS[metric] if dot == metric else theme.muted
-        navigation.ellipse((x, 660, x + 7, 667), fill=_alpha(color, 245 if dot == metric else 75))
+        navigation.ellipse((x, 628, x + 7, 635), fill=_alpha(color, 245 if dot == metric else 75))
     orbit_x = 510 + round(44 * local)
-    navigation.ellipse((orbit_x, 655, orbit_x + 3, 658), fill=_alpha(ACCENTS[metric], 235))
-    frame.alpha_composite(furniture)
+    navigation.ellipse((orbit_x, 623, orbit_x + 3, 626), fill=_alpha(ACCENTS[metric], 235))
     return frame
 
 
 def _flatten_for_gif(frame: Image.Image, theme: Theme) -> Image.Image:
-    rgba = frame.convert("RGBA")
-    flattened = Image.new("RGBA", rgba.size, (*theme.edge, 255))
-    flattened.alpha_composite(rgba)
-    rgb = flattened.convert("RGB")
-    transparent_mask = rgba.getchannel("A").point(lambda value: 255 if value <= GIF_ALPHA_THRESHOLD else 0)
-    rgb.paste(TRANSPARENT_KEY, mask=transparent_mask)
-    return rgb
+    return frame.convert("RGB")
 
 
 def _global_palette(samples: Iterable[Image.Image], theme: Theme) -> Image.Image:
@@ -378,10 +306,9 @@ def _global_palette(samples: Iterable[Image.Image], theme: Theme) -> Image.Image
     atlas = Image.new("RGB", (300 * len(sample_list), 225))
     for index, sample in enumerate(sample_list):
         atlas.paste(sample, (index * 300, 0))
-    # The observatory uses a deliberately narrow emerald/neutral spectrum.
-    # Forty-eight colors preserve the typography and glass depth while keeping
-    # both theme animations below GitHub's practical asset-size ceiling.
-    palette = atlas.quantize(colors=48, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    # A shared cinematic palette keeps the photographic background stable while
+    # GitHub only has to encode the moving glass/telemetry deltas.
+    palette = atlas.quantize(colors=112, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     palette_data = palette.getpalette()
     pinned_colors = [
         TRANSPARENT_KEY,
@@ -407,13 +334,11 @@ def render_theme(stats: dict[str, Any], theme: Theme, gif_path: Path, static_pat
     updated_dt = dt.datetime.fromisoformat(stats["updated_at_utc"])
     updated = updated_dt.strftime("%Y-%m-%d %H:%M UTC")
     base = _room_base(theme)
-    furniture = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
-    _draw_furniture(furniture, theme)
-    posters = [_poster(theme, index, *row, updated, (250, 330), index == 0) for index, row in enumerate(rows)]
+    posters = [_poster(theme, index, *row, updated, (230, 286), index == 0) for index, row in enumerate(rows)]
     key_times = [0.05, 0.18, 0.29, 0.42, 0.55, 0.73, 0.90, 0.99]
-    sample_frames = [_compose(theme, rows, posters, index % METRIC_COUNT, local, updated, base, furniture) for index, local in enumerate(key_times)]
+    sample_frames = [_compose(theme, rows, posters, index % METRIC_COUNT, local, updated, base) for index, local in enumerate(key_times)]
     palette = _global_palette(sample_frames, theme)
-    static_frame = _compose(theme, rows, posters, 0, 0.08, updated, base, furniture)
+    static_frame = _compose(theme, rows, posters, 0, 0.08, updated, base)
     static_path.parent.mkdir(parents=True, exist_ok=True)
     static_frame.save(static_path, optimize=True)
     if contact_sheet_path:
@@ -429,19 +354,17 @@ def render_theme(stats: dict[str, Any], theme: Theme, gif_path: Path, static_pat
     for metric in range(METRIC_COUNT):
         for step in range(FRAMES_PER_METRIC):
             local = step / FRAMES_PER_METRIC
-            frame = _compose(theme, rows, posters, metric, local, updated, base, furniture)
+            frame = _compose(theme, rows, posters, metric, local, updated, base)
             if local > 0.88:
                 navigation = _smooth((local - 0.88) / 0.12)
-                incoming = _compose(theme, rows, posters, (metric + 1) % METRIC_COUNT, 0.0, updated, base, furniture)
+                incoming = _compose(theme, rows, posters, (metric + 1) % METRIC_COUNT, 0.0, updated, base)
                 frame = Image.blend(frame, incoming, navigation)
             indexed = _flatten_for_gif(frame, theme).quantize(palette=palette, dither=Image.Dither.NONE)
-            transparent_mask = frame.getchannel("A").point(lambda value: 255 if value <= GIF_ALPHA_THRESHOLD else 0)
-            indexed.paste(0, mask=transparent_mask)
             frames.append(indexed)
     gif_path.parent.mkdir(parents=True, exist_ok=True)
     frames[0].save(
         gif_path, save_all=True, append_images=frames[1:], duration=FRAME_DURATION_MS,
-        loop=0, optimize=True, disposal=2, transparency=0,
+        loop=0, optimize=True, disposal=1,
     )
     return {
         "theme": theme.name, "dimensions": [WIDTH, HEIGHT], "fps": FPS,
@@ -456,14 +379,12 @@ def render_ascii_statistics_room(stats: dict[str, Any], root: Path, *, contact_s
         temporary = Path(temp_dir)
         targets = {
             "light_gif": temporary / "ascii-stats-gallery-color-transparent.gif",
-            "dark_gif": temporary / "ascii-stats-gallery-color-dark-transparent.gif",
             "light_static": temporary / "ascii-stats-gallery-color-transparent-static.png",
-            "dark_static": temporary / "ascii-stats-gallery-color-dark-transparent-static.png",
         }
-        results = [
-            render_theme(stats, LIGHT, targets["light_gif"], targets["light_static"], contact_sheet),
-            render_theme(stats, DARK, targets["dark_gif"], targets["dark_static"]),
-        ]
+        # The photographic plate owns its own dark cinematic environment, so a
+        # single render remains legible in both GitHub themes and avoids storing
+        # a redundant second 10+ MiB animation.
+        results = [render_theme(stats, DARK, targets["light_gif"], targets["light_static"], contact_sheet)]
         assets.mkdir(parents=True, exist_ok=True)
         for source in targets.values():
             shutil.copy2(source, assets / source.name)

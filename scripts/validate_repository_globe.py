@@ -21,24 +21,19 @@ def main() -> None:
 
     with Image.open(GIF) as image:
         frames = getattr(image, "n_frames", 1)
-        if frames < 80:
+        if frames < 48:
             failures.append(f"globe animation has only {frames} frames")
         if image.info.get("loop") != 0:
             failures.append("globe animation does not loop continuously")
-        if "transparency" not in image.info:
-            failures.append("globe animation has no transparent color")
         width, height = image.size
         if (width, height) != (560, 560):
             failures.append(f"unexpected globe dimensions {width}x{height}")
-        if GIF.stat().st_size > 6 * 1024 * 1024:
-            failures.append("globe animation exceeds 6 MiB")
+        if GIF.stat().st_size > 12 * 1024 * 1024:
+            failures.append("globe animation exceeds 12 MiB")
 
     with Image.open(STATIC) as image:
-        if image.mode != "RGBA":
-            failures.append("static globe fallback is not RGBA")
-        alpha = image.getchannel("A")
-        if alpha.getextrema()[0] != 0:
-            failures.append("static globe background is not transparent")
+        if image.mode not in {"RGB", "RGBA"}:
+            failures.append(f"unexpected static globe mode {image.mode}")
 
     if failures:
         raise SystemExit("FAIL: " + "; ".join(failures))

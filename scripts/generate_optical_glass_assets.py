@@ -108,6 +108,13 @@ def optical_material(width: int, height: int) -> str:
     <filter id="specularSoft" x="-10%" y="-30%" width="120%" height="160%">
       <feGaussianBlur stdDeviation="1.1"/>
     </filter>
+    <filter id="borderRunnerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.2"/>
+    </filter>
+    <style>
+      .borderRunner{{pointer-events:none}}
+      @media (prefers-reduced-motion:reduce){{.borderRunner{{display:none}}}}
+    </style>
   </defs>
   <g aria-hidden="true">
     <g clip-path="url(#canvasSafe)">
@@ -124,6 +131,12 @@ def optical_material(width: int, height: int) -> str:
     </g>
     <rect x="{x + .7}" y="{y + .7}" width="{pane_width - 1.4}" height="{pane_height - 1.4}" rx="{radius}" fill="none" stroke="url(#outerEdge)" stroke-width="1.55"/>
     <rect x="{x + inset}" y="{y + inset}" width="{pane_width - inset * 2}" height="{pane_height - inset * 2}" rx="{max(1, radius - inset):.1f}" fill="none" stroke="url(#innerEdge)" stroke-width=".9"/>
+    <rect class="borderRunner" x="{x + 1.4}" y="{y + 1.4}" width="{pane_width - 2.8}" height="{pane_height - 2.8}" rx="{max(1, radius - 1):.1f}" pathLength="100" fill="none" stroke="#3FB950" stroke-opacity=".22" stroke-width="6" stroke-linecap="round" stroke-dasharray="7 93" filter="url(#borderRunnerGlow)">
+      <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="9s" repeatCount="indefinite"/>
+    </rect>
+    <rect class="borderRunner" x="{x + 1.4}" y="{y + 1.4}" width="{pane_width - 2.8}" height="{pane_height - 2.8}" rx="{max(1, radius - 1):.1f}" pathLength="100" fill="none" stroke="#7EE787" stroke-opacity=".78" stroke-width="1.45" stroke-linecap="round" stroke-dasharray="7 93">
+      <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="9s" repeatCount="indefinite"/>
+    </rect>
     <path d="M {x + 34} {bottom - 18} H {x + pane_width * .38:.1f} M {right - pane_width * .24:.1f} {y + 20} H {right - 34}" fill="none" stroke="#3FB950" stroke-opacity=".24" stroke-width="1"/>
     <path d="M {x + radius * .62:.1f} {top_y} C {x + pane_width * .18:.1f} {y - .2:.1f}, {x + pane_width * .30:.1f} {y + .2:.1f}, {x + pane_width * .42:.1f} {top_y}" fill="none" stroke="#FFFFFF" stroke-opacity=".82" stroke-width="1.65" stroke-linecap="round" filter="url(#specularSoft)"/>
     <path d="M {x + radius * .34:.1f} {y + radius * .78:.1f} C {x - .2:.1f} {y + pane_height * .22:.1f}, {x + .4:.1f} {y + pane_height * .46:.1f}, {x + 1:.1f} {y + pane_height * .62:.1f}" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="1.35" stroke-linecap="round"/>

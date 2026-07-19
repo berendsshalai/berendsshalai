@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the transparent rotating repository globe used by the profile README."""
+"""Generate the cinematic rotating repository globe used by the profile README."""
 
 from __future__ import annotations
 
@@ -15,11 +15,11 @@ ASSETS = ROOT / "assets"
 FONTS = ASSETS / "fonts"
 GIF_PATH = ASSETS / "repository-globe.gif"
 STATIC_PATH = ASSETS / "repository-globe-static.png"
+MASTER_PATH = ASSETS / "cinematic" / "repository-globe-master.png"
 
 WIDTH = HEIGHT = 560
-FRAME_COUNT = 96
-FRAME_DURATION_MS = 58
-TRANSPARENT_KEY = (255, 0, 255)
+FRAME_COUNT = 64
+FRAME_DURATION_MS = 72
 
 GREEN = (63, 185, 80)
 BRIGHT = (126, 231, 135)
@@ -68,15 +68,26 @@ def _line(layer: Image.Image, points: Iterable[tuple[float, float, float]], widt
         draw.line((start[0], start[1], end[0], end[1]), fill=(*color, max(12, opacity)), width=width)
 
 
-def _draw_globe(rotation: float) -> Image.Image:
-    frame = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+def _master_base() -> Image.Image:
+    if not MASTER_PATH.exists():
+        raise FileNotFoundError(f"Missing cinematic globe plate: {MASTER_PATH}")
+    with Image.open(MASTER_PATH) as source:
+        frame = source.convert("RGBA").resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+    veil = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+    vd = ImageDraw.Draw(veil, "RGBA")
+    vd.rectangle((0, 0, WIDTH, 58), fill=(0, 0, 0, 92))
+    vd.rectangle((0, 492, WIDTH, HEIGHT), fill=(0, 0, 0, 72))
+    frame.alpha_composite(veil.filter(ImageFilter.GaussianBlur(10)))
+    return frame
+
+
+def _draw_globe(rotation: float, master: Image.Image) -> Image.Image:
+    frame = master.copy()
 
     glow = Image.new("RGBA", frame.size, (0, 0, 0, 0))
     glow_draw = ImageDraw.Draw(glow, "RGBA")
-    glow_draw.ellipse((102, 58, 458, 414), outline=(*GREEN, 112), width=14)
-    glow_draw.ellipse((126, 82, 434, 390), fill=(*DEEP, 24))
-    glow_draw.line((280, 64, 280, 445), fill=(*BRIGHT, 86), width=3)
-    frame.alpha_composite(glow.filter(ImageFilter.GaussianBlur(18)))
+    glow_draw.ellipse((91, 47, 469, 425), outline=(*GREEN, 52), width=9)
+    frame.alpha_composite(glow.filter(ImageFilter.GaussianBlur(15)))
 
     grid = Image.new("RGBA", frame.size, (0, 0, 0, 0))
     for latitude in (-1.08, -0.72, -0.36, 0.0, 0.36, 0.72, 1.08):
@@ -108,18 +119,12 @@ def _draw_globe(rotation: float) -> Image.Image:
             radius = 1 + round(z * 1.5)
             draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=(*BRIGHT, round(75 + z * 145)))
 
-    draw.ellipse((111, 67, 449, 405), outline=(*BRIGHT, 190), width=2)
-    draw.arc((122, 79, 438, 395), 198, 327, fill=(*MINT, 225), width=3)
+    draw.ellipse((111, 67, 449, 405), outline=(*BRIGHT, 110), width=1)
+    draw.arc((122, 79, 438, 395), 198, 327, fill=(*MINT, 170), width=2)
     frame.alpha_composite(grid)
 
     base = Image.new("RGBA", frame.size, (0, 0, 0, 0))
     bd = ImageDraw.Draw(base, "RGBA")
-    bd.line((280, 401, 280, 438), fill=(*BRIGHT, 180), width=2)
-    for index, bounds in enumerate(((145, 408, 415, 470), (174, 420, 386, 460), (208, 430, 352, 451))):
-        bd.ellipse(bounds, outline=(*GREEN, 165 - index * 30), width=2)
-    for x in range(72, 489, 52):
-        bd.line((280, 435, x, 492), fill=(*DEEP, 68), width=1)
-    bd.line((75, 492, 485, 492), fill=(*GREEN, 94), width=1)
     bd.text((32, 28), "SYSTEMS OBSERVATORY", font=_font("mono", 12), fill=(*MINT, 235))
     bd.text((390, 28), "STATUS  ACTIVE", font=_font("mono", 10), fill=(*BRIGHT, 210))
     label = "REPOSITORY CONTOURS"
@@ -133,33 +138,27 @@ def _draw_globe(rotation: float) -> Image.Image:
 
 
 def _flatten(frame: Image.Image) -> Image.Image:
-    # GIF supports binary rather than graded transparency. Preserve the source
-    # green RGB values for retained pixels so the transparent key cannot bleed
-    # magenta into soft holographic layers during palette conversion.
-    rgb = frame.convert("RGB")
-    mask = frame.getchannel("A").point(lambda value: 255 if value <= 16 else 0)
-    rgb.paste(TRANSPARENT_KEY, mask=mask)
-    return rgb
+    return frame.convert("RGB")
 
 
 def generate() -> None:
-    frames = [_draw_globe(index * math.tau / FRAME_COUNT) for index in range(FRAME_COUNT)]
+    master = _master_base()
+    frames = [_draw_globe(index * math.tau / FRAME_COUNT, master) for index in range(FRAME_COUNT)]
     STATIC_PATH.parent.mkdir(parents=True, exist_ok=True)
     frames[10].save(STATIC_PATH, optimize=True)
 
-    atlas = Image.new("RGB", (WIDTH * 8, HEIGHT), TRANSPARENT_KEY)
-    for index, frame in enumerate(frames[::12]):
+    atlas = Image.new("RGB", (WIDTH * 8, HEIGHT), (0, 0, 0))
+    for index, frame in enumerate(frames[::8]):
         atlas.paste(_flatten(frame), (index * WIDTH, 0))
-    palette = atlas.quantize(colors=96, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    palette = atlas.quantize(colors=128, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     colors = palette.getpalette()
-    for index, color in enumerate((TRANSPARENT_KEY, GREEN, BRIGHT, MINT, DEEP, QUIET)):
+    for index, color in enumerate(((0, 0, 0), GREEN, BRIGHT, MINT, DEEP, QUIET)):
         colors[index * 3:index * 3 + 3] = list(color)
     palette.putpalette(colors)
 
     indexed: list[Image.Image] = []
     for frame in frames:
         item = _flatten(frame).quantize(palette=palette, dither=Image.Dither.NONE)
-        item.paste(0, mask=frame.getchannel("A").point(lambda value: 255 if value <= 16 else 0))
         indexed.append(item)
     indexed[0].save(
         GIF_PATH,
@@ -168,8 +167,7 @@ def generate() -> None:
         duration=FRAME_DURATION_MS,
         loop=0,
         optimize=True,
-        disposal=2,
-        transparency=0,
+        disposal=1,
     )
     print(f"Generated {GIF_PATH.name} ({GIF_PATH.stat().st_size:,} bytes) and {STATIC_PATH.name}.")
 

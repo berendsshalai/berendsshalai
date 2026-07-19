@@ -5,7 +5,7 @@ No employer names, client names, branch/location names, private operational data
 
 <div align="center">
 
-<img src="./assets/profile-header-optical-grey-clean.svg?version=20260719-emerald-v1" width="100%" alt="Sha-Lai Berends — Emerald Systems Observatory — Business Automation and Data Operations Builder" />
+<img src="./assets/profile-header-optical-grey-clean.svg?version=20260719-cinematic-v2" width="100%" alt="Sha-Lai Berends — Emerald Systems Observatory — Business Automation and Data Operations Builder" />
 
 <br />
 
@@ -16,10 +16,10 @@ No employer names, client names, branch/location names, private operational data
 </div>
 
 <p align="center">
-  <img src="./assets/profile-identity-tech-stack.svg?version=20260719-emerald-v1" width="63%" align="middle" alt="Sha-Lai Berends emerald operator identity card with ASCII portrait, repository list and technology stack icons" />
+  <img src="./assets/profile-identity-tech-stack.svg?version=20260719-cinematic-v2" width="63%" align="middle" alt="Sha-Lai Berends emerald operator identity card with ASCII portrait, repository list and technology stack icons" />
   <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/repository-globe-static.png?version=20260719-emerald-v1">
-    <img src="./assets/repository-globe.gif?version=20260719-emerald-v1" width="35%" align="middle" alt="Transparent rotating GitHub-green repository globe with system nodes, contour rings and observatory telemetry" />
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/repository-globe-static.png?version=20260719-cinematic-v2">
+    <img src="./assets/repository-globe.gif?version=20260719-cinematic-v2" width="35%" align="middle" alt="Cinematic rotating emerald repository globe with volumetric Earth detail, system nodes, contour rings and observatory telemetry" />
   </picture>
 </p>
 
@@ -35,10 +35,8 @@ No employer names, client names, branch/location names, private operational data
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version=20260719195728">
     <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719195728">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version=20260719195728">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719195728" width="100%" alt="Animated emerald systems observatory on a transparent background presenting live GitHub statistics through illuminated posters, a repository globe, desk and ASCII chair." />
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719195728" width="100%" alt="Cinematic Emerald Systems Observatory presenting live GitHub statistics through illuminated glass telemetry, a volumetric repository globe, a studio-quality desk and an observatory chair overlooking deep space." />
   </picture>
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
@@ -50,32 +48,32 @@ Updated automatically from the GitHub API. Contributions and commits cover the t
 ## Profile
 
 <p align="center">
-  <img src="./assets/profile-overview-optical-grey-clean.svg?version=20260719-emerald-v1" width="100%" alt="Profile, engineering direction, stack and operating principles for Sha-Lai Berends" />
+  <img src="./assets/profile-overview-optical-grey-clean.svg?version=20260719-cinematic-v2" width="100%" alt="Profile, engineering direction, stack and operating principles for Sha-Lai Berends" />
 </p>
 
 ## Selected repositories
 
 <p align="center">
-  <a href="https://github.com/berendsshalai/onboarding-pilot-ai"><img src="./assets/repo-card-onboarding-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="Onboarding Pilot AI repository"></a>
-  <a href="https://github.com/berendsshalai/berendsshalai-project-systemtoportfolio"><img src="./assets/repo-card-systemtoportfolio-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="System to Portfolio repository"></a>
-  <a href="https://github.com/berendsshalai/attendance-reconciliation-engine"><img src="./assets/repo-card-attendance-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="Attendance Reconciliation Engine repository"></a>
-  <a href="https://github.com/berendsshalai/berendsshalai-systems-lab"><img src="./assets/repo-card-systems-lab-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="Sha-Lai Berends Systems Lab repository"></a>
+  <a href="https://github.com/berendsshalai/onboarding-pilot-ai"><img src="./assets/repo-card-onboarding-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="Onboarding Pilot AI repository"></a>
+  <a href="https://github.com/berendsshalai/berendsshalai-project-systemtoportfolio"><img src="./assets/repo-card-systemtoportfolio-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="System to Portfolio repository"></a>
+  <a href="https://github.com/berendsshalai/attendance-reconciliation-engine"><img src="./assets/repo-card-attendance-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="Attendance Reconciliation Engine repository"></a>
+  <a href="https://github.com/berendsshalai/berendsshalai-systems-lab"><img src="./assets/repo-card-systems-lab-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="Sha-Lai Berends Systems Lab repository"></a>
 </p>
 
 ## Contact
 
 <p align="center">
-  <a href="https://github.com/berendsshalai"><img src="./assets/contact-card-github-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="GitHub: @berendsshalai"></a>
-  <a href="https://www.linkedin.com/in/sha-lai-berends"><img src="./assets/contact-card-linkedin-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="LinkedIn: Sha-Lai Berends"></a>
-  <a href="https://x.com/berendsshalai"><img src="./assets/contact-card-x-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="X: @berendsshalai"></a>
-  <a href="https://www.facebook.com/p/Sha-Lai-Berends-61591546301365/"><img src="./assets/contact-card-facebook-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="Facebook: Sha-Lai Berends"></a>
-  <a href="https://www.instagram.com/berendsshalai"><img src="./assets/contact-card-instagram-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="Instagram: @berendsshalai"></a>
-  <a href="https://bit.ly/3sA5312"><img src="./assets/contact-card-easyequities-optical-grey-clean.svg?version=20260719-emerald-v1" width="49%" alt="EasyEquities investor profile"></a>
-  <a href="https://sha-lai-be-2a6c6108-shalaiberends.wix-site-host.com"><img src="./assets/contact-card-website-optical-grey-clean.svg?version=20260719-emerald-v1" width="100%" alt="Portfolio website: Sha-Lai Berends"></a>
+  <a href="https://github.com/berendsshalai"><img src="./assets/contact-card-github-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="GitHub: @berendsshalai"></a>
+  <a href="https://www.linkedin.com/in/sha-lai-berends"><img src="./assets/contact-card-linkedin-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="LinkedIn: Sha-Lai Berends"></a>
+  <a href="https://x.com/berendsshalai"><img src="./assets/contact-card-x-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="X: @berendsshalai"></a>
+  <a href="https://www.facebook.com/p/Sha-Lai-Berends-61591546301365/"><img src="./assets/contact-card-facebook-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="Facebook: Sha-Lai Berends"></a>
+  <a href="https://www.instagram.com/berendsshalai"><img src="./assets/contact-card-instagram-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="Instagram: @berendsshalai"></a>
+  <a href="https://bit.ly/3sA5312"><img src="./assets/contact-card-easyequities-optical-grey-clean.svg?version=20260719-cinematic-v2" width="49%" alt="EasyEquities investor profile"></a>
+  <a href="https://sha-lai-be-2a6c6108-shalaiberends.wix-site-host.com"><img src="./assets/contact-card-website-optical-grey-clean.svg?version=20260719-cinematic-v2" width="100%" alt="Portfolio website: Sha-Lai Berends"></a>
 </p>
 
 ## Publication boundary
 
 <p align="center">
-  <img src="./assets/profile-boundary-optical-grey-clean.svg?version=20260719-emerald-v1" width="100%" alt="Clean-room public publication boundary" />
+  <img src="./assets/profile-boundary-optical-grey-clean.svg?version=20260719-cinematic-v2" width="100%" alt="Clean-room public publication boundary" />
 </p>

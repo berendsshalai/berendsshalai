@@ -244,10 +244,8 @@ def update_readme_cache_key(cache_key: str) -> None:
     replacement = f"""{start}
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version={cache_key}">
     <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version={cache_key}">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version={cache_key}">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version={cache_key}" width="100%" alt="Animated emerald systems observatory on a transparent background presenting live GitHub statistics through illuminated posters, a repository globe, desk and ASCII chair." />
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version={cache_key}" width="100%" alt="Cinematic Emerald Systems Observatory presenting live GitHub statistics through illuminated glass telemetry, a volumetric repository globe, a studio-quality desk and an observatory chair overlooking deep space." />
   </picture>
 </p>
 {end}"""
