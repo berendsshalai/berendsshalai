@@ -31,7 +31,7 @@ No employer names, client names, branch/location names, private operational data
 
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
-  <img src="./assets/ascii-stats-gallery.gif?version=20260719165230" width="100%" alt="Animated ASCII gallery of live GitHub statistics for Sha-Lai Berends: repositories, stars, followers, contributions, commits, estimated tracked source lines and estimated GitHub activity hours." />
+  <img src="./assets/ascii-stats-gallery.gif?version=20260719165656" width="100%" alt="Animated ASCII gallery of live GitHub statistics for Sha-Lai Berends: repositories, stars, followers, contributions, commits, estimated tracked source lines and estimated GitHub activity hours." />
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
 
