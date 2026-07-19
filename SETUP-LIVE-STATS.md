@@ -8,7 +8,7 @@ The GitHub profile repository must be public and named exactly:
 berendsshalai/berendsshalai
 ```
 
-Upload the entire bundle without flattening its directories.
+Keep the repository structure intact so the generator, validators and profile asset paths continue to resolve.
 
 ## First activation
 
@@ -16,10 +16,10 @@ Upload the entire bundle without flattening its directories.
 2. Open **Refresh profile statistics**.
 3. Select **Run workflow**.
 4. Confirm that the workflow commits:
-   - `assets/github-stats.svg`
-   - `data/github-stats.json`
+   - the four animated/static ASCII statistics assets;
+   - `data/github-stats.json`;
    - the README cache key.
-5. Open the profile page and verify all six statistics.
+5. Open the profile page and verify all seven statistics.
 
 ## Workflow permissions
 

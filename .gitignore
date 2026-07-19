@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+qa/
+assets/glass-environment.png

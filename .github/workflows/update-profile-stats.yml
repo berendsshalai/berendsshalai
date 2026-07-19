@@ -50,13 +50,13 @@ jobs:
       - name: Commit refreshed assets
         shell: bash
         run: |
-          if git diff --quiet -- README.md assets/github-stats.svg assets/ascii-stats-gallery-color-transparent.gif assets/ascii-stats-gallery-color-dark-transparent.gif assets/ascii-stats-gallery-color-transparent-static.png assets/ascii-stats-gallery-color-dark-transparent-static.png data/github-stats.json; then
+          if git diff --quiet -- README.md assets/ascii-stats-gallery-color-transparent.gif assets/ascii-stats-gallery-color-dark-transparent.gif assets/ascii-stats-gallery-color-transparent-static.png assets/ascii-stats-gallery-color-dark-transparent-static.png data/github-stats.json; then
             echo "No profile-stat changes detected."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/github-stats.svg assets/ascii-stats-gallery-color-transparent.gif assets/ascii-stats-gallery-color-dark-transparent.gif assets/ascii-stats-gallery-color-transparent-static.png assets/ascii-stats-gallery-color-dark-transparent-static.png data/github-stats.json
+          git add README.md assets/ascii-stats-gallery-color-transparent.gif assets/ascii-stats-gallery-color-dark-transparent.gif assets/ascii-stats-gallery-color-transparent-static.png assets/ascii-stats-gallery-color-dark-transparent-static.png data/github-stats.json
           git commit -m "chore(profile): refresh live GitHub statistics"
           git push
