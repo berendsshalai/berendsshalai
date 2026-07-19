@@ -8,6 +8,7 @@ transparent, repeatable and automatically refreshed.
 
 from __future__ import annotations
 
+import argparse
 import datetime as dt
 import html
 import json
@@ -24,11 +25,16 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
 
+from ascii_stats_room import render_ascii_statistics_room
+
 USERNAME = os.environ.get("GITHUB_USERNAME", "berendsshalai").strip()
 TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 ROOT = Path(__file__).resolve().parents[1]
 SVG_PATH = ROOT / "assets" / "github-stats.svg"
 GIF_PATH = ROOT / "assets" / "ascii-stats-gallery.gif"
+GIF_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-dark.gif"
+STATIC_PATH = ROOT / "assets" / "ascii-stats-gallery-static.png"
+STATIC_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-dark-static.png"
 JSON_PATH = ROOT / "data" / "github-stats.json"
 README_PATH = ROOT / "README.md"
 
@@ -520,7 +526,12 @@ def update_readme_cache_key(cache_key: str) -> None:
     end = "<!-- LIVE_STATS_IMAGE_END -->"
     replacement = f"""{start}
 <p align="center">
-  <img src="./assets/ascii-stats-gallery.gif?version={cache_key}" width="100%" alt="Animated ASCII gallery of live GitHub statistics for Sha-Lai Berends: repositories, stars, followers, contributions, commits, estimated tracked source lines and estimated GitHub activity hours." />
+  <picture>
+    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-dark-static.png?version={cache_key}">
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-static.png?version={cache_key}">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-dark.gif?version={cache_key}">
+    <img src="./assets/ascii-stats-gallery.gif?version={cache_key}" width="100%" alt="Animated ASCII room presenting live GitHub statistics for Sha-Lai Berends through a cinematic rotating gallery of repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
+  </picture>
 </p>
 {end}"""
     if start not in readme or end not in readme:
@@ -531,6 +542,17 @@ def update_readme_cache_key(cache_key: str) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--render-existing", action="store_true", help="Render using the last validated public statistics JSON without calling GitHub.")
+    parser.add_argument("--contact-sheet", type=Path, help="Optional local-only contact sheet path for visual QA.")
+    args = parser.parse_args()
+    if args.render_existing:
+        stats = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+        results = render_ascii_statistics_room(stats, ROOT, contact_sheet=args.contact_sheet)
+        cache_key = dt.datetime.fromisoformat(stats["updated_at_utc"]).strftime("%Y%m%d%H%M%S") + "-room-v1"
+        update_readme_cache_key(cache_key)
+        print(json.dumps({"statistics": stats, "renders": results}, indent=2, sort_keys=True))
+        return
     if not USERNAME or not TOKEN:
         raise RuntimeError("GITHUB_USERNAME and GITHUB_TOKEN are required.")
     user = fetch_user()
@@ -564,7 +586,7 @@ def main() -> None:
     SVG_PATH.parent.mkdir(parents=True, exist_ok=True)
     JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
     SVG_PATH.write_text(render_svg(stats), encoding="utf-8")
-    render_ascii_stats_gallery(stats)
+    render_ascii_statistics_room(stats, ROOT, contact_sheet=args.contact_sheet)
     JSON_PATH.write_text(json.dumps(stats, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     update_readme_cache_key(now.strftime("%Y%m%d%H%M%S"))
     print(json.dumps(stats, indent=2, sort_keys=True))

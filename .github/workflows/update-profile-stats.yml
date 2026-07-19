@@ -16,8 +16,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: profile-statistics
-  cancel-in-progress: false
+  group: live-profile-statistics
+  cancel-in-progress: true
 
 jobs:
   refresh:
@@ -41,19 +41,22 @@ jobs:
           python -m pip install --disable-pip-version-check "Pillow==11.3.0"
           python scripts/generate_profile_stats.py
 
+      - name: Validate cinematic ASCII statistics room
+        run: python scripts/validate_ascii_stats_room.py
+
       - name: Validate transparent optical-glass assets
         run: python scripts/validate_optical_glass.py
 
       - name: Commit refreshed assets
         shell: bash
         run: |
-          if git diff --quiet -- README.md assets/github-stats.svg assets/ascii-stats-gallery.gif data/github-stats.json; then
+          if git diff --quiet -- README.md assets/github-stats.svg assets/ascii-stats-gallery.gif assets/ascii-stats-gallery-dark.gif assets/ascii-stats-gallery-static.png assets/ascii-stats-gallery-dark-static.png data/github-stats.json; then
             echo "No profile-stat changes detected."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/github-stats.svg assets/ascii-stats-gallery.gif data/github-stats.json
+          git add README.md assets/github-stats.svg assets/ascii-stats-gallery.gif assets/ascii-stats-gallery-dark.gif assets/ascii-stats-gallery-static.png assets/ascii-stats-gallery-dark-static.png data/github-stats.json
           git commit -m "chore(profile): refresh live GitHub statistics"
           git push
