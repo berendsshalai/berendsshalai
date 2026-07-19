@@ -28,8 +28,8 @@ No employer names, client names, branch/location names, private operational data
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719205204">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719205204" width="100%" alt="Cinematic Emerald Systems Observatory presenting live GitHub statistics through illuminated glass telemetry, a volumetric repository globe, a studio-quality desk and an observatory chair overlooking deep space." />
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719205528">
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719205528" width="100%" alt="Cinematic Emerald Systems Observatory presenting live GitHub statistics through illuminated glass telemetry, a volumetric repository globe, a studio-quality desk and an observatory chair overlooking deep space." />
   </picture>
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
