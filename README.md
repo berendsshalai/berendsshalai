@@ -32,10 +32,10 @@ No employer names, client names, branch/location names, private operational data
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version=20260719184102">
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719184102">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version=20260719184102">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719184102" width="100%" alt="Color-rich animated ASCII room on a transparent background presenting live GitHub statistics for Sha-Lai Berends through repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
+    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version=20260719185210">
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719185210">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version=20260719185210">
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719185210" width="100%" alt="Color-rich animated ASCII room on a transparent background presenting live GitHub statistics for Sha-Lai Berends through repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
   </picture>
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
