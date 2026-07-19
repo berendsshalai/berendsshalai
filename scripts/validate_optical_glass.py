@@ -13,10 +13,10 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 TARGETS = [
-    ASSETS / "profile-header-optical-grey.svg",
-    ASSETS / "profile-identity-optical-grey.svg",
-    ASSETS / "profile-overview-optical-grey.svg",
-    ASSETS / "profile-boundary-optical-grey.svg",
+    ASSETS / "profile-header-optical-grey-clean.svg",
+    ASSETS / "profile-identity-optical-grey-clean.svg",
+    ASSETS / "profile-overview-optical-grey-clean.svg",
+    ASSETS / "profile-boundary-optical-grey-clean.svg",
     *sorted(ASSETS.glob("repo-card-*.svg")),
     *sorted(ASSETS.glob("contact-card-*.svg")),
 ]
@@ -27,6 +27,7 @@ PROHIBITED = {
     "foreignObject": "embedded HTML",
     "backdrop-filter": "unsupported backdrop filtering",
     "GLASS_PROFILE_THEME": "obsolete raster glass theme",
+    "paint-order:stroke": "text outline paint order",
 }
 
 
@@ -47,6 +48,10 @@ def validate_svg(path: Path) -> list[str]:
         return issues
     width, height = map(int, root.groups())
     if document is not None:
+        for element in document.iter():
+            if element.tag.rsplit("}", 1)[-1] == "text" and ("stroke" in element.attrib or "filter" in element.attrib):
+                issues.append("outlined or filtered text element")
+                break
         for element in document.iter():
             if element.tag.rsplit("}", 1)[-1] != "rect":
                 continue

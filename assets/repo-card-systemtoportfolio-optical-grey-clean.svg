@@ -79,10 +79,10 @@
   </g>
   <!-- OPTICAL_GLASS_SYSTEM_END -->
 
-<title id="title">Sha-Lai Berends Systems Lab</title><desc id="desc">Repository card for Sha-Lai Berends Systems Lab.</desc>
-  <style>.bg{fill:none;stroke:none}.label{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45;font:700 11px Consolas,monospace}.blue{fill:#58a6ff;paint-order:stroke;stroke:#07111f;stroke-opacity:.82;stroke-width:1.05}.white{fill:#58636d;paint-order:stroke;stroke:#f6f8fa;stroke-opacity:.78;stroke-width:1.15}.muted{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 22px Arial,Helvetica,sans-serif}</style>
-  <text x="22" y="38" class="label">CONTROL REPOSITORY</text>
-  <text x="22" y="74" class="white head">Sha-Lai Systems Lab</text>
-  <text x="22" y="104" class="blue body">Sanitized project systems, publication gates and docs.</text>
+<title id="title">System to Portfolio</title><desc id="desc">Repository card for System to Portfolio.</desc>
+  <style>.bg{fill:none;stroke:none}.label{fill:#b7cce0;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#58636d}.muted{fill:#b7cce0}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 22px Arial,Helvetica,sans-serif}</style>
+  <text x="22" y="38" class="label">CASE STUDY SYSTEM</text>
+  <text x="22" y="74" class="white head">System to Portfolio</text>
+  <text x="22" y="104" class="blue body">Architecture, secure publication and portfolio evidence.</text>
   <text x="22" y="138" class="muted body">Open repository -></text>
 </svg>
