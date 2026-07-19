@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 TARGETS = [
-    ASSETS / "profile-identity-optical-grey-clean.svg",
+    ASSETS / "profile-identity-tech-stack.svg",
     ASSETS / "profile-overview-optical-grey-clean.svg",
     ASSETS / "profile-boundary-optical-grey-clean.svg",
     *sorted(ASSETS.glob("repo-card-*.svg")),

@@ -16,7 +16,7 @@ No employer names, client names, branch/location names, private operational data
 </div>
 
 <p align="center">
-  <img src="./assets/profile-identity-optical-grey-clean.svg?version=20260719-optical-v5" width="63%" align="middle" alt="Sha-Lai Berends profile identity card" />
+  <img src="./assets/profile-identity-tech-stack.svg?version=20260719-stack-v1" width="63%" align="middle" alt="Sha-Lai Berends profile identity card with repository list and technology stack icons" />
   <a href="https://berendsshalai.github.io/berendsshalai/orb/" aria-label="Explore the interactive repository particle sphere">
     <picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="./assets/particle-orb-fallback.png">
