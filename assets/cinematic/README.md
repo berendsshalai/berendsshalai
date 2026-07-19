@@ -7,8 +7,8 @@ transaction, location or proprietary operational data.
 - `emerald-observatory-master.png` supplies the photographic deep-space window,
   desk, chair, plant, reflective floor and central emerald globe used beneath the
   live GitHub statistics animation.
-- `repository-globe-master.png` supplies the high-detail volumetric globe used by
-  the rotating repository-contours asset.
+- `repository-globe-transparent-v2.png` supplies the high-detail, text-free
+  volumetric globe and projection platform used by the transparent rotating asset.
 
 Live values, repository nodes, glass telemetry, accessibility fallbacks and motion
 are added deterministically by the Python generators in `scripts/`.

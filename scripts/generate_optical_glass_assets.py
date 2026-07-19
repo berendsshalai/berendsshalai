@@ -253,7 +253,6 @@ def generate_header() -> None:
     @media (prefers-color-scheme:dark){{.display,.body{{fill:#E6EDF3}}.quiet{{fill:#A8B3BC}}.telemetry{{fill:#7EE787}}}}
   </style>
   <g>
-    <text x="54" y="78" class="telemetry" font-size="12" font-weight="600" letter-spacing="2">EMERALD SYSTEMS OBSERVATORY // OPERATOR 01</text>
     <text x="54" y="143" class="display" font-size="46" font-weight="600" letter-spacing="1">SHA-LAI BERENDS</text>
     <text x="56" y="180" class="body" font-size="19" font-weight="500">Business Automation &amp; Data Operations Builder</text>
     <text x="56" y="218" class="telemetry" font-size="12" font-weight="500" letter-spacing=".8">OPERATIONS -&gt; EXPLICIT RULES -&gt; VALIDATED DATA -&gt; AUDITABLE SYSTEMS</text>
@@ -266,7 +265,6 @@ def generate_header() -> None:
     <circle cx="933" cy="103" r="3" fill="#7EE787" stroke="none"/>
     <circle cx="877" cy="147" r="2.5" fill="#56D364" stroke="none"/>
   </g>
-  <text x="907" y="211" text-anchor="middle" class="quiet" font-size="10">SYSTEM STATUS // OPERATIONAL</text>
 </svg>
 '''
     (ASSETS / "profile-header-optical-grey-clean.svg").write_text(svg, encoding="utf-8")

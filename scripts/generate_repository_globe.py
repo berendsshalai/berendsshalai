@@ -7,15 +7,14 @@ import math
 from pathlib import Path
 from typing import Iterable
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
-FONTS = ASSETS / "fonts"
 GIF_PATH = ASSETS / "repository-globe.gif"
 STATIC_PATH = ASSETS / "repository-globe-static.png"
-MASTER_PATH = ASSETS / "cinematic" / "repository-globe-master.png"
+MASTER_PATH = ASSETS / "cinematic" / "repository-globe-transparent-v2.png"
 
 WIDTH = HEIGHT = 560
 FRAME_COUNT = 64
@@ -26,27 +25,14 @@ BRIGHT = (126, 231, 135)
 MINT = (86, 211, 100)
 DEEP = (35, 134, 54)
 QUIET = (46, 160, 67)
+TRANSPARENT_KEY = (255, 0, 255)
 
 REPOSITORIES = [
-    ("ATTENDANCE", -0.42, -1.02),
-    ("SYSTEMS LAB", 0.54, -0.28),
-    ("ONBOARDING", 0.18, 1.18),
-    ("PORTFOLIO", -0.62, 0.46),
+    (-0.42, -1.02),
+    (0.54, -0.28),
+    (0.18, 1.18),
+    (-0.62, 0.46),
 ]
-
-
-def _font(role: str, size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    candidates = {
-        "display": [FONTS / "SpaceGrotesk-Variable.ttf", Path("C:/Windows/Fonts/segoeuib.ttf")],
-        "body": [FONTS / "Inter-Variable.ttf", Path("C:/Windows/Fonts/segoeui.ttf")],
-        "mono": [FONTS / "IBMPlexMono-Medium.ttf", Path("C:/Windows/Fonts/consola.ttf")],
-    }[role]
-    for candidate in candidates:
-        try:
-            return ImageFont.truetype(str(candidate), size)
-        except OSError:
-            continue
-    return ImageFont.load_default()
 
 
 def _project(lat: float, lon: float, rotation: float, radius: float = 164) -> tuple[float, float, float]:
@@ -73,11 +59,6 @@ def _master_base() -> Image.Image:
         raise FileNotFoundError(f"Missing cinematic globe plate: {MASTER_PATH}")
     with Image.open(MASTER_PATH) as source:
         frame = source.convert("RGBA").resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
-    veil = Image.new("RGBA", frame.size, (0, 0, 0, 0))
-    vd = ImageDraw.Draw(veil, "RGBA")
-    vd.rectangle((0, 0, WIDTH, 58), fill=(0, 0, 0, 92))
-    vd.rectangle((0, 492, WIDTH, HEIGHT), fill=(0, 0, 0, 72))
-    frame.alpha_composite(veil.filter(ImageFilter.GaussianBlur(10)))
     return frame
 
 
@@ -96,15 +77,14 @@ def _draw_globe(rotation: float, master: Image.Image) -> Image.Image:
         _line(grid, (_project(-math.pi / 2 + step * math.pi / 48, longitude, rotation) for step in range(49)))
 
     draw = ImageDraw.Draw(grid, "RGBA")
-    nodes: list[tuple[float, float, float, str]] = []
-    for index, (name, lat, lon) in enumerate(REPOSITORIES):
+    nodes: list[tuple[float, float, float]] = []
+    for lat, lon in REPOSITORIES:
         x, y, z = _project(lat, lon, rotation)
-        nodes.append((x, y, z, name))
+        nodes.append((x, y, z))
         if z > -0.08:
             radius = 5 if z > 0.28 else 3
             draw.ellipse((x - radius * 2.4, y - radius * 2.4, x + radius * 2.4, y + radius * 2.4), fill=(*GREEN, 28))
             draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=(*BRIGHT, 245), outline=(*GREEN, 255), width=1)
-            draw.text((x + 8, y - 8), f"R{index + 1:02d}", font=_font("mono", 9), fill=(*BRIGHT, 210))
     for index, start in enumerate(nodes):
         end = nodes[(index + 1) % len(nodes)]
         if start[2] > 0 and end[2] > 0:
@@ -122,23 +102,15 @@ def _draw_globe(rotation: float, master: Image.Image) -> Image.Image:
     draw.ellipse((111, 67, 449, 405), outline=(*BRIGHT, 110), width=1)
     draw.arc((122, 79, 438, 395), 198, 327, fill=(*MINT, 170), width=2)
     frame.alpha_composite(grid)
-
-    base = Image.new("RGBA", frame.size, (0, 0, 0, 0))
-    bd = ImageDraw.Draw(base, "RGBA")
-    bd.text((32, 28), "SYSTEMS OBSERVATORY", font=_font("mono", 12), fill=(*MINT, 235))
-    bd.text((390, 28), "STATUS  ACTIVE", font=_font("mono", 10), fill=(*BRIGHT, 210))
-    label = "REPOSITORY CONTOURS"
-    box = bd.textbbox((0, 0), label, font=_font("display", 20))
-    bd.text(((WIDTH - (box[2] - box[0])) / 2, 505), label, font=_font("display", 20), fill=(*BRIGHT, 245))
-    detail = "04 FEATURED SYSTEMS  //  LIVE ROTATION"
-    box = bd.textbbox((0, 0), detail, font=_font("mono", 9))
-    bd.text(((WIDTH - (box[2] - box[0])) / 2, 536), detail, font=_font("mono", 9), fill=(*GREEN, 210))
-    frame.alpha_composite(base)
     return frame
 
 
 def _flatten(frame: Image.Image) -> Image.Image:
-    return frame.convert("RGB")
+    rgb = Image.new("RGB", frame.size, TRANSPARENT_KEY)
+    alpha = frame.getchannel("A")
+    opaque = alpha.point(lambda value: 255 if value > 12 else 0)
+    rgb.paste(frame.convert("RGB"), mask=opaque)
+    return rgb
 
 
 def generate() -> None:
@@ -147,18 +119,20 @@ def generate() -> None:
     STATIC_PATH.parent.mkdir(parents=True, exist_ok=True)
     frames[10].save(STATIC_PATH, optimize=True)
 
-    atlas = Image.new("RGB", (WIDTH * 8, HEIGHT), (0, 0, 0))
+    atlas = Image.new("RGB", (WIDTH * 8, HEIGHT), TRANSPARENT_KEY)
     for index, frame in enumerate(frames[::8]):
         atlas.paste(_flatten(frame), (index * WIDTH, 0))
     palette = atlas.quantize(colors=128, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     colors = palette.getpalette()
-    for index, color in enumerate(((0, 0, 0), GREEN, BRIGHT, MINT, DEEP, QUIET)):
+    for index, color in enumerate((TRANSPARENT_KEY, GREEN, BRIGHT, MINT, DEEP, QUIET)):
         colors[index * 3:index * 3 + 3] = list(color)
     palette.putpalette(colors)
 
     indexed: list[Image.Image] = []
     for frame in frames:
         item = _flatten(frame).quantize(palette=palette, dither=Image.Dither.NONE)
+        transparent = frame.getchannel("A").point(lambda value: 255 if value <= 12 else 0)
+        item.paste(0, mask=transparent)
         indexed.append(item)
     indexed[0].save(
         GIF_PATH,
@@ -167,6 +141,7 @@ def generate() -> None:
         duration=FRAME_DURATION_MS,
         loop=0,
         optimize=True,
+        transparency=0,
         disposal=1,
     )
     print(f"Generated {GIF_PATH.name} ({GIF_PATH.stat().st_size:,} bytes) and {STATIC_PATH.name}.")
