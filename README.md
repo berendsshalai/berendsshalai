@@ -5,7 +5,7 @@ No employer names, client names, branch/location names, private operational data
 
 <div align="center">
 
-<img src="./assets/profile-header-optical-grey-clean.svg?version=20260719-transparent-v3" width="100%" alt="Sha-Lai Berends — Business Automation and Data Operations Builder" />
+<img src="./assets/profile-header-transparent-v3.svg" width="100%" alt="Sha-Lai Berends — Business Automation and Data Operations Builder" />
 
 <br />
 
@@ -18,8 +18,8 @@ No employer names, client names, branch/location names, private operational data
 <p align="center">
   <img src="./assets/profile-identity-tech-stack.svg?version=20260719-transparent-v3" width="63%" align="middle" alt="Sha-Lai Berends emerald operator identity card with ASCII portrait, repository list and technology stack icons" />
   <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/repository-globe-static.png?version=20260719-transparent-v3">
-    <img src="./assets/repository-globe.gif?version=20260719-transparent-v3" width="35%" align="middle" alt="Transparent rotating emerald repository globe with volumetric Earth detail and system nodes" />
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/repository-globe-transparent-v3-static.png">
+    <img src="./assets/repository-globe-transparent-v3.gif" width="35%" align="middle" alt="Transparent rotating emerald repository globe with volumetric Earth detail and system nodes" />
   </picture>
 </p>
 

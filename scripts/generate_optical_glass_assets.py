@@ -267,7 +267,7 @@ def generate_header() -> None:
   </g>
 </svg>
 '''
-    (ASSETS / "profile-header-optical-grey-clean.svg").write_text(svg, encoding="utf-8")
+    (ASSETS / "profile-header-transparent-v3.svg").write_text(svg, encoding="utf-8")
 
 
 def main() -> None:

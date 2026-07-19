@@ -13,7 +13,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 TARGETS = [
-    ASSETS / "profile-header-optical-grey-clean.svg",
+    ASSETS / "profile-header-transparent-v3.svg",
     ASSETS / "profile-identity-tech-stack.svg",
     ASSETS / "profile-overview-optical-grey-clean.svg",
     ASSETS / "profile-boundary-optical-grey-clean.svg",
@@ -74,7 +74,7 @@ def validate_svg(path: Path) -> list[str]:
         issues.append("missing telemetry font stack")
     if "Inter" not in text:
         issues.append("missing interface font stack")
-    if path.name == "profile-header-optical-grey-clean.svg" and "Space Grotesk" not in text:
+    if path.name == "profile-header-transparent-v3.svg" and "Space Grotesk" not in text:
         issues.append("missing display font stack")
     return issues
 

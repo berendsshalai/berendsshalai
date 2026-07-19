@@ -12,8 +12,8 @@ from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
-GIF_PATH = ASSETS / "repository-globe.gif"
-STATIC_PATH = ASSETS / "repository-globe-static.png"
+GIF_PATH = ASSETS / "repository-globe-transparent-v3.gif"
+STATIC_PATH = ASSETS / "repository-globe-transparent-v3-static.png"
 MASTER_PATH = ASSETS / "cinematic" / "repository-globe-transparent-v2.png"
 
 WIDTH = HEIGHT = 560

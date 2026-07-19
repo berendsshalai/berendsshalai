@@ -7,8 +7,8 @@ from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GIF = ROOT / "assets" / "repository-globe.gif"
-STATIC = ROOT / "assets" / "repository-globe-static.png"
+GIF = ROOT / "assets" / "repository-globe-transparent-v3.gif"
+STATIC = ROOT / "assets" / "repository-globe-transparent-v3-static.png"
 
 
 def main() -> None:
