@@ -21,12 +21,12 @@ No employer names, client names, branch/location names, private operational data
 
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
-  <img src="./assets/github-stats.svg?version=20260719064220" width="100%" alt="Live GitHub statistics for Sha-Lai Berends: repositories, stars, followers, contributions, commits and estimated tracked source lines." />
+  <img src="./assets/github-stats.svg?version=20260719133226" width="100%" alt="Live GitHub statistics for Sha-Lai Berends: repositories, stars, followers, contributions, commits, estimated tracked source lines and estimated GitHub activity hours." />
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
 
 <sub>
-Updated automatically from the GitHub API. Contributions and commits cover the trailing 365 days. Source lines are an estimate of currently tracked source-code lines across owned, public, non-fork repositories; generated files, dependencies, binaries and documentation are excluded.
+Updated automatically from the GitHub API. Contributions and commits cover the trailing 365 days. Source lines are an estimate of currently tracked source-code lines across owned, public, non-fork repositories; generated files, dependencies, binaries and documentation are excluded. GitHub hours are an activity-based lifetime estimate using 1.5 hours per commit, 2 per pull request, 0.75 per review and 0.5 per issue. They do not represent literal logged-in or browser time.
 </sub>
 
 ## Profile
@@ -34,7 +34,6 @@ Updated automatically from the GitHub API. Contributions and commits cover the t
 <p align="center">
   <img src="./assets/profile-overview.svg" width="100%" alt="Profile, engineering direction, stack and operating principles for Sha-Lai Berends" />
 </p>
-
 ## Selected repositories
 
 <p align="center">

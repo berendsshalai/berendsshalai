@@ -3,21 +3,30 @@
   "contributions_365d": 28,
   "definitions": {
     "commits_365d": "Commit contributions reported by GitHub for the trailing 365 days.",
-    "contributions_365d": "GitHub contribution-calendar total plus restricted contribution count for the trailing 365 days.",
-    "estimated_source_lines": "Current tracked source-code lines on cloned default branches, excluding common vendor, generated, binary and documentation paths.",
+    "contributions_365d": "GitHub contribution-calendar total plus restricted contributions for the trailing 365 days.",
+    "estimated_github_hours": "Activity-based lifetime estimate: 1.5 hours per commit, 2 per pull request, 0.75 per review and 0.5 per issue. It is not literal logged-in or browser time.",
+    "estimated_source_lines": "Current tracked source lines on default branches, excluding common vendor, generated, binary and documentation paths.",
     "followers": "Current GitHub follower count.",
     "repositories": "Currently owned public repositories returned by the GitHub REST API.",
     "stars": "Current stargazer totals summed across owned public repositories."
   },
+  "estimated_github_hours": 34,
   "estimated_source_lines": 10626,
   "followers": 0,
   "issues_365d": 0,
+  "lifetime_contribution_totals": {
+    "commits": 21,
+    "contributions": 28,
+    "issues": 0,
+    "pull_requests": 1,
+    "reviews": 0
+  },
   "pull_requests_365d": 1,
   "repositories": 5,
   "reviews_365d": 0,
   "source_line_repositories_counted": 5,
   "source_line_repositories_failed": [],
   "stars": 0,
-  "updated_at_utc": "2026-07-19T06:42:20+00:00",
+  "updated_at_utc": "2026-07-19T13:32:26+00:00",
   "username": "berendsshalai"
 }

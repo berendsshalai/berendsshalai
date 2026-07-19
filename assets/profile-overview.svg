@@ -1,28 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="720" viewBox="0 0 1000 720" role="img" aria-labelledby="title desc">
   <title id="title">Profile overview blocks</title>
-  <desc id="desc">Dark block layout describing profile, engineering direction, stack and operating principles.</desc>
+  <desc id="desc">Dark block layout describing profile, engineering direction, stack and operating principles. All text is wrapped within its card.</desc>
   <style>
-    .bg{fill:#0d1117;stroke:#30363d}.card{fill:#161b22;stroke:#30363d}.label{fill:#8b949e;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f0f6fc}.muted{fill:#8b949e}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 24px Arial,Helvetica,sans-serif}.mid{font:700 17px Arial,Helvetica,sans-serif}
+    .bg{fill:#0d1117;stroke:#30363d}.card{fill:#161b22;stroke:#30363d}.label{fill:#8b949e;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f0f6fc}.muted{fill:#8b949e}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 24px Arial,Helvetica,sans-serif}.mid{font:700 17px Arial,Helvetica,sans-serif}.compact{font:700 15px Arial,Helvetica,sans-serif}
   </style>
-  <rect x="1" y="1" width="998" height="688" rx="16" class="bg"/>
+  <rect x="1" y="1" width="998" height="718" rx="16" class="bg"/>
   <text x="28" y="42" class="white head">Profile</text>
   <text x="28" y="68" class="muted body">I convert fragmented administrative work into structured, validated and auditable workflows.</text>
-  <rect x="28" y="96" width="292" height="118" rx="12" class="card"/>
-  <text x="46" y="124" class="label">OBSERVE</text><text x="46" y="156" class="blue mid">Workflow discovery</text><text x="46" y="184" class="muted body">Find repeated manual steps and hidden decision rules.</text>
-  <rect x="354" y="96" width="292" height="118" rx="12" class="card"/>
-  <text x="372" y="124" class="label">VALIDATE</text><text x="372" y="156" class="blue mid">Data quality gates</text><text x="372" y="184" class="muted body">Make inputs explicit, testable and privacy-safe.</text>
-  <rect x="680" y="96" width="292" height="118" rx="12" class="card"/>
-  <text x="698" y="124" class="label">AUTOMATE</text><text x="698" y="156" class="blue mid">Exception workflows</text><text x="698" y="184" class="muted body">Remove repetition while keeping human review visible.</text>
-  <text x="28" y="268" class="white head">Current engineering direction</text>
-  <rect x="28" y="294" width="292" height="88" rx="12" class="card"/><text x="46" y="322" class="label">WORKFORCE</text><text x="46" y="352" class="blue mid">Attendance reconciliation</text>
-  <rect x="354" y="294" width="292" height="88" rx="12" class="card"/><text x="372" y="322" class="label">FINANCE OPS</text><text x="372" y="352" class="blue mid">Matching and exceptions</text>
-  <rect x="680" y="294" width="292" height="88" rx="12" class="card"/><text x="698" y="322" class="label">RECRUITMENT</text><text x="698" y="352" class="blue mid">Validated intake routing</text>
-  <rect x="28" y="400" width="292" height="88" rx="12" class="card"/><text x="46" y="428" class="label">DOCUMENTS</text><text x="46" y="458" class="blue mid">OCR and review queues</text>
-  <rect x="354" y="400" width="292" height="88" rx="12" class="card"/><text x="372" y="428" class="label">COMMUNICATION</text><text x="372" y="458" class="blue mid">Auditable delivery</text>
-  <rect x="680" y="400" width="292" height="88" rx="12" class="card"/><text x="698" y="428" class="label">EDUCATION</text><text x="698" y="458" class="blue mid">Case studies and guides</text>
-  <text x="28" y="542" class="white head">Stack and operating principles</text>
-  <rect x="28" y="568" width="210" height="76" rx="12" class="card"/><text x="46" y="596" class="label">CODE</text><text x="46" y="624" class="blue mid">Python / TS / JS / Java</text>
-  <rect x="258" y="568" width="210" height="76" rx="12" class="card"/><text x="276" y="596" class="label">DATA</text><text x="276" y="624" class="blue mid">SQL / Excel / SQLite</text>
-  <rect x="488" y="568" width="210" height="76" rx="12" class="card"/><text x="506" y="596" class="label">SYSTEMS</text><text x="506" y="624" class="blue mid">MCP / CI / FastAPI</text>
-  <rect x="718" y="568" width="254" height="76" rx="12" class="card"/><text x="736" y="596" class="label">PRINCIPLES</text><text x="736" y="624" class="blue mid">Privacy / auditability / validation</text>
+
+  <rect x="28" y="96" width="292" height="132" rx="12" class="card"/>
+  <text x="46" y="124" class="label">OBSERVE</text>
+  <text x="46" y="156" class="blue mid">Workflow discovery</text>
+  <text x="46" y="184" class="muted body"><tspan x="46" dy="0">Find repeated manual steps and</tspan><tspan x="46" dy="20">hidden decision rules.</tspan></text>
+
+  <rect x="354" y="96" width="292" height="132" rx="12" class="card"/>
+  <text x="372" y="124" class="label">VALIDATE</text>
+  <text x="372" y="156" class="blue mid">Data quality gates</text>
+  <text x="372" y="184" class="muted body"><tspan x="372" dy="0">Make inputs explicit, testable and</tspan><tspan x="372" dy="20">privacy-safe.</tspan></text>
+
+  <rect x="680" y="96" width="292" height="132" rx="12" class="card"/>
+  <text x="698" y="124" class="label">AUTOMATE</text>
+  <text x="698" y="156" class="blue mid">Exception workflows</text>
+  <text x="698" y="184" class="muted body"><tspan x="698" dy="0">Remove repetition while keeping</tspan><tspan x="698" dy="20">human review visible.</tspan></text>
+
+  <text x="28" y="278" class="white head">Current engineering direction</text>
+  <rect x="28" y="304" width="292" height="88" rx="12" class="card"/><text x="46" y="332" class="label">WORKFORCE</text><text x="46" y="362" class="blue mid">Attendance reconciliation</text>
+  <rect x="354" y="304" width="292" height="88" rx="12" class="card"/><text x="372" y="332" class="label">FINANCE OPS</text><text x="372" y="362" class="blue mid">Matching and exceptions</text>
+  <rect x="680" y="304" width="292" height="88" rx="12" class="card"/><text x="698" y="332" class="label">RECRUITMENT</text><text x="698" y="362" class="blue mid">Validated intake routing</text>
+  <rect x="28" y="410" width="292" height="88" rx="12" class="card"/><text x="46" y="438" class="label">DOCUMENTS</text><text x="46" y="468" class="blue mid">OCR and review queues</text>
+  <rect x="354" y="410" width="292" height="88" rx="12" class="card"/><text x="372" y="438" class="label">COMMUNICATION</text><text x="372" y="468" class="blue mid">Auditable delivery</text>
+  <rect x="680" y="410" width="292" height="88" rx="12" class="card"/><text x="698" y="438" class="label">EDUCATION</text><text x="698" y="468" class="blue mid">Case studies and guides</text>
+
+  <text x="28" y="552" class="white head">Stack and operating principles</text>
+  <rect x="28" y="578" width="210" height="92" rx="12" class="card"/><text x="46" y="606" class="label">CODE</text><text x="46" y="634" class="blue compact"><tspan x="46" dy="0">Python / TS / JS</tspan><tspan x="46" dy="20">Java</tspan></text>
+  <rect x="258" y="578" width="210" height="92" rx="12" class="card"/><text x="276" y="606" class="label">DATA</text><text x="276" y="634" class="blue compact"><tspan x="276" dy="0">SQL / Excel</tspan><tspan x="276" dy="20">SQLite</tspan></text>
+  <rect x="488" y="578" width="210" height="92" rx="12" class="card"/><text x="506" y="606" class="label">SYSTEMS</text><text x="506" y="634" class="blue compact"><tspan x="506" dy="0">MCP / CI</tspan><tspan x="506" dy="20">FastAPI</tspan></text>
+  <rect x="718" y="578" width="254" height="92" rx="12" class="card"/><text x="736" y="606" class="label">PRINCIPLES</text><text x="736" y="634" class="blue compact"><tspan x="736" dy="0">Privacy / auditability</tspan><tspan x="736" dy="20">Validation</tspan></text>
 </svg>
