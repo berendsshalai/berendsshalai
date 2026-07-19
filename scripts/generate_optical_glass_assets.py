@@ -10,9 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 TARGETS = [
-    ASSETS / "profile-identity.svg",
-    ASSETS / "profile-overview.svg",
-    ASSETS / "profile-boundary.svg",
+    ASSETS / "profile-identity-optical.svg",
+    ASSETS / "profile-overview-optical.svg",
+    ASSETS / "profile-boundary-optical.svg",
     *sorted(ASSETS.glob("repo-card-*.svg")),
     *sorted(ASSETS.glob("contact-card-*.svg")),
 ]
@@ -194,7 +194,7 @@ def generate_header() -> None:
   <text x="916" y="108" text-anchor="middle" fill="#DCE9F6" paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.45" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
 </svg>
 '''
-    (ASSETS / "profile-header.svg").write_text(svg, encoding="utf-8")
+    (ASSETS / "profile-header-optical.svg").write_text(svg, encoding="utf-8")
 
 
 def main() -> None:
