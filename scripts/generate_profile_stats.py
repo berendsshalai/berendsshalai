@@ -31,10 +31,10 @@ USERNAME = os.environ.get("GITHUB_USERNAME", "berendsshalai").strip()
 TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 ROOT = Path(__file__).resolve().parents[1]
 SVG_PATH = ROOT / "assets" / "github-stats.svg"
-GIF_PATH = ROOT / "assets" / "ascii-stats-gallery.gif"
-GIF_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-dark.gif"
-STATIC_PATH = ROOT / "assets" / "ascii-stats-gallery-static.png"
-STATIC_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-dark-static.png"
+GIF_PATH = ROOT / "assets" / "ascii-stats-gallery-color-transparent.gif"
+GIF_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-color-dark-transparent.gif"
+STATIC_PATH = ROOT / "assets" / "ascii-stats-gallery-color-transparent-static.png"
+STATIC_DARK_PATH = ROOT / "assets" / "ascii-stats-gallery-color-dark-transparent-static.png"
 JSON_PATH = ROOT / "data" / "github-stats.json"
 README_PATH = ROOT / "README.md"
 
@@ -527,10 +527,10 @@ def update_readme_cache_key(cache_key: str) -> None:
     replacement = f"""{start}
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-dark-static.png?version={cache_key}">
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-static.png?version={cache_key}">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-dark.gif?version={cache_key}">
-    <img src="./assets/ascii-stats-gallery.gif?version={cache_key}" width="100%" alt="Animated ASCII room presenting live GitHub statistics for Sha-Lai Berends through a cinematic rotating gallery of repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
+    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version={cache_key}">
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version={cache_key}">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version={cache_key}">
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version={cache_key}" width="100%" alt="Color-rich animated ASCII room on a transparent background presenting live GitHub statistics for Sha-Lai Berends through repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
   </picture>
 </p>
 {end}"""

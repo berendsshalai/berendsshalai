@@ -18,6 +18,8 @@ FPS = 15
 FRAMES_PER_METRIC = 50
 METRIC_COUNT = 7
 FRAME_DURATION_MS = round(1000 / FPS)
+TRANSPARENT_KEY = (255, 0, 255)
+GIF_ALPHA_THRESHOLD = 70
 
 
 @dataclass(frozen=True)
@@ -99,23 +101,23 @@ def _metric_rows(stats: dict[str, Any]) -> list[tuple[str, str, str]]:
 
 
 def _room_base(theme: Theme) -> Image.Image:
-    image = Image.new("RGB", (WIDTH, HEIGHT), theme.edge)
-    pixels = image.load()
-    for y in range(HEIGHT):
-        for x in range(WIDTH):
-            edge_distance = min(x, WIDTH - 1 - x, y, HEIGHT - 1 - y)
-            edge_fade = _smooth(min(1.0, edge_distance / 125.0))
-            center_light = max(0.0, 1.0 - math.hypot((x - 560) / 730, (y - 370) / 610))
-            amount = edge_fade * (0.72 + center_light * 0.28)
-            pixels[x, y] = _mix(theme.edge, theme.wall, amount)
+    image = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    atmosphere = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    atmospheric_draw = ImageDraw.Draw(atmosphere, "RGBA")
+    wall_alpha = 34 if theme.name == "dark" else 20
+    atmospheric_draw.ellipse((105, 35, 1095, 790), fill=_alpha(theme.wall, wall_alpha))
+    atmospheric_draw.ellipse((175, 35, 760, 660), fill=_alpha(ACCENTS[0], 25 if theme.name == "dark" else 16))
+    atmospheric_draw.ellipse((520, 120, 1050, 720), fill=_alpha(ACCENTS[4], 18 if theme.name == "dark" else 11))
+    image.alpha_composite(atmosphere.filter(ImageFilter.GaussianBlur(72)))
     draw = ImageDraw.Draw(image, "RGBA")
     mono = _font(11)
     glyphs = ".,:;"
     for row, y in enumerate(range(44, 670, 24)):
         for col, x in enumerate(range(26, WIDTH - 26, 31)):
             if (row * 19 + col * 31) % 7 in (0, 3):
-                draw.text((x, y), glyphs[(row + col) % len(glyphs)], font=mono, fill=_alpha(theme.wall_glyph, 35))
-    draw.line((90, 688, 1110, 688), fill=_alpha(theme.wall_glyph, 70), width=1)
+                atmospheric_color = ACCENTS[(row + col) % len(ACCENTS)] if (row + col) % 5 == 0 else theme.wall_glyph
+                draw.text((x, y), glyphs[(row + col) % len(glyphs)], font=mono, fill=_alpha(atmospheric_color, 54))
+    draw.line((90, 688, 1110, 688), fill=_alpha(ACCENTS[0], 105), width=1)
     return image
 
 
@@ -134,6 +136,7 @@ def _draw_ascii_illustration(layer: Image.Image, metric: int, box: tuple[int, in
     ][metric]
     line_h = max(12, round((y1 - y0) / 6))
     for line_no, text in enumerate(art):
+        _center_text(draw, ((x0 + x1) / 2 + 1, y0 + line_no * line_h + 1), text, font, _alpha(accent, round(opacity * 0.24)))
         _center_text(draw, ((x0 + x1) / 2, y0 + line_no * line_h), text, font, _alpha(accent, opacity))
 
 
@@ -142,13 +145,15 @@ def _poster(theme: Theme, metric: int, title: str, value: str, note: str, update
     panel = Image.new("RGBA", size, (0, 0, 0, 0))
     shadow = Image.new("RGBA", size, (0, 0, 0, 0))
     sd = ImageDraw.Draw(shadow, "RGBA")
-    sd.rounded_rectangle((18, 20, width - 18, height - 10), radius=22, fill=(0, 0, 0, 75 if theme.name == "light" else 125))
+    accent = ACCENTS[metric]
+    sd.rounded_rectangle((18, 20, width - 18, height - 10), radius=22, fill=_alpha(accent, 60 if active else 35))
+    sd.rounded_rectangle((22, 25, width - 14, height - 6), radius=22, fill=(0, 0, 0, 62 if theme.name == "light" else 118))
     shadow = shadow.filter(ImageFilter.GaussianBlur(13))
     panel.alpha_composite(shadow)
     draw = ImageDraw.Draw(panel, "RGBA")
-    accent = ACCENTS[metric]
     fill = theme.poster if active else theme.poster_far
-    draw.rounded_rectangle((9, 7, width - 9, height - 17), radius=19, fill=_alpha(fill, 246), outline=_alpha(_mix(theme.wall_glyph, accent, 0.25), 155), width=1)
+    draw.rounded_rectangle((9, 7, width - 9, height - 17), radius=19, fill=_alpha(fill, 235), outline=_alpha(accent, 205 if active else 125), width=1)
+    draw.line((29, 8, width - 29, 8), fill=_alpha(accent, 245 if active else 145), width=2)
     # ASCII material shell: aligned, stable characters instead of raster noise.
     shell_font = _font(10)
     shell_chars = ".:;+=x"
@@ -159,7 +164,7 @@ def _poster(theme: Theme, metric: int, title: str, value: str, note: str, update
     draw.text((28, 25), f"{metric + 1:02d} / {title}", font=_font(19, True), fill=_alpha(accent if active else theme.secondary, 255))
     draw.text((28, 60), value, font=_font(45, True), fill=_alpha(theme.primary, 255))
     draw.text((28, 112), note, font=_font(13, True), fill=_alpha(theme.secondary, 235))
-    _draw_ascii_illustration(panel, metric, (25, 155, width - 25, height - 82), accent, 230 if active else 155)
+    _draw_ascii_illustration(panel, metric, (25, 155, width - 25, height - 82), accent, 255 if active else 205)
     draw.ellipse((29, height - 55, 42, height - 42), fill=_alpha(accent, 255))
     draw.text((53, height - 59), updated, font=_font(11), fill=_alpha(theme.muted, 220))
     return panel
@@ -192,7 +197,7 @@ def _draw_hero(base: Image.Image, theme: Theme, metric: int, row: tuple[str, str
     value_size = 170 if len(value) <= 4 else 138
     _center_text(draw, (600, 204), value, _font(value_size, True), _alpha(theme.primary, hero_alpha))
     _center_text(draw, (600, 405), note, _font(25, True), _alpha(theme.secondary, hero_alpha))
-    _draw_ascii_illustration(layer, metric, (330, 468, 870, 650), accent, round(215 * amount))
+    _draw_ascii_illustration(layer, metric, (330, 468, 870, 650), accent, round(248 * amount))
     _center_text(draw, (600, 640), f"UPDATED {updated}", _font(13), _alpha(theme.muted, hero_alpha))
     base.alpha_composite(layer)
 
@@ -224,14 +229,15 @@ def _draw_furniture(base: Image.Image, theme: Theme) -> None:
         for col, x in enumerate(range(600 - half, 600 + half, 8)):
             distance = abs(x - 600) / max(1, half)
             index = min(len(ramp) - 1, round(distance * 7 + ny * 3))
-            draw.text((x, y), ramp[index], font=chair_font, fill=_alpha(_mix(theme.chair, theme.muted, distance * 0.18), 255))
+            chair_tone = _mix(theme.chair, ACCENTS[0], 0.44) if distance > 0.74 else _mix(theme.chair, theme.muted, distance * 0.18)
+            draw.text((x, y), ramp[index], font=chair_font, fill=_alpha(chair_tone, 255))
     draw.text((525, 847), "/", font=_font(17, True), fill=_alpha(theme.chair, 255))
     draw.text((667, 847), "\\", font=_font(17, True), fill=_alpha(theme.chair, 255))
     draw.text((506, 872), "/", font=_font(17, True), fill=_alpha(theme.chair, 255))
     draw.text((686, 872), "\\", font=_font(17, True), fill=_alpha(theme.chair, 255))
     # Delicate directional ASCII plant.
-    leaf = (24, 160, 174)
-    leaf_dark = (8, 121, 136)
+    leaf = (43, 218, 232)
+    leaf_dark = (4, 145, 166)
     plant_font = _font(16, True)
     stems = [(710, 672, 684, 608, "/"), (710, 672, 733, 600, "\\"), (710, 672, 708, 587, "|"), (710, 672, 753, 625, "\\")]
     for x0, y0, x1, y1, glyph in stems:
@@ -244,7 +250,7 @@ def _draw_furniture(base: Image.Image, theme: Theme) -> None:
         draw.text((x, y), glyph * 2, font=_font(19, True), fill=_alpha(leaf, 255))
     pot_lines = ["/::::\\", "|####|", "\\____/"]
     for line, y in zip(pot_lines, (659, 675, 691)):
-        _center_text(draw, (712, y), line, _font(14, True), _alpha((229, 140, 91), 255))
+        _center_text(draw, (712, y), line, _font(14, True), _alpha((255, 139, 79), 255))
     base.alpha_composite(layer)
 
 
@@ -286,17 +292,37 @@ def _compose(theme: Theme, rows: list[tuple[str, str, str]], posters: list[Image
     orbit_x = 510 + round(44 * local)
     navigation.ellipse((orbit_x, 655, orbit_x + 3, 658), fill=_alpha(ACCENTS[metric], 235))
     frame.alpha_composite(furniture)
-    return frame.convert("RGB")
+    return frame
+
+
+def _flatten_for_gif(frame: Image.Image, theme: Theme) -> Image.Image:
+    rgba = frame.convert("RGBA")
+    flattened = Image.new("RGBA", rgba.size, (*theme.edge, 255))
+    flattened.alpha_composite(rgba)
+    rgb = flattened.convert("RGB")
+    transparent_mask = rgba.getchannel("A").point(lambda value: 255 if value <= GIF_ALPHA_THRESHOLD else 0)
+    rgb.paste(TRANSPARENT_KEY, mask=transparent_mask)
+    return rgb
 
 
 def _global_palette(samples: Iterable[Image.Image], theme: Theme) -> Image.Image:
-    sample_list = [sample.resize((300, 225), Image.Resampling.LANCZOS) for sample in samples]
+    sample_list = [_flatten_for_gif(sample, theme).resize((300, 225), Image.Resampling.LANCZOS) for sample in samples]
     atlas = Image.new("RGB", (300 * len(sample_list), 225))
     for index, sample in enumerate(sample_list):
         atlas.paste(sample, (index * 300, 0))
     palette = atlas.quantize(colors=96, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     palette_data = palette.getpalette()
-    palette_data[0:3] = list(theme.edge)
+    pinned_colors = [
+        TRANSPARENT_KEY,
+        theme.edge,
+        *ACCENTS,
+        (43, 218, 232),
+        (4, 145, 166),
+        (255, 139, 79),
+        (88, 166, 255),
+    ]
+    for index, color in enumerate(pinned_colors):
+        palette_data[index * 3:index * 3 + 3] = list(color)
     palette.putpalette(palette_data)
     return palette
 
@@ -318,7 +344,9 @@ def render_theme(stats: dict[str, Any], theme: Theme, gif_path: Path, static_pat
     if contact_sheet_path:
         sheet = Image.new("RGB", (800, 1200), theme.edge)
         for index, sample in enumerate(sample_frames):
-            thumb = sample.resize((400, 300), Image.Resampling.LANCZOS)
+            preview = Image.new("RGBA", sample.size, (*theme.edge, 255))
+            preview.alpha_composite(sample)
+            thumb = preview.convert("RGB").resize((400, 300), Image.Resampling.LANCZOS)
             sheet.paste(thumb, ((index % 2) * 400, (index // 2) * 300))
         contact_sheet_path.parent.mkdir(parents=True, exist_ok=True)
         sheet.save(contact_sheet_path, optimize=True)
@@ -331,18 +359,14 @@ def render_theme(stats: dict[str, Any], theme: Theme, gif_path: Path, static_pat
                 navigation = _smooth((local - 0.88) / 0.12)
                 incoming = _compose(theme, rows, posters, (metric + 1) % METRIC_COUNT, 0.0, updated, base, furniture)
                 frame = Image.blend(frame, incoming, navigation)
-            indexed = frame.quantize(palette=palette, dither=Image.Dither.NONE)
-            palette_values = indexed.getpalette()
-            edge_index = next(
-                index for index in range(256)
-                if tuple(palette_values[index * 3:index * 3 + 3]) == theme.edge
-            )
-            ImageDraw.Draw(indexed).rectangle((0, 0, WIDTH - 1, HEIGHT - 1), outline=edge_index, width=2)
+            indexed = _flatten_for_gif(frame, theme).quantize(palette=palette, dither=Image.Dither.NONE)
+            transparent_mask = frame.getchannel("A").point(lambda value: 255 if value <= GIF_ALPHA_THRESHOLD else 0)
+            indexed.paste(0, mask=transparent_mask)
             frames.append(indexed)
     gif_path.parent.mkdir(parents=True, exist_ok=True)
     frames[0].save(
         gif_path, save_all=True, append_images=frames[1:], duration=FRAME_DURATION_MS,
-        loop=0, optimize=True, disposal=1,
+        loop=0, optimize=True, disposal=2, transparency=0,
     )
     return {
         "theme": theme.name, "dimensions": [WIDTH, HEIGHT], "fps": FPS,
@@ -356,10 +380,10 @@ def render_ascii_statistics_room(stats: dict[str, Any], root: Path, *, contact_s
     with tempfile.TemporaryDirectory(prefix="ascii-room-") as temp_dir:
         temporary = Path(temp_dir)
         targets = {
-            "light_gif": temporary / "ascii-stats-gallery.gif",
-            "dark_gif": temporary / "ascii-stats-gallery-dark.gif",
-            "light_static": temporary / "ascii-stats-gallery-static.png",
-            "dark_static": temporary / "ascii-stats-gallery-dark-static.png",
+            "light_gif": temporary / "ascii-stats-gallery-color-transparent.gif",
+            "dark_gif": temporary / "ascii-stats-gallery-color-dark-transparent.gif",
+            "light_static": temporary / "ascii-stats-gallery-color-transparent-static.png",
+            "dark_static": temporary / "ascii-stats-gallery-color-dark-transparent-static.png",
         }
         results = [
             render_theme(stats, LIGHT, targets["light_gif"], targets["light_static"], contact_sheet),
