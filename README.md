@@ -20,7 +20,7 @@ No employer names, client names, branch/location names, private operational data
   <a href="https://berendsshalai.github.io/berendsshalai/orb/" aria-label="Explore the interactive repository particle sphere">
     <picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="./assets/particle-orb-fallback.png">
-      <img src="./assets/particle-orb.gif?version=20260719-transparent" width="35%" align="middle" alt="Transparent rotating emerald particle sphere with interactive repository nodes" />
+      <img src="./assets/particle-orb.gif?version=20260719-blue-dense" width="35%" align="middle" alt="Transparent rotating GitHub-blue particle sphere with interactive repository nodes" />
     </picture>
   </a>
 </p>
