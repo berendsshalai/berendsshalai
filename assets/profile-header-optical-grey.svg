@@ -81,15 +81,15 @@
   </g>
   <!-- OPTICAL_GLASS_SYSTEM_END -->
 
-  <g paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.65">
+  <g paint-order="stroke" stroke="#F6F8FA" stroke-opacity=".78" stroke-width="1.15">
     <text x="54" y="85" fill="#58A6FF" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="700" letter-spacing="2">BERENDSSHALAI // SYSTEMS LAB</text>
-    <text x="54" y="145" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
-    <text x="56" y="183" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
+    <text x="54" y="145" fill="#58636D" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
+    <text x="56" y="183" fill="#58636D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
     <text x="56" y="218" fill="#B7CCE0" font-family="Consolas,Menlo,monospace" font-size="12">OPERATIONS -&gt; EXPLICIT RULES -&gt; VALIDATED DATA -&gt; AUDITABLE SYSTEMS</text>
   </g>
   <g aria-hidden="true">
     <circle cx="916" cy="102" r="35" fill="url(#chipGlass)" stroke="url(#chipEdge)"/>
     <path d="M 891 82 Q 916 69 941 82" fill="none" stroke="#FFFFFF" stroke-opacity=".48" stroke-width="1" stroke-linecap="round"/>
   </g>
-  <text x="916" y="108" text-anchor="middle" fill="#DCE9F6" paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.45" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
+  <text x="916" y="108" text-anchor="middle" fill="#58636D" paint-order="stroke" stroke="#F6F8FA" stroke-opacity=".78" stroke-width="1.1" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
 </svg>

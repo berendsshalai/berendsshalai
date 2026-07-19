@@ -10,9 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 TARGETS = [
-    ASSETS / "profile-identity-optical.svg",
-    ASSETS / "profile-overview-optical.svg",
-    ASSETS / "profile-boundary-optical.svg",
+    ASSETS / "profile-identity-optical-grey.svg",
+    ASSETS / "profile-overview-optical-grey.svg",
+    ASSETS / "profile-boundary-optical-grey.svg",
     *sorted(ASSETS.glob("repo-card-*.svg")),
     *sorted(ASSETS.glob("contact-card-*.svg")),
 ]
@@ -151,17 +151,18 @@ def restyle(svg: str) -> str:
         ".card{fill:url(#chipGlass);stroke:url(#chipEdge);stroke-width:1}",
         svg,
     )
-    svg = svg.replace("fill:#f7fbff", "fill:#dce9f6;paint-order:stroke;stroke:#111827;stroke-opacity:.92;stroke-width:1.65")
+    svg = svg.replace("fill:#f7fbff", "fill:#58636d;paint-order:stroke;stroke:#f6f8fa;stroke-opacity:.78;stroke-width:1.15")
     svg = svg.replace("fill:#afc8e3", "fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45")
     svg = re.sub(
         r"fill:#58a6ff(?:;paint-order:stroke;stroke:#07111f;stroke-opacity:\.82;stroke-width:1\.05)*",
         "fill:#58a6ff;paint-order:stroke;stroke:#07111f;stroke-opacity:.82;stroke-width:1.05",
         svg,
     )
-    svg = svg.replace("stroke-opacity:.76;stroke-width:1.15", "stroke-opacity:.92;stroke-width:1.65")
+    svg = svg.replace("stroke-opacity:.76;stroke-width:1.15", "stroke-opacity:.78;stroke-width:1.15")
     svg = svg.replace("stroke-opacity:.72;stroke-width:1.0", "stroke-opacity:.88;stroke-width:1.45")
     svg = svg.replace("stroke-opacity:.72;stroke-width:.85", "stroke-opacity:.82;stroke-width:1.05")
-    svg = svg.replace("fill:#f8fafc;paint-order:stroke", "fill:#dce9f6;paint-order:stroke")
+    svg = svg.replace("fill:#f8fafc;paint-order:stroke", "fill:#58636d;paint-order:stroke")
+    svg = svg.replace("fill:#dce9f6;paint-order:stroke;stroke:#111827;stroke-opacity:.92;stroke-width:1.65", "fill:#58636d;paint-order:stroke;stroke:#f6f8fa;stroke-opacity:.78;stroke-width:1.15")
     svg = svg.replace("fill:#dbe6f2;paint-order:stroke", "fill:#b7cce0;paint-order:stroke")
     return svg
 
@@ -181,20 +182,20 @@ def generate_header() -> None:
   <title id="title">Sha-Lai Berends profile header</title>
   <desc id="desc">Business Automation and Data Operations Builder.</desc>
 {optical_material(width, height)}
-  <g paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.65">
+  <g paint-order="stroke" stroke="#F6F8FA" stroke-opacity=".78" stroke-width="1.15">
     <text x="54" y="85" fill="#58A6FF" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="700" letter-spacing="2">BERENDSSHALAI // SYSTEMS LAB</text>
-    <text x="54" y="145" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
-    <text x="56" y="183" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
+    <text x="54" y="145" fill="#58636D" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
+    <text x="56" y="183" fill="#58636D" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
     <text x="56" y="218" fill="#B7CCE0" font-family="Consolas,Menlo,monospace" font-size="12">OPERATIONS -&gt; EXPLICIT RULES -&gt; VALIDATED DATA -&gt; AUDITABLE SYSTEMS</text>
   </g>
   <g aria-hidden="true">
     <circle cx="916" cy="102" r="35" fill="url(#chipGlass)" stroke="url(#chipEdge)"/>
     <path d="M 891 82 Q 916 69 941 82" fill="none" stroke="#FFFFFF" stroke-opacity=".48" stroke-width="1" stroke-linecap="round"/>
   </g>
-  <text x="916" y="108" text-anchor="middle" fill="#DCE9F6" paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.45" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
+  <text x="916" y="108" text-anchor="middle" fill="#58636D" paint-order="stroke" stroke="#F6F8FA" stroke-opacity=".78" stroke-width="1.1" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
 </svg>
 '''
-    (ASSETS / "profile-header-optical.svg").write_text(svg, encoding="utf-8")
+    (ASSETS / "profile-header-optical-grey.svg").write_text(svg, encoding="utf-8")
 
 
 def main() -> None:

@@ -13,10 +13,10 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 TARGETS = [
-    ASSETS / "profile-header-optical.svg",
-    ASSETS / "profile-identity-optical.svg",
-    ASSETS / "profile-overview-optical.svg",
-    ASSETS / "profile-boundary-optical.svg",
+    ASSETS / "profile-header-optical-grey.svg",
+    ASSETS / "profile-identity-optical-grey.svg",
+    ASSETS / "profile-overview-optical-grey.svg",
+    ASSETS / "profile-boundary-optical-grey.svg",
     *sorted(ASSETS.glob("repo-card-*.svg")),
     *sorted(ASSETS.glob("contact-card-*.svg")),
 ]

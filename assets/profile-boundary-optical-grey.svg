@@ -81,7 +81,7 @@
 
 <title id="title">Publication boundary</title>
   <desc id="desc">Clean-room publication boundary for public systems.</desc>
-  <style>.bg{fill:none;stroke:none}.card{fill:url(#chipGlass);stroke:url(#chipEdge);stroke-width:1}.label{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45;font:700 11px Consolas,monospace;letter-spacing:.6px}.white{fill:#dce9f6;paint-order:stroke;stroke:#111827;stroke-opacity:.92;stroke-width:1.65}.muted{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45}.body{font:400 15px Arial,Helvetica,sans-serif}.head{font:800 23px Arial,Helvetica,sans-serif}</style>
+  <style>.bg{fill:none;stroke:none}.card{fill:url(#chipGlass);stroke:url(#chipEdge);stroke-width:1}.label{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45;font:700 11px Consolas,monospace;letter-spacing:.6px}.white{fill:#58636d;paint-order:stroke;stroke:#f6f8fa;stroke-opacity:.78;stroke-width:1.15}.muted{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45}.body{font:400 15px Arial,Helvetica,sans-serif}.head{font:800 23px Arial,Helvetica,sans-serif}</style>
   <text x="28" y="44" class="label">PUBLICATION BOUNDARY</text>
   <text x="28" y="82" class="white head">Build the rule. Validate the data. Preserve the evidence.</text>
   <text x="28" y="112" class="white head">Remove the repetition.</text>
