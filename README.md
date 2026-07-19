@@ -13,20 +13,19 @@ No employer names, client names, branch/location names, private operational data
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Sha--Lai%20Berends-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sha-lai-berends)
 [![X](https://img.shields.io/badge/X-berendsshalai-111827?style=flat-square&logo=x&logoColor=white)](https://x.com/berendsshalai)
 
-<img src="./assets/profile-identity.svg" width="100%" alt="Sha-Lai Berends profile identity card" />
-
 </div>
 
 <p align="center">
-  <a href="https://berendsshalai.github.io/berendsshalai/orb/" aria-label="Open the interactive particle sphere">
+  <img src="./assets/profile-identity.svg" width="63%" align="middle" alt="Sha-Lai Berends profile identity card" />
+  <a href="https://berendsshalai.github.io/berendsshalai/orb/" aria-label="Explore the interactive repository particle sphere">
     <picture>
       <source media="(prefers-reduced-motion: reduce)" srcset="./assets/particle-orb-fallback.png">
-      <img src="./assets/particle-orb.gif?version=20260719" width="100%" alt="Rotating emerald particle sphere representing connected systems and data operations" />
+      <img src="./assets/particle-orb.gif?version=20260719-transparent" width="35%" align="middle" alt="Transparent rotating emerald particle sphere with interactive repository nodes" />
     </picture>
   </a>
 </p>
 
-<p align="center"><sub>Connected systems in motion · click the sphere for the interactive version</sub></p>
+<p align="right"><sub>Connected systems in motion · click to explore the repository points</sub></p>
 
 ## Live GitHub statistics
 

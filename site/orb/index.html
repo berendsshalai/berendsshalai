@@ -4,49 +4,76 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Sha-Lai Berends" />
-    <meta name="description" content="An interactive emerald particle sphere by Sha-Lai Berends, representing connected systems and data operations." />
-    <meta name="theme-color" content="#020605" />
+    <meta name="description" content="Explore Sha-Lai Berends' open-source repositories through an interactive particle system." />
+    <meta name="theme-color" content="#0d1117" />
     <link rel="canonical" href="https://berendsshalai.github.io/berendsshalai/orb/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Connected Systems in Motion · Sha-Lai Berends" />
-    <meta property="og:description" content="Explore an interactive particle system representing structured data, operational connections and automation." />
+    <meta property="og:description" content="Interactive repository nodes for workforce, workflow and portfolio automation systems." />
     <title>Connected Systems in Motion · Sha-Lai Berends</title>
     <style>
-      :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#020605;color:#e8fff5}
-      *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#020605}
+      :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0d1117;color:#f0f6fc}
+      *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0d1117}
       body{display:grid;place-items:center}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
-      .chrome{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(22px,4vw,56px)}
-      header,footer{display:flex;align-items:center;justify-content:space-between;gap:20px}a,.hint{pointer-events:auto;color:#9ab5a9;text-decoration:none;font-size:12px;letter-spacing:.08em;text-transform:uppercase}a:hover{color:#73f5bc}
-      .mark{display:inline-flex;align-items:center;gap:12px;color:#e8fff5;font-weight:700}.mark span{width:36px;height:36px;display:grid;place-items:center;border:1px solid #2ed88f;border-radius:50%;color:#73f5bc;font:11px ui-monospace,monospace}
-      .title{position:fixed;left:50%;bottom:clamp(70px,9vh,110px);transform:translateX(-50%);width:min(760px,calc(100% - 48px));text-align:center;pointer-events:none}.title h1{margin:0;font-size:clamp(22px,4vw,54px);font-weight:600;letter-spacing:-.03em}.title p{margin:12px 0 0;color:#789184;font-size:clamp(11px,1.5vw,14px);letter-spacing:.05em}
-      .status{color:#4f6d60;font:10px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
-      @media(max-width:640px){.hint{display:none}.chrome{padding:20px}.title{bottom:82px}}
-      @media(prefers-reduced-motion:reduce){canvas{display:none}body{background:#020605 url('../assets/particle-orb-fallback.png') center/cover no-repeat}}
+      .chrome{position:fixed;inset:0;z-index:4;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,4vw,54px)}
+      header,footer{display:flex;align-items:center;justify-content:space-between;gap:20px}.mark,.return,.hint{pointer-events:auto;color:#8b949e;text-decoration:none;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.mark:hover,.mark:focus-visible,.return:hover,.return:focus-visible{color:#7ee2b8;outline:none}
+      .mark{display:inline-flex;align-items:center;gap:12px;color:#f0f6fc;font-weight:700}.mark span{width:36px;height:36px;display:grid;place-items:center;border:1px solid #2ed88f;border-radius:50%;color:#73f5bc;font:11px ui-monospace,monospace}
+      .title{position:fixed;z-index:2;left:50%;bottom:clamp(72px,9vh,108px);transform:translateX(-50%);width:min(720px,calc(100% - 48px));text-align:center;pointer-events:none}.title h1{margin:0;font-size:clamp(22px,4vw,52px);font-weight:600;letter-spacing:-.035em}.title p{margin:11px 0 0;color:#6e7681;font-size:clamp(11px,1.4vw,14px);letter-spacing:.05em}
+      .status{color:#6e7681;font:10px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
+      .hotspots{position:fixed;inset:0;z-index:5;pointer-events:none}.repo-hotspot{--depth:1;position:absolute;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;pointer-events:auto;display:grid;place-items:center;text-decoration:none;outline:none;filter:drop-shadow(0 0 8px rgba(46,216,143,.8));will-change:transform}.repo-hotspot::before{content:"";width:8px;height:8px;border-radius:50%;background:#a9ffdc;box-shadow:0 0 0 4px rgba(46,216,143,.2),0 0 18px 7px rgba(46,216,143,.62)}.repo-hotspot::after{content:"";position:absolute;inset:0;border:1px solid rgba(126,226,184,.65);border-radius:50%;animation:pulse 2.2s ease-out infinite}.repo-hotspot:hover::before,.repo-hotspot:focus-visible::before{background:#fff;box-shadow:0 0 0 6px rgba(46,216,143,.3),0 0 28px 12px rgba(46,216,143,.85)}.repo-hotspot:hover::after,.repo-hotspot:focus-visible::after{border-color:#fff;animation:none;transform:scale(1.25)}
+      @keyframes pulse{0%{opacity:.9;transform:scale(.65)}75%,100%{opacity:0;transform:scale(1.8)}}
+      .repo-card{position:fixed;z-index:7;width:min(370px,calc(100vw - 32px));padding:18px;border:1px solid #30363d;border-radius:14px;background:rgba(22,27,34,.96);box-shadow:0 18px 48px rgba(0,0,0,.38);backdrop-filter:blur(14px);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .16s ease,transform .16s ease}.repo-card.visible{opacity:1;transform:translateY(0)}.eyebrow{margin:0 0 7px;color:#7ee2b8;font:700 10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase}.repo-card h2{margin:0;color:#f0f6fc;font-size:19px;line-height:1.2}.usecase{margin:9px 0 14px;color:#b1bac4;font-size:13px;line-height:1.5}.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.meta div{padding:9px 10px;border:1px solid #30363d;border-radius:9px;background:#0d1117}.meta span{display:block;color:#6e7681;font:700 9px ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase}.meta strong{display:block;margin-top:4px;color:#f0f6fc;font-size:12px;line-height:1.35}.stack{display:flex;align-items:center;gap:8px;min-height:28px}.tech{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid #30363d;border-radius:7px;background:#0d1117;color:#b1bac4;font-size:10px}.tech img{width:16px;height:16px;display:block}.repo-cta{margin:13px 0 0;color:#58a6ff;font:700 11px ui-monospace,monospace}
+      .repo-index{position:fixed;z-index:6;left:clamp(20px,4vw,54px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-start;gap:7px}.repo-index a{max-width:220px;padding:7px 10px;border:1px solid transparent;border-radius:8px;color:#6e7681;text-decoration:none;font:10px ui-monospace,monospace;letter-spacing:.03em;background:rgba(13,17,23,.62)}.repo-index a:hover,.repo-index a:focus-visible{color:#a9ffdc;border-color:#238636;background:#161b22;outline:none}
+      @media(max-width:780px){.repo-index{display:none}.repo-card{left:16px!important;right:16px!important;top:auto!important;bottom:92px}.hint{display:none}.chrome{padding:20px}.title{bottom:72px}.repo-card .meta{grid-template-columns:1fr}}
+      @media(prefers-reduced-motion:reduce){.repo-hotspot::after{animation:none}.repo-card{transition:none}}
     </style>
   </head>
   <body>
-    <canvas id="orb" aria-label="Interactive rotating emerald particle sphere"></canvas>
+    <canvas id="orb" aria-label="Interactive rotating emerald particle sphere with four repository links"></canvas>
+    <div class="hotspots" id="hotspots" aria-label="Repository points"></div>
+    <nav class="repo-index" id="repo-index" aria-label="Repositories represented in the particle sphere"></nav>
+    <aside class="repo-card" id="repo-card" aria-live="polite" aria-hidden="true">
+      <p class="eyebrow">Repository node</p>
+      <h2 id="repo-name"></h2>
+      <p class="usecase" id="repo-usecase"></p>
+      <div class="meta">
+        <div><span>Source lines</span><strong id="repo-lines"></strong></div>
+        <div><span>Built for</span><strong id="repo-audience"></strong></div>
+      </div>
+      <div class="stack" id="repo-stack" aria-label="Technology stack"></div>
+      <p class="repo-cta">Open repository ↗</p>
+    </aside>
     <div class="chrome">
-      <header><a class="mark" href="https://github.com/berendsshalai"><span>SB</span> Sha-Lai Berends</a><a href="https://github.com/berendsshalai">Return to GitHub</a></header>
-      <footer><span class="hint">Drag to rotate · wheel to scale</span><span class="status" id="status">2,400 connected points</span></footer>
+      <header><a class="mark" href="https://github.com/berendsshalai"><span>SB</span> Sha-Lai Berends</a><a class="return" href="https://github.com/berendsshalai">Return to GitHub</a></header>
+      <footer><span class="hint">Drag to rotate · select a glowing repository point</span><span class="status">2,400 points · 4 live repositories</span></footer>
     </div>
-    <div class="title"><h1>Connected systems in motion.</h1><p>Operational data · explicit rules · auditable automation</p></div>
+    <div class="title"><h1>Connected systems in motion.</h1><p>Hover a highlighted point for context · select it to open the repository</p></div>
     <script>
-      const canvas=document.querySelector('#orb');const context=canvas.getContext('2d',{alpha:false});const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const count=2400;const points=[];let width=0,height=0,dpr=1,scale=1,rotationX=.08,rotationY=0,targetX=.08,targetY=0,drag=false,lastX=0,lastY=0;
-      function random(index){const value=Math.sin(index*127.1+311.7)*43758.5453;return value-Math.floor(value)}
-      for(let index=0;index<count;index++){const y=1-index/(count-1)*2;const radius=Math.sqrt(Math.max(0,1-y*y));const theta=Math.PI*(3-Math.sqrt(5))*index;const shell=.78+random(index)*.28;points.push({x:Math.cos(theta)*radius*shell,y:y*shell,z:Math.sin(theta)*radius*shell,size:.45+random(index+4000)*1.6,glow:random(index+8000)})}
+      const repositories=[
+        {id:'attendance',name:'Attendance Reconciliation Engine',url:'https://github.com/berendsshalai/attendance-reconciliation-engine',usecase:'Compares planned shifts with clock events, detects attendance exceptions and produces explainable review evidence.',lines:'1,821',audience:'Payroll teams, workforce administrators and operations managers',stack:[['python','Python'],['html5','HTML'],['javascript','JavaScript'],['css3','CSS']],anchor:{x:.72,y:.34,z:.61}},
+        {id:'systems-lab',name:'Sha-Lai Berends Systems Lab',url:'https://github.com/berendsshalai/berendsshalai-systems-lab',usecase:'Provides clean-room standards, privacy gates and reusable foundations for public operations-automation projects.',lines:'2,339',audience:'Automation builders, maintainers and operational analysts',stack:[['python','Python'],['html5','HTML'],['javascript','JavaScript'],['css3','CSS']],anchor:{x:-.68,y:.47,z:.57}},
+        {id:'onboarding',name:'Onboarding Pilot AI',url:'https://github.com/berendsshalai/onboarding-pilot-ai',usecase:'Runs configurable validation, routing, templating and auditable workflow communication with safe delivery controls.',lines:'2,139',audience:'Administrators, HR operations and workflow engineers',stack:[['python','Python']],anchor:{x:.54,y:-.65,z:.53}},
+        {id:'portfolio',name:'System to Portfolio',url:'https://github.com/berendsshalai/berendsshalai-project-systemtoportfolio',usecase:'Turns working systems into inspectable case studies, secure publication evidence and a credible technical portfolio.',lines:'3,950',audience:'Operations professionals, career switchers and project builders',stack:[['typescript','TypeScript'],['react','React'],['javascript','JavaScript'],['css3','CSS']],anchor:{x:-.58,y:-.57,z:.58}}
+      ];
+      const canvas=document.querySelector('#orb');const context=canvas.getContext('2d',{alpha:true});const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const hotspots=document.querySelector('#hotspots');const index=document.querySelector('#repo-index');const card=document.querySelector('#repo-card');const nameNode=document.querySelector('#repo-name');const usecaseNode=document.querySelector('#repo-usecase');const linesNode=document.querySelector('#repo-lines');const audienceNode=document.querySelector('#repo-audience');const stackNode=document.querySelector('#repo-stack');
+      const count=2400;const points=[];let width=0,height=0,dpr=1,scale=1,rotationX=.08,rotationY=0,targetX=.08,targetY=0,drag=false,lastX=0,lastY=0,dragDistance=0,activeRepository=null;
+      function random(indexValue){const value=Math.sin(indexValue*127.1+311.7)*43758.5453;return value-Math.floor(value)}
+      for(let pointIndex=0;pointIndex<count;pointIndex++){const y=1-pointIndex/(count-1)*2;const radius=Math.sqrt(Math.max(0,1-y*y));const theta=Math.PI*(3-Math.sqrt(5))*pointIndex;const shell=.78+random(pointIndex)*.28;points.push({x:Math.cos(theta)*radius*shell,y:y*shell,z:Math.sin(theta)*radius*shell,size:.45+random(pointIndex+4000)*1.6,glow:random(pointIndex+8000)})}
+      for(const repository of repositories){const link=document.createElement('a');link.className='repo-hotspot';link.href=repository.url;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',`${repository.name}: ${repository.usecase}`);link.addEventListener('mouseenter',()=>showRepository(repository));link.addEventListener('focus',()=>showRepository(repository));link.addEventListener('mouseleave',hideRepository);link.addEventListener('blur',hideRepository);hotspots.append(link);repository.element=link;const indexLink=document.createElement('a');indexLink.href=repository.url;indexLink.target='_blank';indexLink.rel='noopener noreferrer';indexLink.textContent=repository.name;indexLink.addEventListener('mouseenter',()=>showRepository(repository,true));indexLink.addEventListener('focus',()=>showRepository(repository,true));indexLink.addEventListener('mouseleave',hideRepository);indexLink.addEventListener('blur',hideRepository);index.append(indexLink)}
+      function showRepository(repository,fromIndex=false){activeRepository=repository;nameNode.textContent=repository.name;usecaseNode.textContent=repository.usecase;linesNode.textContent=`${repository.lines} estimated`;audienceNode.textContent=repository.audience;stackNode.replaceChildren(...repository.stack.map(([slug,label])=>{const item=document.createElement('span');item.className='tech';const icon=document.createElement('img');icon.src=`../assets/icons/${slug}.svg`;icon.alt='';icon.width=16;icon.height=16;item.append(icon,document.createTextNode(label));return item}));positionCard(repository,fromIndex);card.classList.add('visible');card.setAttribute('aria-hidden','false')}
+      function hideRepository(){activeRepository=null;card.classList.remove('visible');card.setAttribute('aria-hidden','true')}
+      function positionCard(repository,fromIndex=false){if(innerWidth<=780)return;const x=fromIndex?Math.max(250,innerWidth*.17):repository.screenX;const y=fromIndex?innerHeight*.36:repository.screenY;const cardWidth=370;const left=Math.max(18,Math.min(innerWidth-cardWidth-18,x+(x>innerWidth*.58?-cardWidth-34:34)));const top=Math.max(78,Math.min(innerHeight-300,y-105));card.style.left=`${left}px`;card.style.top=`${top}px`}
       function resize(){dpr=Math.min(devicePixelRatio||1,2);width=innerWidth;height=innerHeight;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.width=width+'px';canvas.style.height=height+'px';context.setTransform(dpr,0,0,dpr,0,0)}
       addEventListener('resize',resize);resize();
-      canvas.addEventListener('pointerdown',event=>{drag=true;lastX=event.clientX;lastY=event.clientY;canvas.setPointerCapture(event.pointerId)});
-      canvas.addEventListener('pointermove',event=>{if(!drag)return;targetY+=(event.clientX-lastX)*.006;targetX+=(event.clientY-lastY)*.006;lastX=event.clientX;lastY=event.clientY});
-      canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
-      canvas.addEventListener('wheel',event=>{event.preventDefault();scale=Math.max(.65,Math.min(1.45,scale-event.deltaY*.0007))},{passive:false});
-      function frame(time){context.fillStyle='#020605';context.fillRect(0,0,width,height);if(!drag)targetY+=.0018;rotationX+=(targetX-rotationX)*.055;rotationY+=(targetY-rotationY)*.055;const cosY=Math.cos(rotationY),sinY=Math.sin(rotationY),cosX=Math.cos(rotationX),sinX=Math.sin(rotationX);const base=Math.min(width,height)*.24*scale;const transformed=[];
-        for(const point of points){const x1=point.x*cosY-point.z*sinY;const z1=point.x*sinY+point.z*cosY;const y1=point.y*cosX-z1*sinX;const z2=point.y*sinX+z1*cosX;transformed.push({...point,x:x1,y:y1,z:z2})}transformed.sort((a,b)=>a.z-b.z);
-        for(const point of transformed){const perspective=1/(2.7-point.z*.44);const x=width/2+point.x*base*perspective*2.55;const y=height/2+point.y*base*perspective*2.55-26;const depth=(point.z+1.25)/2.5;const alpha=.18+depth*.82;const radius=point.size*(.55+depth*.9);if(point.glow>.82){context.beginPath();context.fillStyle=`rgba(46,216,143,${alpha*.11})`;context.arc(x,y,radius*4,0,Math.PI*2);context.fill()}context.beginPath();context.fillStyle=`rgba(${Math.round(45+depth*45)},${Math.round(175+depth*70)},${Math.round(110+depth*70)},${alpha})`;context.arc(x,y,radius,0,Math.PI*2);context.fill()}
-        if(!reduced)requestAnimationFrame(frame)}
-      if(!reduced)requestAnimationFrame(frame);
+      canvas.addEventListener('pointerdown',event=>{drag=true;dragDistance=0;lastX=event.clientX;lastY=event.clientY;canvas.setPointerCapture(event.pointerId)});
+      canvas.addEventListener('pointermove',event=>{if(!drag)return;const deltaX=event.clientX-lastX;const deltaY=event.clientY-lastY;dragDistance+=Math.abs(deltaX)+Math.abs(deltaY);targetY+=deltaX*.006;targetX+=deltaY*.006;lastX=event.clientX;lastY=event.clientY});
+      canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);canvas.addEventListener('wheel',event=>{event.preventDefault();scale=Math.max(.65,Math.min(1.45,scale-event.deltaY*.0007))},{passive:false});
+      function transformPoint(point,cosY,sinY,cosX,sinX){const x1=point.x*cosY-point.z*sinY;const z1=point.x*sinY+point.z*cosY;const y1=point.y*cosX-z1*sinX;const z2=point.y*sinX+z1*cosX;return{x:x1,y:y1,z:z2}}
+      function frame(){context.clearRect(0,0,width,height);if(!drag&&!reduced)targetY+=.0018;rotationX+=(targetX-rotationX)*.055;rotationY+=(targetY-rotationY)*.055;const cosY=Math.cos(rotationY),sinY=Math.sin(rotationY),cosX=Math.cos(rotationX),sinX=Math.sin(rotationX);const base=Math.min(width,height)*.24*scale;const transformed=points.map(point=>({...point,...transformPoint(point,cosY,sinY,cosX,sinX)})).sort((a,b)=>a.z-b.z);
+        for(const point of transformed){const perspective=1/(2.7-point.z*.44);const x=width/2+point.x*base*perspective*2.55;const y=height/2+point.y*base*perspective*2.55-22;const depth=(point.z+1.25)/2.5;const alpha=.13+depth*.7;const radius=point.size*(.55+depth*.9);if(point.glow>.84){context.beginPath();context.fillStyle=`rgba(46,216,143,${alpha*.09})`;context.arc(x,y,radius*4,0,Math.PI*2);context.fill()}context.beginPath();context.fillStyle=`rgba(${Math.round(45+depth*45)},${Math.round(175+depth*70)},${Math.round(110+depth*70)},${alpha})`;context.arc(x,y,radius,0,Math.PI*2);context.fill()}
+        for(const repository of repositories){const point=transformPoint(repository.anchor,cosY,sinY,cosX,sinX);const perspective=1/(2.7-point.z*.44);repository.screenX=width/2+point.x*base*perspective*2.55;repository.screenY=height/2+point.y*base*perspective*2.55-22;const depth=(point.z+1.25)/2.5;repository.element.style.transform=`translate3d(${repository.screenX}px,${repository.screenY}px,0) scale(${.72+depth*.52})`;repository.element.style.opacity=String(.45+depth*.55);repository.element.style.zIndex=String(Math.round(depth*100));context.beginPath();context.strokeStyle=`rgba(126,226,184,${.2+depth*.45})`;context.lineWidth=1;context.arc(repository.screenX,repository.screenY,13+depth*8,0,Math.PI*2);context.stroke()}
+        if(activeRepository)positionCard(activeRepository);if(!reduced)requestAnimationFrame(frame)}
+      requestAnimationFrame(frame);
     </script>
   </body>
 </html>
