@@ -32,7 +32,7 @@ Updated automatically from the GitHub API. Contributions and commits cover the t
 ## Profile
 
 <p align="center">
-  <img src="./assets/profile-overview.svg" width="100%" alt="Profile, engineering direction, stack and operating principles for Sha-Lai Berends" />
+  <img src="./assets/profile-overview.svg?version=20260719-overflow-fix" width="100%" alt="Profile, engineering direction, stack and operating principles for Sha-Lai Berends" />
 </p>
 ## Selected repositories
 
