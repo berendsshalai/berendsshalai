@@ -35,10 +35,10 @@ No employer names, client names, branch/location names, private operational data
 <!-- LIVE_STATS_IMAGE_START -->
 <p align="center">
   <picture>
-    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version=20260719185210">
-    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719185210">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version=20260719185210">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719185210" width="100%" alt="Animated emerald systems observatory on a transparent background presenting live GitHub statistics through illuminated posters, a repository globe, desk and ASCII chair." />
+    <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version=20260719195728">
+    <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version=20260719195728">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version=20260719195728">
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version=20260719195728" width="100%" alt="Animated emerald systems observatory on a transparent background presenting live GitHub statistics through illuminated posters, a repository globe, desk and ASCII chair." />
   </picture>
 </p>
 <!-- LIVE_STATS_IMAGE_END -->
