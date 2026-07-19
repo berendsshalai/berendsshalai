@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Sha-Lai Berends" />
+    <meta name="description" content="An interactive emerald particle sphere by Sha-Lai Berends, representing connected systems and data operations." />
+    <meta name="theme-color" content="#020605" />
+    <link rel="canonical" href="https://berendsshalai.github.io/berendsshalai/orb/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Connected Systems in Motion · Sha-Lai Berends" />
+    <meta property="og:description" content="Explore an interactive particle system representing structured data, operational connections and automation." />
+    <title>Connected Systems in Motion · Sha-Lai Berends</title>
+    <style>
+      :root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#020605;color:#e8fff5}
+      *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#020605}
+      body{display:grid;place-items:center}canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}
+      .chrome{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(22px,4vw,56px)}
+      header,footer{display:flex;align-items:center;justify-content:space-between;gap:20px}a,.hint{pointer-events:auto;color:#9ab5a9;text-decoration:none;font-size:12px;letter-spacing:.08em;text-transform:uppercase}a:hover{color:#73f5bc}
+      .mark{display:inline-flex;align-items:center;gap:12px;color:#e8fff5;font-weight:700}.mark span{width:36px;height:36px;display:grid;place-items:center;border:1px solid #2ed88f;border-radius:50%;color:#73f5bc;font:11px ui-monospace,monospace}
+      .title{position:fixed;left:50%;bottom:clamp(70px,9vh,110px);transform:translateX(-50%);width:min(760px,calc(100% - 48px));text-align:center;pointer-events:none}.title h1{margin:0;font-size:clamp(22px,4vw,54px);font-weight:600;letter-spacing:-.03em}.title p{margin:12px 0 0;color:#789184;font-size:clamp(11px,1.5vw,14px);letter-spacing:.05em}
+      .status{color:#4f6d60;font:10px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
+      @media(max-width:640px){.hint{display:none}.chrome{padding:20px}.title{bottom:82px}}
+      @media(prefers-reduced-motion:reduce){canvas{display:none}body{background:#020605 url('../assets/particle-orb-fallback.png') center/cover no-repeat}}
+    </style>
+  </head>
+  <body>
+    <canvas id="orb" aria-label="Interactive rotating emerald particle sphere"></canvas>
+    <div class="chrome">
+      <header><a class="mark" href="https://github.com/berendsshalai"><span>SB</span> Sha-Lai Berends</a><a href="https://github.com/berendsshalai">Return to GitHub</a></header>
+      <footer><span class="hint">Drag to rotate · wheel to scale</span><span class="status" id="status">2,400 connected points</span></footer>
+    </div>
+    <div class="title"><h1>Connected systems in motion.</h1><p>Operational data · explicit rules · auditable automation</p></div>
+    <script>
+      const canvas=document.querySelector('#orb');const context=canvas.getContext('2d',{alpha:false});const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const count=2400;const points=[];let width=0,height=0,dpr=1,scale=1,rotationX=.08,rotationY=0,targetX=.08,targetY=0,drag=false,lastX=0,lastY=0;
+      function random(index){const value=Math.sin(index*127.1+311.7)*43758.5453;return value-Math.floor(value)}
+      for(let index=0;index<count;index++){const y=1-index/(count-1)*2;const radius=Math.sqrt(Math.max(0,1-y*y));const theta=Math.PI*(3-Math.sqrt(5))*index;const shell=.78+random(index)*.28;points.push({x:Math.cos(theta)*radius*shell,y:y*shell,z:Math.sin(theta)*radius*shell,size:.45+random(index+4000)*1.6,glow:random(index+8000)})}
+      function resize(){dpr=Math.min(devicePixelRatio||1,2);width=innerWidth;height=innerHeight;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.width=width+'px';canvas.style.height=height+'px';context.setTransform(dpr,0,0,dpr,0,0)}
+      addEventListener('resize',resize);resize();
+      canvas.addEventListener('pointerdown',event=>{drag=true;lastX=event.clientX;lastY=event.clientY;canvas.setPointerCapture(event.pointerId)});
+      canvas.addEventListener('pointermove',event=>{if(!drag)return;targetY+=(event.clientX-lastX)*.006;targetX+=(event.clientY-lastY)*.006;lastX=event.clientX;lastY=event.clientY});
+      canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+      canvas.addEventListener('wheel',event=>{event.preventDefault();scale=Math.max(.65,Math.min(1.45,scale-event.deltaY*.0007))},{passive:false});
+      function frame(time){context.fillStyle='#020605';context.fillRect(0,0,width,height);if(!drag)targetY+=.0018;rotationX+=(targetX-rotationX)*.055;rotationY+=(targetY-rotationY)*.055;const cosY=Math.cos(rotationY),sinY=Math.sin(rotationY),cosX=Math.cos(rotationX),sinX=Math.sin(rotationX);const base=Math.min(width,height)*.24*scale;const transformed=[];
+        for(const point of points){const x1=point.x*cosY-point.z*sinY;const z1=point.x*sinY+point.z*cosY;const y1=point.y*cosX-z1*sinX;const z2=point.y*sinX+z1*cosX;transformed.push({...point,x:x1,y:y1,z:z2})}transformed.sort((a,b)=>a.z-b.z);
+        for(const point of transformed){const perspective=1/(2.7-point.z*.44);const x=width/2+point.x*base*perspective*2.55;const y=height/2+point.y*base*perspective*2.55-26;const depth=(point.z+1.25)/2.5;const alpha=.18+depth*.82;const radius=point.size*(.55+depth*.9);if(point.glow>.82){context.beginPath();context.fillStyle=`rgba(46,216,143,${alpha*.11})`;context.arc(x,y,radius*4,0,Math.PI*2);context.fill()}context.beginPath();context.fillStyle=`rgba(${Math.round(45+depth*45)},${Math.round(175+depth*70)},${Math.round(110+depth*70)},${alpha})`;context.arc(x,y,radius,0,Math.PI*2);context.fill()}
+        if(!reduced)requestAnimationFrame(frame)}
+      if(!reduced)requestAnimationFrame(frame);
+    </script>
+  </body>
+</html>

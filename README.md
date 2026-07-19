@@ -17,6 +17,17 @@ No employer names, client names, branch/location names, private operational data
 
 </div>
 
+<p align="center">
+  <a href="https://berendsshalai.github.io/berendsshalai/orb/" aria-label="Open the interactive particle sphere">
+    <picture>
+      <source media="(prefers-reduced-motion: reduce)" srcset="./assets/particle-orb-fallback.png">
+      <img src="./assets/particle-orb.gif?version=20260719" width="100%" alt="Rotating emerald particle sphere representing connected systems and data operations" />
+    </picture>
+  </a>
+</p>
+
+<p align="center"><sub>Connected systems in motion · click the sphere for the interactive version</sub></p>
+
 ## Live GitHub statistics
 
 <!-- LIVE_STATS_IMAGE_START -->
