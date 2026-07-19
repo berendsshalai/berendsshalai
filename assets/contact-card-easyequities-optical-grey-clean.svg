@@ -6,12 +6,12 @@
     <linearGradient id="opticalGlassBody" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity=".13"/>
       <stop offset=".34" stop-color="#FFFFFF" stop-opacity=".08"/>
-      <stop offset=".68" stop-color="#F8FAFC" stop-opacity=".052"/>
+      <stop offset=".68" stop-color="#3a434b" stop-opacity=".052"/>
       <stop offset="1" stop-color="#F3F4FA" stop-opacity=".032"/>
     </linearGradient>
     <linearGradient id="sideDepth" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".12"/>
-      <stop offset=".34" stop-color="#EDF0F8" stop-opacity=".085"/>
+      <stop offset="0" stop-color="#E7F8EC" stop-opacity=".14"/>
+      <stop offset=".34" stop-color="#DFF7E7" stop-opacity=".09"/>
       <stop offset=".72" stop-color="#F3F4FA" stop-opacity=".032"/>
       <stop offset="1" stop-color="#F3F4FA" stop-opacity="0"/>
     </linearGradient>
@@ -31,20 +31,25 @@
       <stop offset="1" stop-color="#FFFFFF" stop-opacity=".13"/>
     </linearGradient>
     <linearGradient id="innerEdge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".34"/>
+      <stop offset="0" stop-color="#7EE787" stop-opacity=".46"/>
       <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".17"/>
       <stop offset="1" stop-color="#111827" stop-opacity=".08"/>
     </linearGradient>
     <linearGradient id="chipGlass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".20"/>
+      <stop offset="0" stop-color="#E7F8EC" stop-opacity=".22"/>
       <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".125"/>
-      <stop offset="1" stop-color="#EDF0F8" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#DFF7E7" stop-opacity=".09"/>
     </linearGradient>
     <linearGradient id="chipEdge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".58"/>
+      <stop offset="0" stop-color="#7EE787" stop-opacity=".62"/>
       <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".26"/>
       <stop offset="1" stop-color="#111827" stop-opacity=".12"/>
     </linearGradient>
+    <radialGradient id="emeraldField" cx="58%" cy="48%" r="70%">
+      <stop offset="0" stop-color="#3FB950" stop-opacity=".075"/>
+      <stop offset=".48" stop-color="#2EA043" stop-opacity=".025"/>
+      <stop offset="1" stop-color="#2EA043" stop-opacity="0"/>
+    </radialGradient>
     <filter id="contactShadow" x="-20%" y="-20%" width="140%" height="150%">
       <feGaussianBlur stdDeviation="6"/>
     </filter>
@@ -65,10 +70,12 @@
       <rect x="8" y="8" width="161.2" height="114" fill="url(#sideDepth)"/>
       <rect x="8" y="8" width="474" height="114" fill="url(#ambientLight)"/>
       <rect x="8" y="8" width="474" height="114" fill="url(#lowerShade)"/>
+      <rect x="8" y="8" width="474" height="114" fill="url(#emeraldField)"/>
       <path d="M 16 12 V 102" fill="none" stroke="#1F2937" stroke-opacity=".055" stroke-width="2.2" filter="url(#specularSoft)"/>
     </g>
     <rect x="8.7" y="8.7" width="472.6" height="112.6" rx="16" fill="none" stroke="url(#outerEdge)" stroke-width="1.55"/>
     <rect x="10.2" y="10.2" width="469.6" height="109.6" rx="13.8" fill="none" stroke="url(#innerEdge)" stroke-width=".9"/>
+    <path d="M 42 104 H 188.1 M 368.2 28 H 448" fill="none" stroke="#3FB950" stroke-opacity=".24" stroke-width="1"/>
     <path d="M 17.9 8.7 C 93.3 7.8, 150.2 8.2, 207.1 8.7" fill="none" stroke="#FFFFFF" stroke-opacity=".82" stroke-width="1.65" stroke-linecap="round" filter="url(#specularSoft)"/>
     <path d="M 13.4 20.5 C 7.8 33.1, 8.4 60.4, 9.0 78.7" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="1.35" stroke-linecap="round"/>
     <path d="M 452.4 8.7 C 463.1 8.0, 473.2 10.0, 477.2 14.1" fill="none" stroke="#FFFFFF" stroke-opacity=".68" stroke-width="1.45" stroke-linecap="round" filter="url(#specularSoft)"/>
@@ -79,5 +86,21 @@
   </g>
   <!-- OPTICAL_GLASS_SYSTEM_END -->
 
-<title id="title">EasyEquities</title><desc id="desc">EasyEquities contact card.</desc><style>.bg{fill:none;stroke:none}.label{fill:#b7cce0;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#58636d}.body{font:800 22px Arial,Helvetica,sans-serif}</style><text x="22" y="38" class="label">FINANCIAL LEARNING</text><text x="22" y="74" class="white body">EasyEquities</text><text x="22" y="101" class="blue label">Investor profile -></text>
+<title id="title">EasyEquities</title><desc id="desc">EasyEquities contact card.</desc><style>.bg{fill:none;stroke:none}.label{fill:#66707a;font:700 11px "IBM Plex Mono","JetBrains Mono",Consolas,Menlo,monospace}.blue{fill:#3fb950}.white{fill:#3a434b}.body{font:600 22px "Space Grotesk",Inter,Arial,sans-serif}</style><text x="22" y="38" class="label">FINANCIAL LEARNING</text><text x="22" y="74" class="white body">EasyEquities</text><text x="22" y="101" class="blue label">Investor profile -></text>
+
+  <!-- EMERALD_OBSERVATORY_THEME_START -->
+  <style>
+    :root{color-scheme:light dark}
+    .blue,.label,.handle{fill:#3FB950!important}
+    .ascii{fill:#2F8F46!important;font-family:"IBM Plex Mono","JetBrains Mono",Consolas,Menlo,monospace}
+    .white,.value,.stackLabel{fill:#3A434B!important}
+    .muted,.rule{fill:#66707A!important}
+    @media (prefers-color-scheme:dark){
+      .white,.value,.stackLabel{fill:#E6EDF3!important}
+      .muted,.rule{fill:#A8B3BC!important}
+      .ascii{fill:#7EE787!important}
+      .blue,.label,.handle{fill:#56D364!important}
+    }
+  </style>
+  <!-- EMERALD_OBSERVATORY_THEME_END -->
 </svg>

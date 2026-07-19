@@ -14,8 +14,10 @@ from typing import Any, Iterable
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 WIDTH, HEIGHT = 1200, 900
-FPS = 15
-FRAMES_PER_METRIC = 50
+ROOT = Path(__file__).resolve().parents[1]
+FONTS = ROOT / "assets" / "fonts"
+FPS = 14
+FRAMES_PER_METRIC = 47
 METRIC_COUNT = 7
 FRAME_DURATION_MS = round(1000 / FPS)
 TRANSPARENT_KEY = (255, 0, 255)
@@ -39,31 +41,43 @@ class Theme:
 
 
 LIGHT = Theme(
-    "light", (255, 255, 255), (240, 242, 245), (221, 225, 230),
-    (36, 41, 47), (87, 96, 106), (140, 149, 159), (250, 251, 252),
-    (246, 248, 250), (255, 255, 255), (205, 214, 224), (22, 27, 34),
+    "light", (255, 255, 255), (237, 246, 239), (190, 218, 197),
+    (36, 41, 47), (72, 82, 76), (104, 116, 108), (250, 252, 250),
+    (244, 249, 245), (255, 255, 255), (175, 199, 181), (22, 27, 34),
 )
 DARK = Theme(
-    "dark", (13, 17, 23), (28, 33, 40), (48, 54, 61),
-    (240, 246, 252), (201, 209, 217), (139, 148, 158), (22, 27, 34),
-    (18, 23, 30), (240, 246, 252), (139, 148, 158), (2, 6, 12),
+    "dark", (13, 17, 23), (22, 31, 25), (55, 77, 61),
+    (240, 246, 252), (218, 226, 220), (168, 181, 172), (22, 27, 34),
+    (17, 24, 20), (240, 246, 252), (121, 143, 128), (2, 6, 4),
 )
 
 ACCENTS = [
-    (47, 129, 247), (210, 153, 34), (57, 197, 207), (63, 185, 80),
-    (163, 113, 247), (240, 136, 62), (255, 107, 107),
+    (63, 185, 80), (86, 211, 100), (126, 231, 135), (46, 160, 67),
+    (57, 211, 83), (35, 134, 54), (143, 239, 156),
 ]
 
 
-def _font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    candidates = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
-        "C:/Windows/Fonts/consolab.ttf" if bold else "C:/Windows/Fonts/consola.ttf",
-        "DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf",
-    ]
+def _font(size: int, bold: bool = False, role: str = "mono") -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
+    bundled = {
+        "display": FONTS / "SpaceGrotesk-Variable.ttf",
+        "body": FONTS / "Inter-Variable.ttf",
+        "mono": FONTS / "IBMPlexMono-Medium.ttf",
+    }[role]
+    fallbacks = {
+        "display": ["C:/Windows/Fonts/segoeuib.ttf", "DejaVuSans-Bold.ttf"],
+        "body": ["C:/Windows/Fonts/segoeui.ttf", "DejaVuSans.ttf"],
+        "mono": ["C:/Windows/Fonts/consolab.ttf" if bold else "C:/Windows/Fonts/consola.ttf", "DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf"],
+    }[role]
+    candidates = [str(bundled), *fallbacks]
     for candidate in candidates:
         try:
-            return ImageFont.truetype(candidate, size)
+            font = ImageFont.truetype(candidate, size)
+            if bold and role in {"display", "body"} and hasattr(font, "set_variation_by_name"):
+                try:
+                    font.set_variation_by_name("SemiBold")
+                except (OSError, ValueError):
+                    pass
+            return font
         except OSError:
             pass
     return ImageFont.load_default()
@@ -106,8 +120,8 @@ def _room_base(theme: Theme) -> Image.Image:
     atmospheric_draw = ImageDraw.Draw(atmosphere, "RGBA")
     wall_alpha = 34 if theme.name == "dark" else 20
     atmospheric_draw.ellipse((105, 35, 1095, 790), fill=_alpha(theme.wall, wall_alpha))
-    atmospheric_draw.ellipse((175, 35, 760, 660), fill=_alpha(ACCENTS[0], 25 if theme.name == "dark" else 16))
-    atmospheric_draw.ellipse((520, 120, 1050, 720), fill=_alpha(ACCENTS[4], 18 if theme.name == "dark" else 11))
+    atmospheric_draw.ellipse((175, 35, 760, 660), fill=_alpha(ACCENTS[0], 34 if theme.name == "dark" else 18))
+    atmospheric_draw.ellipse((520, 120, 1050, 720), fill=_alpha(ACCENTS[2], 20 if theme.name == "dark" else 12))
     image.alpha_composite(atmosphere.filter(ImageFilter.GaussianBlur(72)))
     draw = ImageDraw.Draw(image, "RGBA")
     mono = _font(11)
@@ -117,8 +131,59 @@ def _room_base(theme: Theme) -> Image.Image:
             if (row * 19 + col * 31) % 7 in (0, 3):
                 atmospheric_color = ACCENTS[(row + col) % len(ACCENTS)] if (row + col) % 5 == 0 else theme.wall_glyph
                 draw.text((x, y), glyphs[(row + col) % len(glyphs)], font=mono, fill=_alpha(atmospheric_color, 54))
-    draw.line((90, 688, 1110, 688), fill=_alpha(ACCENTS[0], 105), width=1)
+    draw.line((90, 688, 1110, 688), fill=_alpha(ACCENTS[0], 138), width=1)
     return image
+
+
+def _globe_point(latitude: float, longitude: float, rotation: float, radius: float = 104) -> tuple[float, float, float]:
+    longitude += rotation
+    cos_lat = math.cos(latitude)
+    return (
+        600 + radius * cos_lat * math.sin(longitude),
+        556 - radius * math.sin(latitude) * 0.92,
+        cos_lat * math.cos(longitude),
+    )
+
+
+def _draw_observatory_globe(base: Image.Image, theme: Theme, rotation: float) -> None:
+    layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    glow = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow, "RGBA")
+    glow_draw.ellipse((475, 431, 725, 681), outline=_alpha(ACCENTS[0], 105), width=13)
+    glow_draw.line((600, 440, 600, 692), fill=_alpha(ACCENTS[2], 76), width=3)
+    layer.alpha_composite(glow.filter(ImageFilter.GaussianBlur(17)))
+    draw = ImageDraw.Draw(layer, "RGBA")
+
+    # The luminous floor converges on the elevated repository nucleus.
+    for x in range(40, 1161, 80):
+        draw.line((600, 648, x, 899), fill=_alpha(ACCENTS[3], 72 if theme.name == "dark" else 48), width=1)
+    for y, inset in ((706, 410), (744, 330), (790, 230), (850, 120)):
+        draw.line((inset, y, WIDTH - inset, y), fill=_alpha(ACCENTS[0], 62 if theme.name == "dark" else 42), width=1)
+
+    def path(points: Iterable[tuple[float, float, float]]) -> None:
+        sequence = list(points)
+        for start, end in zip(sequence, sequence[1:]):
+            depth = (start[2] + end[2]) / 2
+            color = ACCENTS[2] if depth >= 0 else ACCENTS[5]
+            opacity = round(45 + max(0, depth) * 150) if depth >= 0 else 24
+            draw.line((start[0], start[1], end[0], end[1]), fill=_alpha(color, opacity), width=1)
+
+    for latitude in (-0.95, -0.48, 0.0, 0.48, 0.95):
+        path(_globe_point(latitude, step * math.pi / 36 - math.pi, rotation) for step in range(73))
+    for longitude in (step * math.pi / 6 for step in range(12)):
+        path(_globe_point(-math.pi / 2 + step * math.pi / 36, longitude, rotation) for step in range(37))
+    draw.ellipse((496, 452, 704, 660), outline=_alpha(ACCENTS[2], 205), width=2)
+    for index in range(28):
+        latitude = math.asin(-1 + 2 * (index + .5) / 28)
+        longitude = index * math.pi * (3 - math.sqrt(5))
+        x, y, depth = _globe_point(latitude, longitude, rotation)
+        if depth > 0:
+            radius = 1 + round(depth)
+            draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=_alpha(ACCENTS[2], round(90 + depth * 145)))
+    for bounds, opacity in (((470, 630, 730, 682), 145), ((505, 640, 695, 675), 115), ((540, 649, 660, 669), 88)):
+        draw.ellipse(bounds, outline=_alpha(ACCENTS[0], opacity), width=2)
+    _center_text(draw, (600, 674), "REPOSITORY NUCLEUS", _font(11, True), _alpha(ACCENTS[2], 225))
+    base.alpha_composite(layer)
 
 
 def _draw_ascii_illustration(layer: Image.Image, metric: int, box: tuple[int, int, int, int], accent: tuple[int, int, int], opacity: int = 220) -> None:
@@ -161,12 +226,12 @@ def _poster(theme: Theme, metric: int, title: str, value: str, note: str, update
         for col, x in enumerate(range(22, width - 22, 18)):
             if (row * 11 + col * 7 + metric) % 9 == 0:
                 draw.text((x, y), shell_chars[(row + col + metric) % len(shell_chars)], font=shell_font, fill=_alpha(theme.wall_glyph, 32))
-    draw.text((28, 25), f"{metric + 1:02d} / {title}", font=_font(19, True), fill=_alpha(accent if active else theme.secondary, 255))
-    draw.text((28, 60), value, font=_font(45, True), fill=_alpha(theme.primary, 255))
-    draw.text((28, 112), note, font=_font(13, True), fill=_alpha(theme.secondary, 235))
+    draw.text((28, 25), f"{metric + 1:02d} / {title}", font=_font(17, True), fill=_alpha(accent if active else theme.secondary, 255))
+    draw.text((28, 60), value, font=_font(46, True, "display"), fill=_alpha(theme.primary, 255))
+    draw.text((28, 112), note, font=_font(13, False, "body"), fill=_alpha(theme.secondary, 245))
     _draw_ascii_illustration(panel, metric, (25, 155, width - 25, height - 82), accent, 255 if active else 205)
     draw.ellipse((29, height - 55, 42, height - 42), fill=_alpha(accent, 255))
-    draw.text((53, height - 59), updated, font=_font(11), fill=_alpha(theme.muted, 220))
+    draw.text((53, height - 59), updated, font=_font(11), fill=_alpha(theme.muted, 245))
     return panel
 
 
@@ -191,14 +256,13 @@ def _draw_hero(base: Image.Image, theme: Theme, metric: int, row: tuple[str, str
     if veil_phase > 0:
         veil_size = round(62 + 350 * _smooth(veil_phase))
         veil_alpha = round(78 * (1.0 - _smooth(veil_phase))) + 12
-        _center_text(draw, (600, 185 - veil_size * 0.22), title, _font(veil_size, True), _alpha(accent, veil_alpha))
+        _center_text(draw, (600, 185 - veil_size * 0.22), title, _font(veil_size, True, "display"), _alpha(accent, veil_alpha))
     hero_alpha = round(255 * _smooth(amount))
-    _center_text(draw, (600, 116), title, _font(60, True), _alpha(accent, hero_alpha))
+    _center_text(draw, (600, 110), title, _font(55, True, "display"), _alpha(accent, hero_alpha))
     value_size = 170 if len(value) <= 4 else 138
-    _center_text(draw, (600, 204), value, _font(value_size, True), _alpha(theme.primary, hero_alpha))
-    _center_text(draw, (600, 405), note, _font(25, True), _alpha(theme.secondary, hero_alpha))
-    _draw_ascii_illustration(layer, metric, (330, 468, 870, 650), accent, round(248 * amount))
-    _center_text(draw, (600, 640), f"UPDATED {updated}", _font(13), _alpha(theme.muted, hero_alpha))
+    _center_text(draw, (600, 195), value, _font(value_size, True, "display"), _alpha(theme.primary, hero_alpha))
+    _center_text(draw, (600, 382), note, _font(23, False, "body"), _alpha(theme.secondary, hero_alpha))
+    _center_text(draw, (600, 423), f"UPDATED {updated}", _font(13), _alpha(theme.muted, hero_alpha))
     base.alpha_composite(layer)
 
 
@@ -236,8 +300,8 @@ def _draw_furniture(base: Image.Image, theme: Theme) -> None:
     draw.text((506, 872), "/", font=_font(17, True), fill=_alpha(theme.chair, 255))
     draw.text((686, 872), "\\", font=_font(17, True), fill=_alpha(theme.chair, 255))
     # Delicate directional ASCII plant.
-    leaf = (43, 218, 232)
-    leaf_dark = (4, 145, 166)
+    leaf = ACCENTS[2]
+    leaf_dark = ACCENTS[3]
     plant_font = _font(16, True)
     stems = [(710, 672, 684, 608, "/"), (710, 672, 733, 600, "\\"), (710, 672, 708, 587, "|"), (710, 672, 753, 625, "\\")]
     for x0, y0, x1, y1, glyph in stems:
@@ -250,7 +314,7 @@ def _draw_furniture(base: Image.Image, theme: Theme) -> None:
         draw.text((x, y), glyph * 2, font=_font(19, True), fill=_alpha(leaf, 255))
     pot_lines = ["/::::\\", "|####|", "\\____/"]
     for line, y in zip(pot_lines, (659, 675, 691)):
-        _center_text(draw, (712, y), line, _font(14, True), _alpha((255, 139, 79), 255))
+        _center_text(draw, (712, y), line, _font(14, True), _alpha((99, 122, 105), 255))
     base.alpha_composite(layer)
 
 
@@ -284,6 +348,10 @@ def _compose(theme: Theme, rows: list[tuple[str, str, str]], posters: list[Image
         _paste_scaled(frame, posters[index], (x, y), scale, opacity, blur)
     if hero > 0.03:
         _draw_hero(frame, theme, metric, rows[metric], updated, hero)
+    # Hold the observatory globe steady while each metric is inspected. The
+    # dedicated repository globe above carries continuous rotation; here the
+    # stable nucleus protects GIF clarity and compression around live text.
+    _draw_observatory_globe(frame, theme, metric * 0.72)
     navigation = ImageDraw.Draw(frame, "RGBA")
     for dot in range(METRIC_COUNT):
         x = 531 + dot * 23
@@ -310,16 +378,23 @@ def _global_palette(samples: Iterable[Image.Image], theme: Theme) -> Image.Image
     atlas = Image.new("RGB", (300 * len(sample_list), 225))
     for index, sample in enumerate(sample_list):
         atlas.paste(sample, (index * 300, 0))
-    palette = atlas.quantize(colors=96, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    # The observatory uses a deliberately narrow emerald/neutral spectrum.
+    # Forty-eight colors preserve the typography and glass depth while keeping
+    # both theme animations below GitHub's practical asset-size ceiling.
+    palette = atlas.quantize(colors=48, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     palette_data = palette.getpalette()
     pinned_colors = [
         TRANSPARENT_KEY,
         theme.edge,
+        theme.primary,
+        theme.secondary,
+        theme.muted,
+        theme.poster,
+        theme.poster_far,
         *ACCENTS,
-        (43, 218, 232),
-        (4, 145, 166),
-        (255, 139, 79),
-        (88, 166, 255),
+        (63, 185, 80),
+        (86, 211, 100),
+        (126, 231, 135),
     ]
     for index, color in enumerate(pinned_colors):
         palette_data[index * 3:index * 3 + 3] = list(color)

@@ -247,7 +247,7 @@ def update_readme_cache_key(cache_key: str) -> None:
     <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent-static.png?version={cache_key}">
     <source media="(prefers-reduced-motion: reduce)" srcset="./assets/ascii-stats-gallery-color-transparent-static.png?version={cache_key}">
     <source media="(prefers-color-scheme: dark)" srcset="./assets/ascii-stats-gallery-color-dark-transparent.gif?version={cache_key}">
-    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version={cache_key}" width="100%" alt="Color-rich animated ASCII room on a transparent background presenting live GitHub statistics for Sha-Lai Berends through repositories, stars, followers, contributions, commits, estimated source lines and estimated GitHub activity hours." />
+    <img src="./assets/ascii-stats-gallery-color-transparent.gif?version={cache_key}" width="100%" alt="Animated emerald systems observatory on a transparent background presenting live GitHub statistics through illuminated posters, a repository globe, desk and ASCII chair." />
   </picture>
 </p>
 {end}"""

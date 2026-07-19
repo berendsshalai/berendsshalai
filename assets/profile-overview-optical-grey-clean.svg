@@ -6,12 +6,12 @@
     <linearGradient id="opticalGlassBody" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity=".13"/>
       <stop offset=".34" stop-color="#FFFFFF" stop-opacity=".08"/>
-      <stop offset=".68" stop-color="#F8FAFC" stop-opacity=".052"/>
+      <stop offset=".68" stop-color="#3a434b" stop-opacity=".052"/>
       <stop offset="1" stop-color="#F3F4FA" stop-opacity=".032"/>
     </linearGradient>
     <linearGradient id="sideDepth" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".12"/>
-      <stop offset=".34" stop-color="#EDF0F8" stop-opacity=".085"/>
+      <stop offset="0" stop-color="#E7F8EC" stop-opacity=".14"/>
+      <stop offset=".34" stop-color="#DFF7E7" stop-opacity=".09"/>
       <stop offset=".72" stop-color="#F3F4FA" stop-opacity=".032"/>
       <stop offset="1" stop-color="#F3F4FA" stop-opacity="0"/>
     </linearGradient>
@@ -31,20 +31,25 @@
       <stop offset="1" stop-color="#FFFFFF" stop-opacity=".13"/>
     </linearGradient>
     <linearGradient id="innerEdge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".34"/>
+      <stop offset="0" stop-color="#7EE787" stop-opacity=".46"/>
       <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".17"/>
       <stop offset="1" stop-color="#111827" stop-opacity=".08"/>
     </linearGradient>
     <linearGradient id="chipGlass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".20"/>
+      <stop offset="0" stop-color="#E7F8EC" stop-opacity=".22"/>
       <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".125"/>
-      <stop offset="1" stop-color="#EDF0F8" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#DFF7E7" stop-opacity=".09"/>
     </linearGradient>
     <linearGradient id="chipEdge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".58"/>
+      <stop offset="0" stop-color="#7EE787" stop-opacity=".62"/>
       <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".26"/>
       <stop offset="1" stop-color="#111827" stop-opacity=".12"/>
     </linearGradient>
+    <radialGradient id="emeraldField" cx="58%" cy="48%" r="70%">
+      <stop offset="0" stop-color="#3FB950" stop-opacity=".075"/>
+      <stop offset=".48" stop-color="#2EA043" stop-opacity=".025"/>
+      <stop offset="1" stop-color="#2EA043" stop-opacity="0"/>
+    </radialGradient>
     <filter id="contactShadow" x="-20%" y="-20%" width="140%" height="150%">
       <feGaussianBlur stdDeviation="6"/>
     </filter>
@@ -65,10 +70,12 @@
       <rect x="12" y="12" width="331.8" height="696" fill="url(#sideDepth)"/>
       <rect x="12" y="12" width="976" height="696" fill="url(#ambientLight)"/>
       <rect x="12" y="12" width="976" height="696" fill="url(#lowerShade)"/>
+      <rect x="12" y="12" width="976" height="696" fill="url(#emeraldField)"/>
       <path d="M 20 16 V 688" fill="none" stroke="#1F2937" stroke-opacity=".055" stroke-width="2.2" filter="url(#specularSoft)"/>
     </g>
     <rect x="12.7" y="12.7" width="974.6" height="694.6" rx="36" fill="none" stroke="url(#outerEdge)" stroke-width="1.55"/>
     <rect x="14.2" y="14.2" width="971.6" height="691.6" rx="33.8" fill="none" stroke="url(#innerEdge)" stroke-width=".9"/>
+    <path d="M 46 690 H 382.9 M 753.8 32 H 954" fill="none" stroke="#3FB950" stroke-opacity=".24" stroke-width="1"/>
     <path d="M 34.3 12.7 C 187.7 11.8, 304.8 12.2, 421.9 12.7" fill="none" stroke="#FFFFFF" stroke-opacity=".82" stroke-width="1.65" stroke-linecap="round" filter="url(#specularSoft)"/>
     <path d="M 24.2 40.1 C 11.8 165.1, 12.4 332.2, 13.0 443.5" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="1.35" stroke-linecap="round"/>
     <path d="M 921.4 12.7 C 945.5 12.0, 968.2 14.0, 977.2 25.7" fill="none" stroke="#FFFFFF" stroke-opacity=".68" stroke-width="1.45" stroke-linecap="round" filter="url(#specularSoft)"/>
@@ -82,7 +89,7 @@
 <title id="title">Profile overview blocks</title>
   <desc id="desc">Dark block layout describing profile, engineering direction, stack and operating principles. All text is wrapped within its card.</desc>
   <style>
-    .bg{fill:none;stroke:none}.card{fill:url(#chipGlass);stroke:url(#chipEdge);stroke-width:1}.label{fill:#b7cce0;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#58636d}.muted{fill:#b7cce0}.body{font:400 14px Arial,Helvetica,sans-serif}.head{font:800 24px Arial,Helvetica,sans-serif}.mid{font:700 17px Arial,Helvetica,sans-serif}.compact{font:700 15px Arial,Helvetica,sans-serif}
+    .bg{fill:none;stroke:none}.card{fill:url(#chipGlass);stroke:url(#chipEdge);stroke-width:1}.label{fill:#66707a;font:700 11px "IBM Plex Mono","JetBrains Mono",Consolas,Menlo,monospace}.blue{fill:#3fb950}.white{fill:#3a434b}.muted{fill:#66707a}.body{font:400 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.head{font:600 24px "Space Grotesk",Inter,Arial,sans-serif}.mid{font:600 17px "Space Grotesk",Inter,Arial,sans-serif}.compact{font:600 15px "Space Grotesk",Inter,Arial,sans-serif}
   </style>
   <text x="28" y="42" class="white head">Profile</text>
   <text x="28" y="68" class="muted body">I convert fragmented administrative work into structured, validated and auditable workflows.</text>
@@ -115,4 +122,20 @@
   <rect x="258" y="578" width="210" height="92" rx="12" class="card"/><text x="276" y="606" class="label">DATA</text><text x="276" y="634" class="blue compact"><tspan x="276" dy="0">SQL / Excel</tspan><tspan x="276" dy="20">SQLite</tspan></text>
   <rect x="488" y="578" width="210" height="92" rx="12" class="card"/><text x="506" y="606" class="label">SYSTEMS</text><text x="506" y="634" class="blue compact"><tspan x="506" dy="0">MCP / CI</tspan><tspan x="506" dy="20">FastAPI</tspan></text>
   <rect x="718" y="578" width="254" height="92" rx="12" class="card"/><text x="736" y="606" class="label">PRINCIPLES</text><text x="736" y="634" class="blue compact"><tspan x="736" dy="0">Privacy / auditability</tspan><tspan x="736" dy="20">Validation</tspan></text>
+
+  <!-- EMERALD_OBSERVATORY_THEME_START -->
+  <style>
+    :root{color-scheme:light dark}
+    .blue,.label,.handle{fill:#3FB950!important}
+    .ascii{fill:#2F8F46!important;font-family:"IBM Plex Mono","JetBrains Mono",Consolas,Menlo,monospace}
+    .white,.value,.stackLabel{fill:#3A434B!important}
+    .muted,.rule{fill:#66707A!important}
+    @media (prefers-color-scheme:dark){
+      .white,.value,.stackLabel{fill:#E6EDF3!important}
+      .muted,.rule{fill:#A8B3BC!important}
+      .ascii{fill:#7EE787!important}
+      .blue,.label,.handle{fill:#56D364!important}
+    }
+  </style>
+  <!-- EMERALD_OBSERVATORY_THEME_END -->
 </svg>
