@@ -1,21 +1,83 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="130" viewBox="0 0 1000 130" role="img" aria-labelledby="title desc">
-  <!-- GLASS_PROFILE_THEME -->
+  <!-- OPTICAL_GLASS_SYSTEM_START -->
   <defs>
-    <linearGradient id="glassPanel" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e6f3ff" stop-opacity=".16"/>
-      <stop offset=".46" stop-color="#7dbdff" stop-opacity=".07"/>
-      <stop offset="1" stop-color="#071426" stop-opacity=".5"/>
+    <clipPath id="glassPaneClip"><rect x="12" y="12" width="976" height="106" rx="16"/></clipPath>
+    <clipPath id="canvasSafe"><rect x="2" y="2" width="996" height="126" rx="8"/></clipPath>
+    <linearGradient id="opticalGlassBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".13"/>
+      <stop offset=".34" stop-color="#FFFFFF" stop-opacity=".08"/>
+      <stop offset=".68" stop-color="#F8FAFC" stop-opacity=".052"/>
+      <stop offset="1" stop-color="#F3F4FA" stop-opacity=".032"/>
     </linearGradient>
-    <radialGradient id="glassGlow" cx="82%" cy="12%" r="72%">
-      <stop offset="0" stop-color="#58a6ff" stop-opacity=".28"/>
-      <stop offset="1" stop-color="#1f6feb" stop-opacity="0"/>
+    <linearGradient id="sideDepth" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".12"/>
+      <stop offset=".34" stop-color="#EDF0F8" stop-opacity=".085"/>
+      <stop offset=".72" stop-color="#F3F4FA" stop-opacity=".032"/>
+      <stop offset="1" stop-color="#F3F4FA" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ambientLight" cx="16%" cy="3%" r="72%">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".17"/>
+      <stop offset=".28" stop-color="#FFFFFF" stop-opacity=".048"/>
+      <stop offset=".72" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
-    <filter id="glassSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="14"/>
+    <linearGradient id="lowerShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset=".68" stop-color="#111827" stop-opacity="0"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".052"/>
+    </linearGradient>
+    <linearGradient id="outerEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".82"/>
+      <stop offset=".28" stop-color="#FFFFFF" stop-opacity=".48"/>
+      <stop offset=".62" stop-color="#FFFFFF" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".13"/>
+    </linearGradient>
+    <linearGradient id="innerEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".34"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".17"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".08"/>
+    </linearGradient>
+    <linearGradient id="chipGlass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".20"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".125"/>
+      <stop offset="1" stop-color="#EDF0F8" stop-opacity=".09"/>
+    </linearGradient>
+    <linearGradient id="chipEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".58"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".12"/>
+    </linearGradient>
+    <filter id="contactShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="suspensionShadow" x="-25%" y="-25%" width="150%" height="165%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="specularSoft" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation="1.1"/>
     </filter>
   </defs>
-  <image x="0" y="0" width="1000" height="130" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCwwLCQ4MCwwQDw4RFSMXFRMTFSsfIRojMy02NTItMTA4P1FFODxNPTAxRmBHTVRWW1xbN0RjamNYalFZW1f/2wBDAQ8QEBUSFSkXFylXOjE6V1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1f/wAARCACCA+gDASIAAhEBAxEB/8QAGgABAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EACcQAQEAAgIBAwUAAgMAAAAAAAABAhEDMSEyQXEEIjNygRNCc4Kx/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECAwT/xAAaEQEBAQEBAQEAAAAAAAAAAAAAARExAiFB/9oADAMBAAIRAxEAPwD8LFSK9jgACixBBuNSsxYqN7YzaYzBkRFFdcOnF1w6Bqs7WsgqCIFZWsooxk0xkg5XsL2jDbtjftOD1VmemLw+qtxmvRRBtlViRYI0bQVFhlUhaKzWatZrKpUWoii5XpDL2BBDZqtKxtdrqY0zTbNqWmJQp7MNIioiiAgAiACCgCAAAAAAAAAAIAQFigAIKKqAKCqCiwQdcOmNOmHTUSrYSNUioml0pQZ0uH5uP5Ex/Lh8g1b/AOpE91io6RqdsTpqdrErHP08r08/Tys1ucVARQ2CAAooiiCoqgqKqCooCoqo7Yfh/wCzlk6Y/i/rnkqMqKiozWmaCAsFNCiCCoijeLDeIO2A1gNMPNBBWlVARQAaixIA2xm0xkDKAorph05OmHQNVCoAgiBWatZqKMZNMZJVc6FRzadJ0vD6qzL4a4u2p1K7jK7dGG41HOVqVUbRNm1RfdMk2WorNZq2soolVEaFy9kXL2QZRRFQVAEVEEARURaiAAggAqCoAAIAIoAAAAAAAIAAuxFVQARQFFVIoixZWVUb268fThHbj9KxK3U2ZdMtI1s2m0QXaS/fh8ptN/dj8g3jfLbnh22qNRqVmEWIzzdPM9HLfF+HmYrcAEUABRBRQAURVRVZVUVUWKiqiqOmP4/653tuej+sUqIoCozWqzUBYkakAkVZAGalaZrLSN4sOmJEr0ccF4xpl44rMVVURQFRQWKkAb9mMmmMwZQBVbwc28OgbrK1kQQqIptmqlRUZyVnJKrFQqMK03xdubfF2s6V2olR0Ya21K57XZpjps2xs2upjcpazKWgIiMqqAii5eyGXsomzaDKqIGgCIoAglQAARAAFEAAAQARQAAAAAAAAARRFUAAUBRYIoKqKqDtx37XF1w6WJW8qyZVNqiptNgLtm3zBLfMFdONtz429qy1CVImwTk6vw4O2d8X4cGa1ABGhUAUQEVUFFAVFVlVRoRYqLGmYsUbnp/rLU9KAiKgFQAI3IkjcghIljRUqudZrdZrKo3gw3iQr1cYcY2y8MEijSqixUFNC4mqIqDTGTbnmis1BEVXTDpydMOiDVZq1lQRUQKzVZRRjJqs5M1WKhRhpWuPthvj7WdSutqCNsqqALtWRRqLWYUAQRQEBSiUATYyqiGwVBAFQQQBFEVAAAQVAAAARAAAVAFEAURQAAABFEWKCoAqosUUBUVvHpzbnSxK1am0tRRoREFS3oS3oG8HTbli3tpG9ptE2gZdX4cXa9ZfDgzWoAIqiAKAoKgqKqCoqxBUaisxYorUZWKjc6EnQBWVqAKLFRZHSRnGOkgiaStJWarnWK6ZOdZaI3iw3isK9GAmA0y8UVlpWljUZjUWRmtFErTIIM1ptzzdHPNFYqFRlYreLm3iQaqFQBBEUZWpUVKzkrNZqs1CjCq1x9sN8fazpXQKjbKiANCCiwtSKCAiCiAKVCggisqAgKCAqAigIAUAQBAAABAAAAEAAAAAABUFFAAVBUUAFWMqoqoCK1GGlgtTZUEUAUSiUG8W2MWlRpBAa9sviuDt/rl+tcEqwBUUBAVUFFEBFVBUVUVoFRVRpWVVGp0qTo2glILFCNyJI1IrLWMdJGZG9FRms1usVlqMZOddMnOo1BrFhrEK9GFGcaNMvNIumpF03iakitzEuKprCVbAA92tGmVHPkdteHHlRXJBGGlbxrGmsRWqmyoAlBFRFZqAzVSs1WKFGGhrDtlrDtZ1K6II2iiKCgKhFqFAQEU2CApQoIIIqgiCiKAIAAiAAAAAAAiogAAAAAAAAAAAAogooAgqCqqoogAoqooioG1FQNgJe1S9xBqNMxVGhFEanpz/AFrzvRj6c/1rzJWooioAAAiqKIqooiqiiK0Cooiqyu1G/ZD/AFAGokajUZrUbkZjpjFZrUjSRUozWK3XPKstRjJzreTFRpGsWVgO2NGZRplmVqdueLePbozXoxx8JlPDWN8JnfCsPPe0lMu0naV0jrFk8rhG5j5ZGbPDhzPXcfDy88RXmWFRhtWow1iC0KaBEdcePbOXHYZTXOotjNZqjNVKzVZAYaFx7RcViN0BpBYjUWClNpa0iArKoiiCCgIVUoIoiKqKAgoCAAgqIAAAAIAAAgIoCAAAAAAAoIoAAAKiqAAiiKoKICqiqCAC7EAXae4e4NRUiqjREWA3h1n+leZ6cOuT9K8zNWAAoqAgAooiiKA0KqCoqoKigKN/6xCemfKwRY3GY6YxuM1cY6SJjG5FZWFVKzVYrnk3k55MtRjJitZMVGhqMNQg6Yi4jTLOM8NyeWscPDeOG66Ri1rGeEznh6+Pg3PJycHi+V1h8vKeTGfdHXPjspxcdvJIldJXfjw8On+Py9nF9N9sbv07nqvFcPDxfUY6fYz4brp836zCyXwT6PnWM1us1K3EbxYaxSK1THsqKPTj0nJrTlM7Eyzta1nGMmK1Wa51uM1KtZrFUQGGhrFlce1RtAaRdrtkBrYgoptIoGzaCBsAAolAEEVRFBUAAEQVBAVNiIKIAogCiApsAABAAUAAAAUQEUQBVQUURQFQBoZ2qoqsqCiCiiGwD3D3BYqKI0RFijrx9cn6V5Xq4vTyfpXkZqxQBQRQABBUVRRFVBUVqIqosaRYAqNT0/1ZDH0/1qQhVkbxiSOmMbxitYxuRMY1oqJWa3WKyrnk55N5OeTNbjGTDVYqNK1GG8ViV1wGsINsOmPTph6oDbFfQw6TPoGP1Hz+X1Vr6f8ANiDXpY+xxdOlB5710Zz6fL+u9NBvylfKrFBa1Ga3j0DKrUBaQUEGaxQSqzWaDnWmQGWhZ2AjSA0KAooAigKAAIAAUEEARQBUAEUQEBKAoAiAAIAKACACKAAAKAAAAAAgACgAAAoCgAqKUAAAAAAAaAVGlgKOvF1y/wDHXlBlUAQAFBQAWAoAKixQaiKoNIKCo3h6f63AWJW8XXEHRzrpGgZozXPIGa1HPJyyBmtxzyYoMtK3iDUZr0cYDbD/2Q=="/>
-  <rect x="0" y="0" width="1000" height="130" fill="#020713" opacity=".4"/>
-  <ellipse cx="840" cy="17" rx="280" ry="72" fill="url(#glassGlow)" filter="url(#glassSoftGlow)"/>
-<title id="title">Portfolio website</title><desc id="desc">Portfolio website contact card.</desc><style>.bg{fill:url(#glassPanel);stroke:#d6ebff;stroke-opacity:.62;stroke-width:1.3}.label{fill:#afc8e3;font:700 11px Consolas,monospace}.blue{fill:#58a6ff}.white{fill:#f7fbff}.body{font:800 24px Arial,Helvetica,sans-serif}</style><rect x="1" y="1" width="998" height="128" rx="14" class="bg"/><text x="28" y="38" class="label">FEATURED PORTFOLIO</text><text x="28" y="76" class="white body">Sha-Lai Berends portfolio website</text><text x="28" y="104" class="blue label">Open live portfolio -></text><path d="M 28 5 H 972" stroke="#ffffff" stroke-opacity=".28" stroke-width="1.4"/>
+  <g aria-hidden="true">
+    <g clip-path="url(#canvasSafe)">
+      <rect x="15" y="23" width="970" height="100" rx="16" fill="none" stroke="#111827" stroke-opacity=".10" stroke-width="5" filter="url(#suspensionShadow)"/>
+      <rect x="14" y="17" width="972" height="102" rx="16" fill="none" stroke="#111827" stroke-opacity=".15" stroke-width="2" filter="url(#contactShadow)"/>
+    </g>
+    <rect x="12" y="12" width="976" height="106" rx="16" fill="url(#opticalGlassBody)"/>
+    <g clip-path="url(#glassPaneClip)">
+      <rect x="12" y="12" width="331.8" height="106" fill="url(#sideDepth)"/>
+      <rect x="12" y="12" width="976" height="106" fill="url(#ambientLight)"/>
+      <rect x="12" y="12" width="976" height="106" fill="url(#lowerShade)"/>
+      <path d="M 20 16 V 98" fill="none" stroke="#1F2937" stroke-opacity=".055" stroke-width="2.2" filter="url(#specularSoft)"/>
+    </g>
+    <rect x="12.7" y="12.7" width="974.6" height="104.6" rx="16" fill="none" stroke="url(#outerEdge)" stroke-width="1.55"/>
+    <rect x="14.2" y="14.2" width="971.6" height="101.6" rx="13.8" fill="none" stroke="url(#innerEdge)" stroke-width=".9"/>
+    <path d="M 21.9 12.7 C 187.7 11.8, 304.8 12.2, 421.9 12.7" fill="none" stroke="#FFFFFF" stroke-opacity=".82" stroke-width="1.65" stroke-linecap="round" filter="url(#specularSoft)"/>
+    <path d="M 17.4 24.5 C 11.8 35.3, 12.4 60.8, 13.0 77.7" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="1.35" stroke-linecap="round"/>
+    <path d="M 958.4 12.7 C 969.1 12.0, 979.2 14.0, 983.2 18.1" fill="none" stroke="#FFFFFF" stroke-opacity=".68" stroke-width="1.45" stroke-linecap="round" filter="url(#specularSoft)"/>
+    <path d="M 987.1 41.7 V 57.6" fill="none" stroke="#FFFFFF" stroke-opacity=".27" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M 675.7 117.1 H 976.5" fill="none" stroke="#FFFFFF" stroke-opacity=".16" stroke-width="1" stroke-linecap="round"/>
+    <path d="M 783.0 115.3 H 978.1 M 985.3 70.3 V 106.8" fill="none" stroke="#111827" stroke-opacity=".075" stroke-width="1.05" stroke-linecap="round"/>
+    <path d="M 42 116.0 Q 70 113.0 104 116.0" fill="none" stroke="#FFFFFF" stroke-opacity=".13" stroke-width="1.2" stroke-linecap="round" filter="url(#specularSoft)"/>
+  </g>
+  <!-- OPTICAL_GLASS_SYSTEM_END -->
+
+<title id="title">Portfolio website</title><desc id="desc">Portfolio website contact card.</desc><style>.bg{fill:none;stroke:none}.label{fill:#b7cce0;paint-order:stroke;stroke:#111827;stroke-opacity:.88;stroke-width:1.45;font:700 11px Consolas,monospace}.blue{fill:#58a6ff;paint-order:stroke;stroke:#07111f;stroke-opacity:.82;stroke-width:1.05}.white{fill:#dce9f6;paint-order:stroke;stroke:#111827;stroke-opacity:.92;stroke-width:1.65}.body{font:800 24px Arial,Helvetica,sans-serif}</style><text x="28" y="38" class="label">FEATURED PORTFOLIO</text><text x="28" y="76" class="white body">Sha-Lai Berends portfolio website</text><text x="28" y="104" class="blue label">Open live portfolio -></text>
 </svg>

@@ -22,7 +22,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from PIL import Image, ImageDraw, ImageEnhance, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 USERNAME = os.environ.get("GITHUB_USERNAME", "berendsshalai").strip()
 TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
@@ -31,7 +31,6 @@ SVG_PATH = ROOT / "assets" / "github-stats.svg"
 GIF_PATH = ROOT / "assets" / "ascii-stats-gallery.gif"
 JSON_PATH = ROOT / "data" / "github-stats.json"
 README_PATH = ROOT / "README.md"
-GLASS_BACKGROUND_PATH = ROOT / "assets" / "glass-environment.jpg"
 
 API_ROOT = "https://api.github.com"
 GRAPHQL_URL = "https://api.github.com/graphql"
@@ -422,12 +421,7 @@ def draw_ascii_furniture(frame: Image.Image, frame_index: int) -> None:
 
 def build_ascii_gallery_scene(stats: dict[str, Any]) -> tuple[Image.Image, list[int]]:
     scene_width, scene_height = 3060, 540
-    if GLASS_BACKGROUND_PATH.exists():
-        with Image.open(GLASS_BACKGROUND_PATH) as source:
-            background = cover_image(source.convert("RGB"), (scene_width, scene_height))
-    else:
-        background = Image.new("RGB", (scene_width, scene_height), "#07101d")
-    background = ImageEnhance.Brightness(background).enhance(0.62).convert("RGBA")
+    background = Image.new("RGBA", (scene_width, scene_height), (5, 10, 19, 255))
     veil = Image.new("RGBA", background.size, (3, 9, 22, 112))
     background.alpha_composite(veil)
     draw = ImageDraw.Draw(background, "RGBA")

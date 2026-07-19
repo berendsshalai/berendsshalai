@@ -41,6 +41,9 @@ jobs:
           python -m pip install --disable-pip-version-check "Pillow==11.3.0"
           python scripts/generate_profile_stats.py
 
+      - name: Validate transparent optical-glass assets
+        run: python scripts/validate_optical_glass.py
+
       - name: Commit refreshed assets
         shell: bash
         run: |

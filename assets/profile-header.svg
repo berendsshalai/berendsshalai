@@ -1,32 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="264" viewBox="0 0 1000 264" role="img" aria-labelledby="title desc">
-  <title id="title">Sha-Lai Berends glass profile header</title>
+  <title id="title">Sha-Lai Berends profile header</title>
   <desc id="desc">Business Automation and Data Operations Builder.</desc>
-
-  <!-- GLASS_PROFILE_THEME -->
+  <!-- OPTICAL_GLASS_SYSTEM_START -->
   <defs>
-    <linearGradient id="glassPanel" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e6f3ff" stop-opacity=".16"/>
-      <stop offset=".46" stop-color="#7dbdff" stop-opacity=".07"/>
-      <stop offset="1" stop-color="#071426" stop-opacity=".5"/>
+    <clipPath id="glassPaneClip"><rect x="18" y="18" width="964" height="228" rx="34"/></clipPath>
+    <clipPath id="canvasSafe"><rect x="2" y="2" width="996" height="260" rx="8"/></clipPath>
+    <linearGradient id="opticalGlassBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".13"/>
+      <stop offset=".34" stop-color="#FFFFFF" stop-opacity=".08"/>
+      <stop offset=".68" stop-color="#F8FAFC" stop-opacity=".052"/>
+      <stop offset="1" stop-color="#F3F4FA" stop-opacity=".032"/>
     </linearGradient>
-    <radialGradient id="glassGlow" cx="82%" cy="12%" r="72%">
-      <stop offset="0" stop-color="#58a6ff" stop-opacity=".28"/>
-      <stop offset="1" stop-color="#1f6feb" stop-opacity="0"/>
+    <linearGradient id="sideDepth" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".12"/>
+      <stop offset=".34" stop-color="#EDF0F8" stop-opacity=".085"/>
+      <stop offset=".72" stop-color="#F3F4FA" stop-opacity=".032"/>
+      <stop offset="1" stop-color="#F3F4FA" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ambientLight" cx="16%" cy="3%" r="72%">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".17"/>
+      <stop offset=".28" stop-color="#FFFFFF" stop-opacity=".048"/>
+      <stop offset=".72" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
-    <filter id="glassSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="14"/>
+    <linearGradient id="lowerShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset=".68" stop-color="#111827" stop-opacity="0"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".052"/>
+    </linearGradient>
+    <linearGradient id="outerEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".82"/>
+      <stop offset=".28" stop-color="#FFFFFF" stop-opacity=".48"/>
+      <stop offset=".62" stop-color="#FFFFFF" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".13"/>
+    </linearGradient>
+    <linearGradient id="innerEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF2FF" stop-opacity=".34"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".17"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".08"/>
+    </linearGradient>
+    <linearGradient id="chipGlass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".20"/>
+      <stop offset=".52" stop-color="#FFFFFF" stop-opacity=".125"/>
+      <stop offset="1" stop-color="#EDF0F8" stop-opacity=".09"/>
+    </linearGradient>
+    <linearGradient id="chipEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".58"/>
+      <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#111827" stop-opacity=".12"/>
+    </linearGradient>
+    <filter id="contactShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="suspensionShadow" x="-25%" y="-25%" width="150%" height="165%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="specularSoft" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation="1.1"/>
     </filter>
   </defs>
-  <image x="0" y="0" width="1000" height="264" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,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"/>
-  <rect x="0" y="0" width="1000" height="264" fill="#020713" opacity=".4"/>
-  <ellipse cx="840" cy="34" rx="280" ry="145" fill="url(#glassGlow)" filter="url(#glassSoftGlow)"/>
+  <g aria-hidden="true">
+    <g clip-path="url(#canvasSafe)">
+      <rect x="21" y="29" width="958" height="222" rx="34" fill="none" stroke="#111827" stroke-opacity=".10" stroke-width="5" filter="url(#suspensionShadow)"/>
+      <rect x="20" y="23" width="960" height="224" rx="34" fill="none" stroke="#111827" stroke-opacity=".15" stroke-width="2" filter="url(#contactShadow)"/>
+    </g>
+    <rect x="18" y="18" width="964" height="228" rx="34" fill="url(#opticalGlassBody)"/>
+    <g clip-path="url(#glassPaneClip)">
+      <rect x="18" y="18" width="327.8" height="228" fill="url(#sideDepth)"/>
+      <rect x="18" y="18" width="964" height="228" fill="url(#ambientLight)"/>
+      <rect x="18" y="18" width="964" height="228" fill="url(#lowerShade)"/>
+      <path d="M 26 22 V 226" fill="none" stroke="#1F2937" stroke-opacity=".055" stroke-width="2.2" filter="url(#specularSoft)"/>
+    </g>
+    <rect x="18.7" y="18.7" width="962.6" height="226.6" rx="34" fill="none" stroke="url(#outerEdge)" stroke-width="1.55"/>
+    <rect x="20.2" y="20.2" width="959.6" height="223.6" rx="31.8" fill="none" stroke="url(#innerEdge)" stroke-width=".9"/>
+    <path d="M 39.1 18.7 C 191.5 17.8, 307.2 18.2, 422.9 18.7" fill="none" stroke="#FFFFFF" stroke-opacity=".82" stroke-width="1.65" stroke-linecap="round" filter="url(#specularSoft)"/>
+    <path d="M 29.6 44.5 C 17.8 68.2, 18.4 122.9, 19.0 159.4" fill="none" stroke="#FFFFFF" stroke-opacity=".52" stroke-width="1.35" stroke-linecap="round"/>
+    <path d="M 919.1 18.7 C 941.9 18.0, 963.3 20.0, 971.8 30.9" fill="none" stroke="#FFFFFF" stroke-opacity=".68" stroke-width="1.45" stroke-linecap="round" filter="url(#specularSoft)"/>
+    <path d="M 981.1 81.8 V 116.0" fill="none" stroke="#FFFFFF" stroke-opacity=".27" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M 673.5 245.1 H 957.5" fill="none" stroke="#FFFFFF" stroke-opacity=".16" stroke-width="1" stroke-linecap="round"/>
+    <path d="M 779.6 243.3 H 960.9 M 979.3 143.4 V 222.2" fill="none" stroke="#111827" stroke-opacity=".075" stroke-width="1.05" stroke-linecap="round"/>
+    <path d="M 48 244.0 Q 76 241.0 110 244.0" fill="none" stroke="#FFFFFF" stroke-opacity=".13" stroke-width="1.2" stroke-linecap="round" filter="url(#specularSoft)"/>
+  </g>
+  <!-- OPTICAL_GLASS_SYSTEM_END -->
 
-  <rect x="18" y="18" width="964" height="228" rx="30" fill="url(#glassPanel)" stroke="#d9edff" stroke-opacity=".7" stroke-width="2"/>
-  <path d="M50 52 H950" stroke="#ffffff" stroke-opacity=".32"/>
-  <text x="54" y="85" fill="#9ccaff" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="700" letter-spacing="2">BERENDSSHALAI // SYSTEMS LAB</text>
-  <text x="54" y="145" fill="#f7fbff" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
-  <text x="56" y="183" fill="#d9eaff" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
-  <text x="56" y="218" fill="#9cb7d4" font-family="Consolas,Menlo,monospace" font-size="12">OPERATIONS -&gt; EXPLICIT RULES -&gt; VALIDATED DATA -&gt; AUDITABLE SYSTEMS</text>
-  <circle cx="916" cy="102" r="35" fill="#58a6ff" fill-opacity=".1" stroke="#9ccaff" stroke-opacity=".65"/>
-  <text x="916" y="108" text-anchor="middle" fill="#dceeff" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
+  <g paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.65">
+    <text x="54" y="85" fill="#58A6FF" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="700" letter-spacing="2">BERENDSSHALAI // SYSTEMS LAB</text>
+    <text x="54" y="145" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="800">Sha-Lai Berends</text>
+    <text x="56" y="183" fill="#DCE9F6" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="600">Business Automation &amp; Data Operations Builder</text>
+    <text x="56" y="218" fill="#B7CCE0" font-family="Consolas,Menlo,monospace" font-size="12">OPERATIONS -&gt; EXPLICIT RULES -&gt; VALIDATED DATA -&gt; AUDITABLE SYSTEMS</text>
+  </g>
+  <g aria-hidden="true">
+    <circle cx="916" cy="102" r="35" fill="url(#chipGlass)" stroke="url(#chipEdge)"/>
+    <path d="M 891 82 Q 916 69 941 82" fill="none" stroke="#FFFFFF" stroke-opacity=".48" stroke-width="1" stroke-linecap="round"/>
+  </g>
+  <text x="916" y="108" text-anchor="middle" fill="#DCE9F6" paint-order="stroke" stroke="#111827" stroke-opacity=".92" stroke-width="1.45" font-family="Consolas,Menlo,monospace" font-size="13" font-weight="800">SB</text>
 </svg>
